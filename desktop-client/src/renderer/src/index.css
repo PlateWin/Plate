@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════
+   PLATE X-CORE DESIGN SYSTEM
+   Carbon & Silver · Industrial Precision · Zero Blur
+   ═══════════════════════════════════════════════════ */
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #050508;
+  color: white;
+  min-height: 100vh;
+}
+
+#root {
+  height: 100vh;
+  width: 100vw;
+  background-color: #050508;
+}
+
+:root {
+  /* ── Depth Scale (darker = deeper) ── */
+  --x-depth-0: #050507;
+  --x-depth-1: #0a0a0d;
+  --x-depth-2: #111114;
+  --x-depth-3: #18181b;
+  --x-depth-4: #1f1f23;
+  --x-depth-5: #27272b;
+
+  /* ── Borders ── */
+  --x-line-dim:    #1a1a1f;
+  --x-line-subtle: #222228;
+  --x-line-default:#2e2e35;
+  --x-line-bright: #3a3a42;
+
+  /* ── Text Hierarchy ── */
+  --x-text-100: #fafafa;
+  --x-text-80:  #d4d4d8;
+  --x-text-60:  #a1a1aa;
+  --x-text-40:  #71717a;
+  --x-text-20:  #3f3f46;
+
+  /* ── Accent: X-Blue (许势蓝) ── */
+  --x-accent:       #6366f1;
+  --x-accent-dim:   #4f46e5;
+  --x-accent-muted: rgba(99, 102, 241, 0.12);
+
+  /* ── Semantic ── */
+  --x-success: #22c55e;
+  --x-warning: #eab308;
+  --x-danger:  #ef4444;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body, #root {
+  width: 100%; height: 100%; overflow: hidden;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--x-depth-0);
+  color: var(--x-text-80);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+
+.font-mono { font-family: 'JetBrains Mono', monospace; }
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--x-line-subtle); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--x-line-default); }
+
+/* ══════════════════════════════════════════════════
+   HOLOGRAPHIC GLASSMORPHISM SYSTEM
+   ══════════════════════════════════════════════════ */
+
+.ambient-mesh {
+  position: absolute;
+  inset: 0;
+  z-index: -10;
+  background: radial-gradient(circle at 15% 15%, rgba(192,132,252,0.04) 0%, transparent 40%),
+              radial-gradient(circle at 85% 85%, rgba(0,209,255,0.04) 0%, transparent 40%),
+              #050508;
+}
+
+.glass-panel {
+  background: #0d0d11; 
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  color: #fff;
+  overflow: hidden;
+}
+
+.plate-tile {
+  background: var(--x-depth-2);
+  border: 1px solid var(--x-line-dim);
+}
+
+.dot-grid {
+  background-image: radial-gradient(circle, var(--x-line-dim) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.x-stripe {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--x-accent) 50%, transparent 100%);
+}
+
+.titlebar-drag { -webkit-app-region: drag; }
+.titlebar-no-drag { -webkit-app-region: no-drag; }
+
+::selection {
+  background: var(--x-accent-muted);
+  color: var(--x-text-100);
+}
+
+/* ══════════════════════════════════════════════════
+   AI APPLE INTELLIGENCE GLOW SYSTEM V5 (Z-Layering)
+   Zero Masks. Zero CPU bottlenecks. Pure GPU translation.
+   ══════════════════════════════════════════════════ */
+
+@keyframes ai-spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes ai-ink-flow {
+  0% { opacity: 0; color: #d4d4d8; transform: translateY(1px) scale(0.98); }
+  30% { opacity: 1; color: #a1a1aa; transform: translateY(0) scale(1); }
+  100% { opacity: 1; color: #4f4f56; transform: translateY(0) scale(1); }
+}
+
+.ai-glow-v5-container {
+  position: absolute;
+  inset: 0; /* Align perfectly with wrapper */
+  border-radius: 18px;
+  overflow: hidden; 
+  z-index: 0;
+  will-change: transform, opacity;
+}
+
+.ai-glow-v5-gradient {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 250%; height: 250%; /* Massive so corners don't clip during rotation */
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    transparent 0deg 90deg,
+    rgba(192,132,252,0.8) 140deg,
+    rgba(0,209,255,1) 180deg,
+    rgba(249,115,82,0.9) 220deg,
+    transparent 270deg 360deg
+  );
+  transform: translate(-50%, -50%);
+  animation: ai-spin 3.5s linear infinite;
+  will-change: transform;
+}
+
+/* The ambient bleed behind the rim */
+.ai-glow-v5-bleed {
+  position: absolute;
+  inset: -4px;
+  border-radius: 22px;
+  z-index: -1;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    transparent 0deg 90deg,
+    rgba(192,132,252,0.3) 140deg,
+    rgba(0,209,255,0.4) 180deg,
+    rgba(249,115,82,0.3) 220deg,
+    transparent 270deg 360deg
+  );
+  transform: translate(-50%, -50%);
+  animation: ai-spin 3.5s linear infinite;
+  filter: blur(14px);
+  will-change: transform;
+}
+
+/* ── Tiptap Editor Holographic Prose Styling ── */
+.block-editor .ProseMirror {
+  outline: none !important;
+  color: #d4d4d8;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.block-editor .ProseMirror p.is-editor-empty:first-child::before {
+  color: #3f3f46;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+.block-editor .ProseMirror p { margin-top: 0.75em; margin-bottom: 0.75em; }
+
+.block-editor .ProseMirror h1 { font-size: 1.8em; font-weight: 700; margin-top: 1.5em; margin-bottom: 0.5em; color: #fff; letter-spacing: -0.02em; }
+.block-editor .ProseMirror h2 { font-size: 1.4em; font-weight: 600; margin-top: 1.2em; margin-bottom: 0.5em; color: #fff; }
+
+.block-editor .ProseMirror blockquote {
+  border-left: 3px solid #38bdf8;
+  margin-left: 0;
+  padding-left: 1rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  color: rgba(255, 255, 255, 0.6);
+  background: linear-gradient(90deg, rgba(56,189,248,0.05) 0%, transparent 100%);
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+}
+
+.block-editor .ProseMirror p code, .block-editor .ProseMirror h1 code, .block-editor .ProseMirror h2 code {
+  background: rgba(0, 209, 255, 0.1);
+  color: #00D1FF;
+  padding: 0.2em 0.4em;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 0.85em;
+  border: 1px solid rgba(0, 209, 255, 0.2);
+}
+
+.block-editor .ProseMirror ul[data-type="taskList"] { list-style: none; padding-left: 0; }
+.block-editor .ProseMirror ul[data-type="taskList"] li { display: flex; align-items: flex-start; margin-top: 0.5rem; margin-bottom: 0.5rem; }
+.block-editor .ProseMirror ul[data-type="taskList"] li > label { flex: 0 0 auto; margin-right: 0.7rem; user-select: none; margin-top: 0.25rem; }
+.block-editor .ProseMirror ul[data-type="taskList"] li > label input[type="checkbox"] {
+  appearance: none; background-color: rgba(255, 255, 255, 0.05); margin: 0; width: 1.15em; height: 1.15em; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 4px; display: grid; place-content: center; cursor: pointer;
+}
+.block-editor .ProseMirror ul[data-type="taskList"] li > label input[type="checkbox"]:checked { border-color: #00D1FF; background-color: rgba(0, 209, 255, 0.1); }
+.block-editor .ProseMirror ul[data-type="taskList"] li[data-checked="true"] > div { text-decoration: line-through; color: rgba(255, 255, 255, 0.3); }
+
+.tippy-box { background: transparent !important; }
