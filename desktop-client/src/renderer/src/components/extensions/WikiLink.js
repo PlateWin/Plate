@@ -1,6 +1,7 @@
 import Mention from '@tiptap/extension-mention';
 import { ReactRenderer } from '@tiptap/react';
 import tippy from 'tippy.js';
+import { PluginKey } from '@tiptap/pm/state';
 import WikiSuggestionList from '../WikiSuggestionList';
 
 export const WikiLink = Mention.extend({
@@ -17,7 +18,8 @@ export const WikiLink = Mention.extend({
       },
       suggestion: {
         char: '[[',
-        pluginKey: undefined,
+        pluginKey: new PluginKey('wiki-link'),
+        allowedPrefixes: null,
         command: ({ editor, range, props }) => {
           // Add spacing after the link
           editor

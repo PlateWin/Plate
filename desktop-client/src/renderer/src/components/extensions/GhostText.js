@@ -7,6 +7,12 @@ export const GhostTextPluginKey = new PluginKey('ghostText');
 export const GhostText = Extension.create({
   name: 'ghostText',
 
+  addOptions() {
+    return {
+      onTab: () => false,
+    };
+  },
+
   addStorage() {
     return {
       text: '',
@@ -100,11 +106,12 @@ export const GhostText = Extension.create({
   addKeyboardShortcuts() {
     return {
       Tab: () => {
-        const text = this.storage.text;
+        const text = this.editor.storage.ghostText.text;
         if (text) {
           return this.editor.commands.acceptGhostText();
         }
-        return false;
+        // Manual trigger: If onTab returns true, it prevents default Tab behavior
+        return this.options.onTab(this.editor);
       },
     };
   },

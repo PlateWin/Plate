@@ -11,8 +11,12 @@ import { Bold, Italic, Strikethrough, Code, Heading1, Heading2, Quote, List, Lis
 import { motion } from 'framer-motion';
 import { GhostText } from './extensions/GhostText';
 import { WikiLink } from './extensions/WikiLink';
+import SlashCommand from './extensions/SlashCommand';
+import CommandList from './CommandList';
+import { Sparkles, Languages, Zap, Palette, FileText, Wand2, Type } from 'lucide-react';
 import tippy from 'tippy.js';
 import 'tippy.js/dist/tippy.css';
+import { ReactRenderer } from '@tiptap/react';
 
 const CrystalEditor = ({ currentCrystalSlug, onBack, onNavigate }) => {
   const [crystal, setCrystal] = useState({ title: '', content: '' });
@@ -20,6 +24,8 @@ const CrystalEditor = ({ currentCrystalSlug, onBack, onNavigate }) => {
   const [saveState, setSaveState] = useState('saved'); // 'saved', 'saving', 'unsaved'
   const [isAiThinking, setIsAiThinking] = useState(false);
   const aiTypingTimer = useRef(null);
+  const handleAIActionRef = useRef();
+  const triggerAIGhostFetchRef = useRef();
 
   // High-performance Glow State Machine
   const [glowVisible, setGlowVisible] = useState(false);
@@ -49,7 +55,6 @@ const CrystalEditor = ({ currentCrystalSlug, onBack, onNavigate }) => {
     }
   }, []);
 
-  // Sync Glow with AI & Saving
   useEffect(() => {
     if (isAiThinking || saveState === 'saving') {
       triggerGlow();
@@ -65,7 +70,12 @@ const CrystalEditor = ({ currentCrystalSlug, onBack, onNavigate }) => {
       TaskItem.configure({ nested: true }),
       Typography,
       Link.configure({ openOnClick: false, HTMLAttributes: { class: 'text-[#00D1FF] underline decoration-[#00D1FF]/30 hover:decoration-[#00D1FF] transition-colors cursor-pointer' } }),
-      GhostText,
+      GhostText.configure({
+        onTab: (editor) => {
+          triggerAIGhostFetchRef.current?.(editor);
+          return true; // Mark handled
+        }
+      }),
       WikiLink.configure({
         suggestion: {
           items: async ({ query }) => {
@@ -83,6 +93,54 @@ const CrystalEditor = ({ currentCrystalSlug, onBack, onNavigate }) => {
           },
         },
       }),
+      SlashCommand.configure({
+        suggestion: {
+          items: ({ query }) => {
+            return [
+              { title: 'Summary', description: '生成当前内容的摘要', icon: <FileText size={14} />, command: ({ editor, range }) => { editor.chain().focus().deleteRange(range).run(); handleAIActionRef.current?.('summary', editor); } },
+              { title: 'Improve Writing', description: '优化语法与措辞', icon: <Wand2 size={14} />, command: ({ editor, range }) => { editor.chain().focus().deleteRange(range).run(); handleAIActionRef.current?.('improve', editor); } },
+              { title: 'Expand Thought', description: '扩展当前想法', icon: <Zap size={14} />, command: ({ editor, range }) => { editor.chain().focus().deleteRange(range).run(); handleAIActionRef.current?.('expand', editor); } },
+              { title: 'Bullet Brief', description: '转为要点列表', icon: <List size={14} />, command: ({ editor, range }) => { editor.chain().focus().deleteRange(range).run(); handleAIActionRef.current?.('brief', editor); } },
+            ].filter(item => item.title.toLowerCase().startsWith(query.toLowerCase()))
+          },
+          render: () => {
+            let component;
+            let popup;
+            return {
+              onStart: props => {
+                if (!props.clientRect) return;
+                component = new ReactRenderer(CommandList, { props, editor: props.editor });
+                popup = tippy('body', {
+                  getReferenceClientRect: props.clientRect,
+                  appendTo: () => document.body,
+                  content: component.element,
+                  showOnCreate: true,
+                  interactive: true,
+                  trigger: 'manual',
+                  placement: 'bottom-start',
+                  zIndex: 9999,
+                });
+              },
+              onUpdate: props => {
+                if (!props.clientRect) return;
+                component?.updateProps(props);
+                popup?.[0]?.setProps({ getReferenceClientRect: props.clientRect });
+              },
+              onKeyDown: props => {
+                if (props.event.key === 'Escape') {
+                  popup?.[0]?.hide();
+                  return true;
+                }
+                return component?.ref?.onKeyDown(props);
+              },
+              onExit: () => {
+                if (popup && popup[0]) popup[0].destroy();
+                if (component) component.destroy();
+              },
+            };
+          },
+        },
+      }),
       Placeholder.configure({
         placeholder: '记录此刻的思考... ( 停顿即触发 AI 续写, 输入 [[ 关联结晶 )',
       }),
@@ -97,31 +155,6 @@ const CrystalEditor = ({ currentCrystalSlug, onBack, onNavigate }) => {
         setIsAiThinking(false);
         endGlow(true);
       }
-      clearTimeout(aiTypingTimer.current);
-
-      const textContent = editor.getText();
-      if (!textContent.trim()) return;
-
-      aiTypingTimer.current = setTimeout(async () => {
-        setIsAiThinking(true);
-        const promptContext = textContent.slice(-1000);
-        try {
-          const res = await fetch('http://localhost:8080/api/v1/ai/complete', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ prompt: promptContext })
-          });
-          const data = await res.json();
-          const suggestion = data.choices?.[0]?.message?.content;
-          if (suggestion) {
-            editor.commands.setGhostText(suggestion);
-          }
-        } catch (err) {
-          console.error("AI Ghost error:", err);
-        } finally {
-          setIsAiThinking(false);
-        }
-      }, 1000);
     },
     editorProps: {
       attributes: {
@@ -129,6 +162,115 @@ const CrystalEditor = ({ currentCrystalSlug, onBack, onNavigate }) => {
       },
     },
   });
+
+  const handleAIAction = useCallback(async (action, editorInstance, customContent = null) => {
+    // FALLBACK: If editorInstance is not provided, use the closure editor
+    const activeEditor = editorInstance || editor;
+    if (!activeEditor) {
+      console.error("[AI] No editor instance available");
+      return;
+    }
+
+    const textToProcess = customContent || 
+                         activeEditor.state.doc.textBetween(activeEditor.state.selection.from, activeEditor.state.selection.to) || 
+                         activeEditor.getText();
+
+    if (!textToProcess.trim()) {
+      console.warn("[AI] No content to process");
+      return;
+    }
+
+    console.log(`[AI] Triggering action: ${action} with ${textToProcess.length} chars`);
+    setIsAiThinking(true);
+    triggerGlow();
+
+    try {
+      const res = await fetch('http://localhost:8080/api/v1/ai/action', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action, content: textToProcess })
+      });
+
+      const rawResponse = await res.text();
+      let data;
+      try {
+        data = JSON.parse(rawResponse);
+      } catch (e) {
+        console.error("[AI] JSON Parse Failed. Raw:", rawResponse);
+        throw new Error(`Invalid JSON response from server.`);
+      }
+
+      if (!res.ok) {
+        throw new Error(data.details || data.error || 'Unknown API error');
+      }
+
+      const result = data.choices?.[0]?.message?.content;
+      
+      if (result && !activeEditor.isDestroyed) {
+        console.log(`[AI] Action ${action} success`);
+        // Add spacing before content
+        activeEditor.chain()
+          .focus()
+          .insertContent('<p></p>')
+          .insertContent(result)
+          .run();
+      } else {
+        console.warn("[AI] Empty result or editor destroyed");
+      }
+    } catch (err) {
+      console.error("[AI] Action error:", err);
+    } finally {
+      setIsAiThinking(false);
+      endGlow(true);
+    }
+  }, [editor, isAiThinking, triggerGlow, endGlow]);
+
+  const triggerAIGhostFetch = useCallback(async (editorInstance) => {
+    const activeEditor = editorInstance || editor;
+    if (!activeEditor || isAiThinking) return;
+    
+    const textContent = activeEditor.getText();
+    if (!textContent.trim()) return;
+
+    console.log("[AI] Triggering ghost completion...");
+    setIsAiThinking(true);
+    triggerGlow();
+
+    const promptContext = textContent.slice(-1000);
+    try {
+      const res = await fetch('http://localhost:8080/api/v1/ai/complete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: promptContext })
+      });
+
+      const rawResponse = await res.text();
+      let data;
+      try {
+        data = JSON.parse(rawResponse);
+      } catch (e) {
+        throw new Error(`Invalid JSON response: ${rawResponse.slice(0, 50)}`);
+      }
+
+      if (!res.ok) throw new Error(data.error || 'API incomplete fetch failed');
+
+      const suggestion = data.choices?.[0]?.message?.content;
+      if (suggestion && !activeEditor.isDestroyed) {
+        activeEditor.commands.setGhostText(suggestion);
+      }
+    } catch (err) {
+      console.error("[AI] Ghost error:", err);
+    } finally {
+      setIsAiThinking(false);
+      endGlow(true);
+    }
+  }, [editor, isAiThinking, triggerGlow, endGlow]);
+
+  // Sync refs to allow Tiptap extensions to access latest handlers without stale closures
+  useEffect(() => {
+    handleAIActionRef.current = handleAIAction;
+    triggerAIGhostFetchRef.current = triggerAIGhostFetch;
+  }, [handleAIAction, triggerAIGhostFetch]);
 
   // Load crystal data & Backlinks
   useEffect(() => {
@@ -321,6 +463,17 @@ const CrystalEditor = ({ currentCrystalSlug, onBack, onNavigate }) => {
                   <button onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()} className={`p-1.5 rounded-lg transition-all ${editor.isActive('heading', { level: 1 }) ? 'bg-[#C084FC]/20 text-[#C084FC]' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}><Heading1 size={15} strokeWidth={2.5} /></button>
                   <button onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()} className={`p-1.5 rounded-lg transition-all ${editor.isActive('heading', { level: 2 }) ? 'bg-[#38bdf8]/20 text-[#38bdf8]' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}><Heading2 size={15} strokeWidth={2.5} /></button>
                   <button onClick={() => editor.chain().focus().toggleBlockquote().run()} className={`p-1.5 rounded-lg transition-all ${editor.isActive('blockquote') ? 'bg-[#34d399]/20 text-[#34d399]' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}><Quote size={15} strokeWidth={2.5} /></button>
+                  <div className="w-px h-4 bg-white/10 mx-1"></div>
+                  <button onClick={() => handleAIAction('improve')} className="p-1.5 rounded-lg text-[#00D1FF] hover:bg-[#00D1FF]/10 transition-all flex items-center gap-1.5 px-2.5">
+                    <Sparkles size={14} />
+                    <span className="text-[11px] font-medium tracking-tight">AI 润色</span>
+                  </button>
+                  <button onClick={() => handleAIAction('translate_en')} className="p-1.5 rounded-lg text-[#C084FC] hover:bg-[#C084FC]/10 transition-all px-2">
+                    <Languages size={14} />
+                  </button>
+                  <button onClick={() => handleAIAction('tone_pro')} className="p-1.5 rounded-lg text-white/40 hover:text-white/80 hover:bg-white/5 transition-all px-2">
+                    <Type size={14} />
+                  </button>
                 </BubbleMenu>
                 <FloatingMenu editor={editor} tippyOptions={{ duration: 150 }}
                   className="flex items-center gap-1 px-1.5 py-1.5 glass-panel rounded-xl border border-white/10 shadow-2xl backdrop-blur-3xl bg-[#0a0a0a]/90 -ml-12"

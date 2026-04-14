@@ -24,6 +24,7 @@ func InitRouter() *gin.Engine {
 		v1.GET("/channels", handlers.ChannelsHandler)
 		v1.GET("/messages", handlers.HistoryHandler)
 		v1.POST("/ai/complete", handlers.AICompleteHandler)
+		v1.POST("/ai/action", handlers.AIActionHandler)
 
 		// Crystal (Knowledge) Routes
 		v1.POST("/crystals", handlers.CreateCrystal)
