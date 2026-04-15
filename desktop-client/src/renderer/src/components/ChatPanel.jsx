@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import ReactMarkdown from 'react-markdown'
 
 export default function ChatPanel({ channelName, messages, onSend, wsStatus, currentUser, onCrystalize }) {
   const [input, setInput] = useState('')
@@ -101,10 +102,9 @@ export default function ChatPanel({ channelName, messages, onSend, wsStatus, cur
                       {msg.time}
                     </span>
                   </div>
-                  <span className="text-[14px] leading-relaxed break-words"
-                        style={{ color: 'rgba(255,255,255,0.85)' }}>
-                    {msg.text}
-                  </span>
+                  <div className="text-[14px] leading-relaxed break-words text-[rgba(255,255,255,0.85)]">
+                    <ReactMarkdown>{msg.text}</ReactMarkdown>
+                  </div>
                 </div>
 
                 {/* Crystalize Button on Hover */}
