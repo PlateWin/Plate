@@ -7,6 +7,7 @@ import TaskList from '@tiptap/extension-task-list';
 import TaskItem from '@tiptap/extension-task-item';
 import Typography from '@tiptap/extension-typography';
 import Link from '@tiptap/extension-link';
+import { marked } from 'marked';
 import { Bold, Italic, Strikethrough, Code, Heading1, Heading2, Quote, List, ListTodo } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { GhostText } from './extensions/GhostText';
@@ -212,12 +213,14 @@ const CrystalEditor = ({ currentCrystalSlug, currentUser, onBack, onNavigate }) 
       const result = data.choices?.[0]?.message?.content;
       
       if (result && !activeEditor.isDestroyed) {
-        console.log(`[AI] Action ${action} success`);
-        // Add spacing before content
+        console.log(`[AI] Action ${action} success (converting via marked)`);
+        // Use the robust 'marked' library
+        const htmlResult = marked.parse(result);
+        
         activeEditor.chain()
           .focus()
           .insertContent('<p></p>')
-          .insertContent(result)
+          .insertContent(htmlResult)
           .run();
       } else {
         console.warn("[AI] Empty result or editor destroyed");
