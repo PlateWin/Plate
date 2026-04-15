@@ -40,7 +40,14 @@ func InitDB() {
 	log.Println("[DB] Successfully connected to MySQL 'plate' database")
 
 	// Auto-migrate our schemas
-	err = database.AutoMigrate(&models.User{}, &models.Channel{}, &models.Message{}, &models.Crystal{}, &models.CrystalLink{})
+	err = database.AutoMigrate(
+		&models.User{},
+		&models.Channel{},
+		&models.Message{},
+		&models.Crystal{},
+		&models.CrystalLink{},
+		&models.Memory{},
+	)
 	if err != nil {
 		log.Fatalf("[DB] Failed to migrate database schemas: %v", err)
 	}

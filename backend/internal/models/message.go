@@ -46,3 +46,17 @@ type CrystalLink struct {
 	SourceID uint `gorm:"index" json:"sourceId"`
 	TargetID uint `gorm:"index" json:"targetId"`
 }
+
+// Memory represents a personalized piece of knowledge or style pattern
+type Memory struct {
+	ID         uint      `gorm:"primaryKey" json:"id"`
+	Category   string    `gorm:"size:20;index;not null" json:"category"` // "fact" | "style"
+	Content      string    `gorm:"type:text;not null" json:"content"`
+	OriginalText string    `gorm:"type:text" json:"originalText"`          // The raw snippet
+	Entity       string    `gorm:"size:100;index" json:"entity"`           // e.g., "Project Astra"
+	SourceID     uint      `gorm:"index" json:"sourceId"`                  // Foreign Key to Crystal
+	Importance   int       `gorm:"default:3" json:"importance"`            // 1-5
+	AuthorID     uint      `gorm:"index" json:"authorId"`                  // Owner ID
+	CreatedAt    time.Time `json:"createdAt"`
+	UpdatedAt    time.Time `json:"updatedAt"`
+}

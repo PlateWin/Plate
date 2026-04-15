@@ -10,6 +10,7 @@ import (
 	"github.com/teamwork/plate-server/internal/db"
 	"github.com/teamwork/plate-server/internal/models"
 	"regexp"
+	"log"
 )
 
 // GenerateSlug generates a random 8-character hex string for the crystal URL
@@ -19,7 +20,23 @@ func GenerateSlug() string {
 	return hex.EncodeToString(b)
 }
 
+// GetCurrentUser safely extracts the user from gin context
+func GetCurrentUser(c *gin.Context) (models.User, bool) {
+	userObj, exists := c.Get("user")
+	if !exists {
+		return models.User{}, false
+	}
+	user, ok := userObj.(models.User)
+	return user, ok
+}
+
 func CreateCrystal(c *gin.Context) {
+	currentUser, ok := GetCurrentUser(c)
+	if !ok {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized access"})
+		return
+	}
+
 	var input struct {
 		Title   string `json:"title" binding:"required"`
 		Content string `json:"content"`
@@ -33,6 +50,7 @@ func CreateCrystal(c *gin.Context) {
 		Slug:      GenerateSlug(),
 		Title:     input.Title,
 		Content:   input.Content,
+		AuthorID:  currentUser.ID,
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 	}
@@ -42,37 +60,55 @@ func CreateCrystal(c *gin.Context) {
 		return
 	}
 
-	// Update link indices
 	go updateCrystalLinks(crystal.ID, crystal.Content)
+	go ExtractMemories(currentUser.ID, crystal.ID, crystal.Content)
 
 	c.JSON(http.StatusOK, crystal)
 }
 
 func ListCrystals(c *gin.Context) {
+	currentUser, ok := GetCurrentUser(c)
+	if !ok {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized access"})
+		return
+	}
+
 	var crystals []models.Crystal
-	// Only fetch IDs, Slugs and Titles to keep the payload light
-	if err := db.DB.Select("id, slug, title, updated_at").Order("updated_at desc").Find(&crystals).Error; err != nil {
+	if err := db.DB.Where("author_id = ?", currentUser.ID).Select("id, slug, title, updated_at").Order("updated_at desc").Find(&crystals).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch crystals"})
 		return
 	}
+	log.Printf("[DB] Crystal list fetched for user %d: %d items", currentUser.ID, len(crystals))
 	c.JSON(http.StatusOK, crystals)
 }
 
 func GetCrystal(c *gin.Context) {
+	currentUser, ok := GetCurrentUser(c)
+	if !ok {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized access"})
+		return
+	}
+
 	slug := c.Param("slug")
 	var crystal models.Crystal
-	if err := db.DB.Where("slug = ?", slug).First(&crystal).Error; err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "Crystal not found"})
+	if err := db.DB.Where("slug = ? AND author_id = ?", slug, currentUser.ID).First(&crystal).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Crystal not found or access denied"})
 		return
 	}
 	c.JSON(http.StatusOK, crystal)
 }
 
 func UpdateCrystal(c *gin.Context) {
+	currentUser, ok := GetCurrentUser(c)
+	if !ok {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized access"})
+		return
+	}
+
 	slug := c.Param("slug")
 	var crystal models.Crystal
-	if err := db.DB.Where("slug = ?", slug).First(&crystal).Error; err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "Crystal not found"})
+	if err := db.DB.Where("slug = ? AND author_id = ?", slug, currentUser.ID).First(&crystal).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Crystal not found or access denied"})
 		return
 	}
 
@@ -94,29 +130,34 @@ func UpdateCrystal(c *gin.Context) {
 		return
 	}
 
-	// Update link indices
 	go updateCrystalLinks(crystal.ID, crystal.Content)
+	go ExtractMemories(currentUser.ID, crystal.ID, crystal.Content)
 
 	c.JSON(http.StatusOK, crystal)
 }
 
 func GetBacklinks(c *gin.Context) {
+	currentUser, ok := GetCurrentUser(c)
+	if !ok {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized access"})
+		return
+	}
+
 	slug := c.Param("slug")
 	var target models.Crystal
-	if err := db.DB.Where("slug = ?", slug).First(&target).Error; err != nil {
+	if err := db.DB.Where("slug = ? AND author_id = ?", slug, currentUser.ID).First(&target).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Target crystal not found"})
 		return
 	}
 
 	var crystals []models.Crystal
-	// Query crystals that link to this one
 	query := `
 		SELECT c.id, c.slug, c.title, c.updated_at 
 		FROM crystals c
 		JOIN crystal_links cl ON c.id = cl.source_id
-		WHERE cl.target_id = ?
+		WHERE cl.target_id = ? AND c.author_id = ?
 	`
-	if err := db.DB.Raw(query, target.ID).Scan(&crystals).Error; err != nil {
+	if err := db.DB.Raw(query, target.ID, currentUser.ID).Scan(&crystals).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch backlinks"})
 		return
 	}
@@ -124,13 +165,10 @@ func GetBacklinks(c *gin.Context) {
 	c.JSON(http.StatusOK, crystals)
 }
 
-// Internal helper to parse content and update links
 func updateCrystalLinks(sourceID uint, content string) {
-	// Pattern to find data-id="slug" in wiki-link spans
 	re := regexp.MustCompile(`class="wiki-link"[^>]*data-id="([^"]+)"`)
 	matches := re.FindAllStringSubmatch(content, -1)
 
-	// Collect unique target slugs
 	slugMap := make(map[string]bool)
 	for _, match := range matches {
 		if len(match) > 1 {
@@ -138,10 +176,8 @@ func updateCrystalLinks(sourceID uint, content string) {
 		}
 	}
 
-	// Clear existing links for this source
 	db.DB.Where("source_id = ?", sourceID).Delete(&models.CrystalLink{})
 
-	// Add new links
 	for slug := range slugMap {
 		var target models.Crystal
 		if err := db.DB.Where("slug = ?", slug).First(&target).Error; err == nil {

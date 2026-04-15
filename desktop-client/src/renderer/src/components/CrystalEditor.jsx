@@ -18,7 +18,7 @@ import tippy from 'tippy.js';
 import 'tippy.js/dist/tippy.css';
 import { ReactRenderer } from '@tiptap/react';
 
-const CrystalEditor = ({ currentCrystalSlug, onBack, onNavigate }) => {
+const CrystalEditor = ({ currentCrystalSlug, currentUser, onBack, onNavigate }) => {
   const [crystal, setCrystal] = useState({ title: '', content: '' });
   const [backlinks, setBacklinks] = useState([]);
   const [saveState, setSaveState] = useState('saved'); // 'saved', 'saving', 'unsaved'
@@ -80,7 +80,9 @@ const CrystalEditor = ({ currentCrystalSlug, onBack, onNavigate }) => {
         suggestion: {
           items: async ({ query }) => {
             try {
-              const res = await fetch('http://localhost:8080/api/v1/crystals');
+              const res = await fetch('http://localhost:8080/api/v1/crystals', {
+                headers: { 'X-User-Name': currentUser }
+              });
               const data = await res.json();
               if (!data) return [];
               return data
@@ -187,7 +189,10 @@ const CrystalEditor = ({ currentCrystalSlug, onBack, onNavigate }) => {
     try {
       const res = await fetch('http://localhost:8080/api/v1/ai/action', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'X-User-Name': currentUser 
+        },
         body: JSON.stringify({ action, content: textToProcess })
       });
 
@@ -240,7 +245,10 @@ const CrystalEditor = ({ currentCrystalSlug, onBack, onNavigate }) => {
     try {
       const res = await fetch('http://localhost:8080/api/v1/ai/complete', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'X-User-Name': currentUser 
+        },
         body: JSON.stringify({ prompt: promptContext })
       });
 
@@ -278,7 +286,9 @@ const CrystalEditor = ({ currentCrystalSlug, onBack, onNavigate }) => {
     const loadData = async () => {
       try {
         // Fetch Crystal Content
-        const res = await fetch(`http://localhost:8080/api/v1/crystals/${currentCrystalSlug}`);
+        const res = await fetch(`http://localhost:8080/api/v1/crystals/${currentCrystalSlug}`, {
+          headers: { 'X-User-Name': currentUser }
+        });
         const data = await res.json();
         setCrystal(data);
         if (editor && !editor.isDestroyed) {
@@ -286,7 +296,9 @@ const CrystalEditor = ({ currentCrystalSlug, onBack, onNavigate }) => {
         }
 
         // Fetch Backlinks
-        const blRes = await fetch(`http://localhost:8080/api/v1/crystals/${currentCrystalSlug}/backlinks`);
+        const res_bl = await fetch(`http://localhost:8080/api/v1/crystals/${currentCrystalSlug}/backlinks`, {
+          headers: { 'X-User-Name': currentUser }
+        });
         const blData = await blRes.json();
         setBacklinks(Array.isArray(blData) ? blData : []);
       } catch (err) {
@@ -304,7 +316,10 @@ const CrystalEditor = ({ currentCrystalSlug, onBack, onNavigate }) => {
     try {
       await fetch(`http://localhost:8080/api/v1/crystals/${currentCrystalSlug}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'X-User-Name': currentUser 
+        },
         body: JSON.stringify({
           title: crystal.title,
           content: crystal.content
@@ -339,7 +354,9 @@ const CrystalEditor = ({ currentCrystalSlug, onBack, onNavigate }) => {
       onShow: async (instance) => {
         const slug = instance.reference.getAttribute('data-id');
         try {
-          const res = await fetch(`http://localhost:8080/api/v1/crystals/${slug}`);
+          const res = await fetch(`http://localhost:8080/api/v1/crystals/${slug}`, {
+            headers: { 'X-User-Name': currentUser }
+          });
           const data = await res.json();
           // Extract plain text from HTML
           const tempDiv = document.createElement('div');
@@ -475,8 +492,8 @@ const CrystalEditor = ({ currentCrystalSlug, onBack, onNavigate }) => {
                     <Type size={14} />
                   </button>
                 </BubbleMenu>
-                <FloatingMenu editor={editor} tippyOptions={{ duration: 150 }}
-                  className="flex items-center gap-1 px-1.5 py-1.5 glass-panel rounded-xl border border-white/10 shadow-2xl backdrop-blur-3xl bg-[#0a0a0a]/90 -ml-12"
+                <FloatingMenu editor={editor} tippyOptions={{ duration: 150, offset: [0, 24] }}
+                  className="flex items-center gap-1 px-1 py-1 glass-panel rounded-lg border border-white/5 shadow-2xl backdrop-blur-3xl bg-[#0a0a0a]/80 -ml-24 opacity-40 hover:opacity-100 transition-opacity"
                 >
                   <button onClick={() => editor.chain().focus().toggleBulletList().run()} className={`p-1.5 rounded-lg transition-all ${editor.isActive('bulletList') ? 'bg-[#00D1FF]/20 text-[#00D1FF]' : 'text-gray-400 hover:text-white hover:bg-white/5'}`} title="Bullet List"><List size={15} strokeWidth={2.5} /></button>
                   <button onClick={() => editor.chain().focus().toggleTaskList().run()} className={`p-1.5 rounded-lg transition-all ${editor.isActive('taskList') ? 'bg-[#00D1FF]/20 text-[#00D1FF]' : 'text-gray-400 hover:text-white hover:bg-white/5'}`} title="Task List"><ListTodo size={15} strokeWidth={2.5} /></button>

@@ -19,11 +19,13 @@ export default function App() {
 
   // Ping server on mount
   useEffect(() => {
-    fetch('http://localhost:8080/api/v1/ping')
+    fetch('http://localhost:8080/api/v1/ping', {
+      headers: { 'X-User-Name': username || 'guest' }
+    })
       .then(r => r.json())
       .then(d => { if (d.status === 'UP') setServerStatus('connected') })
       .catch(() => setServerStatus('offline'))
-  }, [])
+  }, [username]) // Re-ping when identity changes
 
   // WebSocket management
   const connectWS = useCallback((user) => {
@@ -53,8 +55,13 @@ export default function App() {
   // Fetch History for active channel
   useEffect(() => {
     if (!username) return
-    fetch(`http://localhost:8080/api/v1/messages?channel=${activeChannel}`)
-      .then(r => r.json())
+    fetch(`http://localhost:8080/api/v1/messages?channel=${activeChannel}`, {
+      headers: { 'X-User-Name': username }
+    })
+      .then(r => {
+        if (!r.ok) throw new Error("History fetch failed")
+        return r.json()
+      })
       .then(d => {
         if (d.messages) {
           setMessages(prev => ({ ...prev, [activeChannel]: d.messages }))
@@ -65,11 +72,18 @@ export default function App() {
 
   // Fetch Crystals
   const loadCrystals = useCallback(() => {
-    fetch('http://localhost:8080/api/v1/crystals')
-      .then(r => r.json())
-      .then(d => setCrystals(d || []))
+    fetch('http://localhost:8080/api/v1/crystals', {
+      headers: { 'X-User-Name': username }
+    })
+      .then(r => {
+        if (!r.ok) throw new Error("Crystals fetch failed")
+        return r.json()
+      })
+      .then(d => {
+        if (Array.isArray(d)) setCrystals(d)
+      })
       .catch(e => console.error("Crystals fetch error:", e))
-  }, [])
+  }, [username])
 
   useEffect(() => {
     if (username) loadCrystals()
@@ -78,20 +92,36 @@ export default function App() {
   // Create Crystal
   const handleCreateCrystal = async (initialContent = '') => {
     try {
+      console.log("[Crystals] Creating new crystal...");
       const res = await fetch('http://localhost:8080/api/v1/crystals', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'X-User-Name': username
+        },
         body: JSON.stringify({ 
           title: initialContent ? 'Extracted Idea' : 'New Crystal', 
           content: initialContent ? `<p>${initialContent}</p>` : '' 
         })
       })
-      const newCrystal = await res.json()
-      setCrystals(prev => [newCrystal, ...prev])
-      setActiveCrystal(newCrystal.slug)
+
+      const data = await res.json()
+      
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to Crystallize')
+      }
+
+      console.log("[Crystals] Creation successful:", data);
+      setCrystals(prev => {
+        // Only prepend if not already there
+        if (prev.some(c => c.slug === data.slug)) return prev
+        return [data, ...prev]
+      })
+      setActiveCrystal(data.slug)
       setCurrentView('crystal')
     } catch (e) {
-      console.error(e)
+      console.error("[Crystals] Creation error:", e)
+      alert(`创建失败: ${e.message}`)
     }
   }
 
@@ -118,7 +148,9 @@ export default function App() {
   useEffect(() => {
     if (!username) return
     const poll = () => {
-      fetch('http://localhost:8080/api/v1/online')
+      fetch('http://localhost:8080/api/v1/online', {
+        headers: { 'X-User-Name': username }
+      })
         .then(r => r.json())
         .then(d => setOnlineUsers(d.online || []))
         .catch(() => {})
@@ -195,6 +227,7 @@ export default function App() {
               <CrystalEditor 
                 key={activeCrystal || 'new'} 
                 currentCrystalSlug={activeCrystal}
+                currentUser={username}
                 onBack={() => setCurrentView('chat')}
                 onNavigate={(slug) => setActiveCrystal(slug)}
               />

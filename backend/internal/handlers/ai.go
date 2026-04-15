@@ -33,6 +33,14 @@ type Message struct {
 
 // AICompleteHandler handles the VibeWriting ghost-text completion
 func AICompleteHandler(c *gin.Context) {
+	// Identify user (for future personalized recall)
+	// We don't block here if user is guest, but we ensure middleware is hooked
+	_, ok := GetCurrentUser(c)
+	if !ok {
+		// Log but allow for now if anonymous is allowed
+		log.Printf("[AI] Anonymous completion request")
+	}
+
 	var req AIRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "prompt is required"})
@@ -79,7 +87,6 @@ func AICompleteHandler(c *gin.Context) {
 
 	respBody, _ := io.ReadAll(resp.Body)
 	
-	// We just proxy back the full SiliconFlow response for now
 	var sfResponse interface{}
 	if err := json.Unmarshal(respBody, &sfResponse); err != nil {
 		log.Printf("[AI] Parse error: %v, Body: %s", err, string(respBody))
@@ -92,6 +99,11 @@ func AICompleteHandler(c *gin.Context) {
 
 // AIActionHandler handles specialized Notion-style commands
 func AIActionHandler(c *gin.Context) {
+	_, ok := GetCurrentUser(c)
+	if !ok {
+		log.Printf("[AI] Anonymous action request")
+	}
+
 	var req AIActionRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "action and content are required"})
