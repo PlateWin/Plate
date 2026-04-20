@@ -1,55 +1,131 @@
-# FlowCrystal — AI-native Flow & Crystal Knowledge Platform
+# FlowCrystal
 
-> **定位**：AI 原生驱动的“流式沟通”与“结晶知识”融合平台。
-> **核心哲学**：沟通即生产，碎片即知识。
+An AI-native workspace that combines real-time team communication, linked knowledge editing, and a personalized memory system in one desktop product.
 
-FlowCrystal 旨在打破即时通讯与知识管理之间的壁垒。通过“流 (Flow)”捕捉灵感，通过“晶体 (Crystal)”沉淀智慧，辅以极速 AI 响应与极致的“梦幻流 (Dream Flow)”视觉动效。
+FlowCrystal is built around a simple idea:
 
----
+- `Flow` captures fast-moving conversation and intent.
+- `Crystal` turns ideas into structured, durable knowledge.
+- `Memory` continuously extracts, recalls, and evolves what matters across a user's workspace.
 
-## 1. 核心特性 (Key Features)
+This repository contains the current desktop client, backend services, and design documentation for the platform.
 
-### 🔮 晶体编辑器 (Crystal Editor)
-*   **双向链接**：支持类似 Obsidian 的 `[[WikiLinks]]`，自动建立知识图谱关联。
-*   **实时预览**：鼠标悬停在链接上即可快速预览目标晶体内容。
-*   **斜杠指令**：输入 `/` 触发 AI 快捷操作，包括自动摘要、润色、扩展、要点提炼等。
+## Why FlowCrystal
 
-### ✍️ VibeWriting (AI 幽灵续写)
-*   **灵感延伸**：AI 根据当前写作语境，在光标处生成半透明的“幽灵建议”，点击 `Tab` 键即可一键采纳。
-*   **生产力引擎**：为您的思路提供不间断的动力。
+Most tools split the work into separate silos:
 
-### ✨ Aura Engine (光晕视觉反馈)
-*   **极致动效**：通过硬件加速的高性能 GPU 渲染，在 AI 思考或自动保存时呈现梦幻般的旋转光晕背景。
-*   **情绪交互**：将工具打造成具备“呼吸感”的生命体。
+- chat lives in one place
+- notes live in another
+- long-term context lives nowhere
 
-### 💬 Flow (实时通讯网关)
-*   **分布式架构**：基于 Go WebSocket Hub，支持高并发的消息同步。
-*   **无缝沉淀**：未来支持一键将 Flow 频道内的碎片对话“结晶”为结构化的 Markdown 笔记。
+FlowCrystal is designed to close that loop.
 
----
+It gives users:
 
-## 2. 核心技术栈 (The Tech Stack)
+- a real-time communication surface for team flow
+- a rich crystal editor with wiki-style linking
+- AI actions and inline continuation
+- cross-crystal personalized memory recall
+- a memory vault for inspecting, tuning, and deleting extracted memories
 
-| 领域 | 技术选型 | 选用理由 |
-| :--- | :--- | :--- |
-| **前端框架** | Electron + Vite + React | 极致的跨平台性能、原生系统集成与极速热更新。 |
-| **样式与动效** | Tailwind CSS + Framer Motion | 打造毛玻璃、流体阻尼感与 GPU 加速动画。 |
-| **编辑引擎** | Tiptap (Prosemirror) | 强大的块级编辑与 WikiLinks/AI 续写扩展性。 |
-| **后端核心** | Go (Golang) + Gin | 天生支持高并发，适合构建毫秒级通讯中枢。 |
-| **数据库** | MySQL (GORM) | 可靠的数据持久层，存储元数据与历史配置。 |
-| **AI 接口** | SiliconFlow (Qwen/Llama) | 提供极速的文本续写与动作指令解析。 |
+## Current Highlights
 
----
+### Real-time Flow workspace
 
-## 3. 快速上手 (Quick Start)
+- Multi-channel real-time messaging over WebSocket
+- Online user presence
+- Chat messages can be crystallized into editable knowledge documents
 
-### 前置要求
-- [Go](https://go.dev/) 1.20+
-- [Node.js](https://nodejs.org/) 18+ & npm
-- [MySQL](https://www.mysql.com/) 8.0+
+### Crystal editor
 
-### 第一步：配置环境
-在 `backend/` 目录下创建 `.env` 文件，并填入您的 API 密钥：
+- Rich document editing powered by Tiptap
+- `[[wiki links]]` between crystals
+- Backlinks and crystal preview on hover
+- AI slash actions like summarize, improve, expand, and brief
+- Ghost completion for inline continuation
+- Auto-save and explicit sync state
+
+### Personalized memory loop
+
+- Automatic fact and style extraction when crystals are saved
+- Cross-crystal recall based on the current user's full memory archive
+- Memory injection into AI completion and AI action prompts
+- Memory importance evolution through repeated recall
+- Basic duplicate merging for recurring facts and style traces
+- A dedicated `Memory Vault` UI for listing, filtering, adjusting, and deleting memories
+- Source-aware memory browsing that can jump back to crystals
+
+### Desktop-first product architecture
+
+- Electron desktop shell
+- React renderer for the main product UI
+- Go backend for API, persistence, and WebSocket infrastructure
+- MySQL for current structured persistence
+
+## Screens and Modes
+
+The product currently centers around three working modes:
+
+- `Flow`: team communication and real-time chat
+- `Crystals`: structured knowledge authoring and linked documents
+- `Memory`: personal long-term memory inspection and tuning
+
+## Tech Stack
+
+### Frontend
+
+- Electron
+- React
+- Vite
+- Tailwind CSS
+- Tiptap
+- Lucide React
+- Tippy.js
+
+### Backend
+
+- Go
+- Gin
+- GORM
+- MySQL
+
+### AI integration
+
+- SiliconFlow-compatible chat completion endpoint
+
+## Repository Structure
+
+```text
+.
+├─ backend/
+│  ├─ cmd/plate-server/        # Backend entrypoint
+│  └─ internal/
+│     ├─ db/                   # Database bootstrap and migrations
+│     ├─ handlers/             # HTTP handlers, AI, memory, crystals
+│     ├─ hub/                  # WebSocket hub
+│     ├─ middleware/           # Auth middleware
+│     ├─ models/               # GORM models
+│     └─ router/               # API routes
+├─ desktop-client/
+│  ├─ src/main/                # Electron main process
+│  ├─ src/preload/             # Electron preload bridge
+│  └─ src/renderer/            # React application
+├─ docs/                       # Product, architecture, and phase docs
+└─ README.md
+```
+
+## Getting Started
+
+### Prerequisites
+
+- Go `1.20+`
+- Node.js `18+`
+- npm
+- MySQL `8.0+`
+
+### 1. Configure AI environment
+
+Create `backend/.env`:
 
 ```env
 SILICONFLOW_API_KEY=your_api_key_here
@@ -57,53 +133,124 @@ SILICONFLOW_MODEL=Qwen/Qwen2.5-72B-Instruct-Turbo
 SILICONFLOW_ENDPOINT=https://api.siliconflow.cn/v1/chat/completions
 ```
 
-> [!TIP]
-> 数据库配置目前位于 `backend/internal/db/db.go`，默认尝试连接本地 `root:wsxhr666`。部署时建议提取至 `.env`。
+### 2. Start the backend
 
-### 第二步：启动服务
-打开两个终端窗口：
-
-**启动后端：**
 ```bash
 cd backend
 go run cmd/plate-server/main.go
 ```
 
-**启动桌面客户端：**
+The backend starts on `http://localhost:8080`.
+
+### 3. Start the desktop client
+
 ```bash
 cd desktop-client
 npm install
 npm run dev
 ```
 
----
+## Build
 
-## 4. 项目结构 (Directory Structure)
+### Backend
 
-```text
-/plate
-  ├── /desktop-client   # 桌面客户端 (Electron + Vite + React)
-  │   ├── /src/main     # Electron 主进程 (系统集成)
-  │   ├── /src/renderer # React 渲染进程 (DreamFlow UI 系统)
-  │   └── /src/preload  # 预加载脚本
-  ├── /backend          # 后端核心 (Go)
-  │   ├── /cmd          # 启动入口 (plate-server)
-  │   ├── /internal     # 业务逻辑 (Handlers, Hub, Models, DB)
-  │   └── go.mod        # 依赖配置
-  └── /docs             # 详细设计文档 (Phase 1-4, Memory System)
+```bash
+cd backend
+go build ./...
 ```
 
----
+### Desktop client
 
-## 5. 后续路线图 (Roadmap)
+```bash
+cd desktop-client
+npm run build
+```
 
-- [x] **Phase 1 (MVP)**: 实时通讯底座与基础架构。
-- [x] **Phase 2 (Crystal Logic)**: 结晶编辑器与 WikiLinks。
-- [/] **Phase 3 (AI Fusion)**: 自动化结晶机制与 VibeWriting 优化。
-- [ ] **Phase 4 (Security & RAG)**: 深度因果推断、安全防护与私有化部署。
+## API Surface
 
-> **当前状态**：核心开发进行中。已完成结晶编辑器与 AI 动作指令的深度整合。
+The current backend includes APIs for:
 
----
+- channels and message history
+- WebSocket chat transport
+- crystal CRUD
+- crystal backlinks
+- AI completion and AI actions
+- memory recall
+- memory listing, updating, and deletion
 
-# P l a t e
+## Product Status
+
+FlowCrystal is an actively evolving project.
+
+The repository already contains working implementations for:
+
+- Flow chat
+- Crystal editing
+- AI-assisted writing
+- Phase 4 memory loop
+
+The next major direction is Phase 5:
+
+- unify the design language
+- reduce UI heaviness and visual noise
+- establish a more disciplined, premium desktop interface system
+- refine the product around long-session use
+
+## Design and Planning Docs
+
+The `docs/` directory contains the working design record for the project, including:
+
+- `Phase1_Design.md`
+- `Phase2_Design.md`
+- `Phase3_Design.md`
+- `Phase4_Design.md`
+- `UI_Style_Guide.md`
+- `UI_Beautification_Direction.md`
+- `Phase5_UI_Design_Language_Research.md`
+- memory system architecture and final specs
+
+## Important Notes
+
+### Database configuration
+
+The current MySQL bootstrap in `backend/internal/db/db.go` is still development-oriented and uses a local DSN directly in code.
+
+For production or wider team use, this should be moved fully to environment variables before release.
+
+### Scope of the current memory system
+
+The current memory system is:
+
+- user-scoped
+- crystal-driven
+- recall-based
+- structured in MySQL
+
+It is not yet a full vector retrieval or graph memory system.
+
+That is an intentional staging choice for implementation speed and product iteration.
+
+## Roadmap
+
+- `Done`: real-time Flow chat foundation
+- `Done`: crystal editor and wiki linking
+- `Done`: AI actions and inline continuation
+- `Done`: Phase 4 personalized memory loop
+- `Next`: Phase 5 unified UI language and premium interaction polish
+- `Later`: stronger semantic retrieval, richer source tracing, and expanded memory intelligence
+
+## Contributing
+
+This project is still evolving quickly, so the codebase is currently optimized more for product iteration than polished contributor onboarding.
+
+If you want to contribute, start by reading:
+
+- `README.md`
+- `docs/Phase4_Design.md`
+- `docs/Phase5_UI_Design_Language_Research.md`
+
+## License
+
+No license has been added yet.
+
+If this repository is intended for broader public collaboration, adding an explicit license should be one of the next maintenance tasks.
