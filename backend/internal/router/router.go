@@ -14,17 +14,17 @@ func InitRouter() *gin.Engine {
 
 	// CORS — allow Electron dev server origin
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"*"},
-		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
-		AllowHeaders:     []string{"Origin", "Content-Type", "Accept", "X-User-Name", "Authorization"},
-		AllowWebSockets:  true,
+		AllowOrigins:    []string{"*"},
+		AllowMethods:    []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders:    []string{"Origin", "Content-Type", "Accept", "X-User-Name", "Authorization"},
+		AllowWebSockets: true,
 	}))
 
 	v1 := r.Group("/api/v1")
 	{
 		v1.GET("/ping", handlers.PingCheck)
 		v1.GET("/online", handlers.OnlineHandler)
-		
+
 		// Protected routes
 		protected := v1.Group("")
 		protected.Use(middleware.AuthMiddleware())
@@ -33,12 +33,17 @@ func InitRouter() *gin.Engine {
 			protected.GET("/messages", handlers.HistoryHandler)
 			protected.POST("/ai/complete", handlers.AICompleteHandler)
 			protected.POST("/ai/action", handlers.AIActionHandler)
+			protected.GET("/memories", handlers.ListMemoriesHandler)
+			protected.POST("/memories/recall", handlers.RecallMemoriesHandler)
+			protected.PUT("/memories/:id", handlers.UpdateMemoryHandler)
+			protected.DELETE("/memories/:id", handlers.DeleteMemoryHandler)
 
 			// Crystal (Knowledge) Routes
 			protected.POST("/crystals", handlers.CreateCrystal)
 			protected.GET("/crystals", handlers.ListCrystals)
 			protected.GET("/crystals/:slug", handlers.GetCrystal)
 			protected.PUT("/crystals/:slug", handlers.UpdateCrystal)
+			protected.DELETE("/crystals/:slug", handlers.DeleteCrystal)
 			protected.GET("/crystals/:slug/backlinks", handlers.GetBacklinks)
 		}
 	}

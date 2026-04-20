@@ -1,9 +1,9 @@
-# Project Plate — AI-native Flow & Crystal Knowledge Platform
+# FlowCrystal — AI-native Flow & Crystal Knowledge Platform
 
 > **定位**：AI 原生驱动的“流式沟通”与“结晶知识”融合平台。
 > **核心哲学**：沟通即生产，碎片即知识。
 
-Project Plate 旨在打破即时通讯与知识管理之间的壁垒。通过“流 (Flow)”捕捉灵感，通过“晶体 (Crystal)”沉淀智慧，辅以极速 AI 响应与极致的“梦幻流 (Dream Flow)”视觉动效。
+FlowCrystal 旨在打破即时通讯与知识管理之间的壁垒。通过“流 (Flow)”捕捉灵感，通过“晶体 (Crystal)”沉淀智慧，辅以极速 AI 响应与极致的“梦幻流 (Dream Flow)”视觉动效。
 
 ---
 

@@ -51,7 +51,7 @@ func (h *Hub) Run() {
 				Type:    "join",
 				Sender:  "system",
 				Channel: "",
-				Text:    client.Username + " joined Plate",
+				Text:    client.Username + " joined FlowCrystal",
 				Time:    time.Now().Format("15:04:05"),
 			}
 			db.DB.Create(&joinMsg)
@@ -79,7 +79,7 @@ func (h *Hub) Run() {
 				Type:    "leave",
 				Sender:  "system",
 				Channel: "",
-				Text:    client.Username + " left Plate",
+				Text:    client.Username + " left FlowCrystal",
 				Time:    time.Now().Format("15:04:05"),
 			}
 			db.DB.Create(&leaveMsg)

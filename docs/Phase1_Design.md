@@ -1,7 +1,8 @@
-# Plate 平台 - 第一阶段 (MVP) 企业级架构与设计文档
+# FlowCrystal 平台 - 第一阶段 (MVP) 企业级架构与设计文档
 
 **文档版本**: v1.0.0
-**项目代号**: Plate
+**产品名称**: FlowCrystal  
+**内部代号**: Plate
 **文档状态**: Approved (Draft / Review / Approved)
 **目标受众**: 架构师、全栈研发工程师、运维安全团队、产品评审委员会
 
@@ -9,7 +10,7 @@
 
 ## 1. 执行摘要 (Executive Summary)
 
-本设计文档详述了 Plate 平台第一阶段 (Phase 1 MVP) 的系统设计。本系统旨在解决大型企业（世界五百强级别）内部跨部门沟通中面临的信息碎片化、知识难沉淀的问题。Phase 1 作为承载后续“AI 结晶”模块的基石，主要目标是构建一个具备**高可用、高并发、极端流畅体验 (Dream Flow Aesthetic)** 且合乎企业级安全与审计标准的实时通信底座。
+本设计文档详述了 FlowCrystal 平台第一阶段 (Phase 1 MVP) 的系统设计。本系统旨在解决大型企业（世界五百强级别）内部跨部门沟通中面临的信息碎片化、知识难沉淀的问题。Phase 1 作为承载后续“AI 结晶”模块的基石，主要目标是构建一个具备**高可用、高并发、极端流畅体验 (Dream Flow Aesthetic)** 且合乎企业级安全与审计标准的实时通信底座。
 
 ---
 
@@ -40,7 +41,7 @@
 ```mermaid
 graph TD
     %% 用户终端
-    subgraph Client [终端层 - Plate Web App]
+    subgraph Client [终端层 - FlowCrystal Web App]
         UI[Dream Flow UI Matrix]
         State[Zustand State Store]
         Conn[WS/HTTP 混合复用客户端]
@@ -84,7 +85,7 @@ graph TD
 ```
 
 ### 3.2 表现层架构设计 (Next.js 15 SSR / CSR 混排)
-由于 Plate 要求极高的流畅性：
+由于 FlowCrystal 要求极高的流畅性：
 1.  **Server Components (RSC)**：用于首屏极速加载聊天目录、组织架构树以及历史配置。以此减轻客户端 JS 绑定负担。
 2.  **Client Components**：针对复杂的 `Dream Flow` 会话框流体拖拽、弹起动画，结合 Framer Motion 在客户端侧独立接管 DOM 树运算。
 3.  **状态管理 (State Management)**：对海量消息列表废弃复杂的 Redux，采用更轻量级的 `Zustand` 结合 `Immer.js` 实现防内存泄漏和 O(1) 级别的不可变数据更新。

@@ -1,4 +1,4 @@
-# Plate 平台 - 第二阶段 (Phase 2) Crystal 知识系统设计文档
+# FlowCrystal 平台 - 第二阶段 (Phase 2) Crystal 知识系统设计文档
 
 **文档版本**: v1.0.0
 **核心代号**: Crystal (结晶)

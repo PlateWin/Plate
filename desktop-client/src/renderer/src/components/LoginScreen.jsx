@@ -23,7 +23,7 @@ export default function LoginScreen({ onLogin, serverOnline }) {
         </div>
 
         <h1 className="text-center text-[15px] font-semibold mb-1" style={{ color: 'var(--x-text-100)' }}>
-          Welcome to Plate
+          Welcome to FlowCrystal
         </h1>
         <p className="text-center text-[11px] mb-5" style={{ color: 'var(--x-text-40)' }}>
           Enter your name to start communicating

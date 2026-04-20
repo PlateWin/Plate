@@ -3,14 +3,15 @@ package handlers
 import (
 	"crypto/rand"
 	"encoding/hex"
+	"log"
 	"net/http"
+	"regexp"
 	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/teamwork/plate-server/internal/db"
 	"github.com/teamwork/plate-server/internal/models"
-	"regexp"
-	"log"
+	"gorm.io/gorm"
 )
 
 // GenerateSlug generates a random 8-character hex string for the crystal URL
@@ -134,6 +135,42 @@ func UpdateCrystal(c *gin.Context) {
 	go ExtractMemories(currentUser.ID, crystal.ID, crystal.Content)
 
 	c.JSON(http.StatusOK, crystal)
+}
+
+func DeleteCrystal(c *gin.Context) {
+	currentUser, ok := GetCurrentUser(c)
+	if !ok {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized access"})
+		return
+	}
+
+	slug := c.Param("slug")
+	var crystal models.Crystal
+	if err := db.DB.Where("slug = ? AND author_id = ?", slug, currentUser.ID).First(&crystal).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Crystal not found or access denied"})
+		return
+	}
+
+	if err := db.DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Where("source_id = ? AND author_id = ?", crystal.ID, currentUser.ID).Delete(&models.Memory{}).Error; err != nil {
+			return err
+		}
+		if err := tx.Where("source_id = ? OR target_id = ?", crystal.ID, crystal.ID).Delete(&models.CrystalLink{}).Error; err != nil {
+			return err
+		}
+		if err := tx.Delete(&crystal).Error; err != nil {
+			return err
+		}
+		return nil
+	}); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete crystal"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"deleted": true,
+		"slug":    slug,
+	})
 }
 
 func GetBacklinks(c *gin.Context) {

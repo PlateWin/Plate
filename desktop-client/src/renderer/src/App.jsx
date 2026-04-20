@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
 import TitleBar from './components/TitleBar'
 import LoginScreen from './components/LoginScreen'
 import Sidebar from './components/Sidebar'
 import ChatPanel from './components/ChatPanel'
 import CrystalEditor from './components/CrystalEditor'
+import MemoryVault from './components/MemoryVault'
 
 export default function App() {
   const [username, setUsername] = useState(null)
@@ -12,7 +12,7 @@ export default function App() {
   const [serverStatus, setServerStatus] = useState('connecting')
   const [messages, setMessages] = useState({})
   const [onlineUsers, setOnlineUsers] = useState([])
-  const [currentView, setCurrentView] = useState('chat') // 'chat' | 'crystal'
+  const [currentView, setCurrentView] = useState('chat') // 'chat' | 'crystal' | 'memories'
   const [crystals, setCrystals] = useState([])
   const [activeCrystal, setActiveCrystal] = useState(null)
   const wsRef = useRef(null)
@@ -125,6 +125,35 @@ export default function App() {
     }
   }
 
+  const handleDeleteCrystal = async (slug) => {
+    if (!slug || !username) return
+
+    const target = crystals.find((item) => item.slug === slug)
+    const confirmed = window.confirm(`Delete crystal "${target?.title || 'Untitled Crystal'}"? This will also remove its extracted memories and links.`)
+    if (!confirmed) return
+
+    try {
+      const res = await fetch(`http://localhost:8080/api/v1/crystals/${slug}`, {
+        method: 'DELETE',
+        headers: { 'X-User-Name': username }
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to delete crystal')
+      }
+
+      setCrystals((prev) => prev.filter((item) => item.slug !== slug))
+
+      if (activeCrystal === slug) {
+        setActiveCrystal(null)
+        setCurrentView('chat')
+      }
+    } catch (e) {
+      console.error('[Crystals] Delete error:', e)
+      alert(`删除失败: ${e.message}`)
+    }
+  }
+
   // Login handler
   const handleLogin = (name) => {
     setUsername(name)
@@ -205,34 +234,58 @@ export default function App() {
               setCurrentView('crystal')
             }}
             onCreateCrystal={handleCreateCrystal}
-            activeMode={currentView === 'chat' ? 'flow' : 'crystals'}
-            onModeChange={(mode) => setCurrentView(mode === 'flow' ? 'chat' : 'crystal')}
+            onDeleteCrystal={handleDeleteCrystal}
+            activeMode={currentView === 'chat' ? 'flow' : currentView === 'memories' ? 'memories' : 'crystals'}
+            onModeChange={(mode) => {
+              if (mode === 'flow') {
+                setCurrentView('chat')
+                return
+              }
+              if (mode === 'memories') {
+                setCurrentView('memories')
+                setActiveCrystal(null)
+                return
+              }
+              setCurrentView('crystal')
+            }}
           />
         </div>
         
         {/* Main Floating Canvas */}
-        <div className="flex-1 flex flex-col glass-panel relative overflow-hidden z-10 w-full h-full">
-          <AnimatePresence mode="wait">
-            {currentView === 'chat' ? (
-              <ChatPanel
-                key={activeChannel}
-                channelName={activeChannel}
-                messages={combinedMessages}
-                onSend={handleSend}
-                wsStatus={serverStatus}
-                currentUser={username}
-                onCrystalize={(text) => handleCreateCrystal(text)}
-              />
-            ) : (
-              <CrystalEditor 
-                key={activeCrystal || 'new'} 
-                currentCrystalSlug={activeCrystal}
-                currentUser={username}
-                onBack={() => setCurrentView('chat')}
-                onNavigate={(slug) => setActiveCrystal(slug)}
-              />
-            )}
-          </AnimatePresence>
+        <div className="flex-1 flex flex-col glass-panel relative overflow-hidden z-10 w-full h-full border border-white/[0.06]">
+          {currentView === 'chat' ? (
+            <ChatPanel
+              key={activeChannel}
+              channelName={activeChannel}
+              messages={combinedMessages}
+              onSend={handleSend}
+              wsStatus={serverStatus}
+              currentUser={username}
+              onCrystalize={(text) => handleCreateCrystal(text)}
+            />
+          ) : currentView === 'memories' ? (
+            <MemoryVault
+              currentUser={username}
+              onNavigateToCrystal={(slug) => {
+                setActiveCrystal(slug)
+                setCurrentView('crystal')
+              }}
+            />
+          ) : (
+            <CrystalEditor 
+              key={activeCrystal || 'new'} 
+              currentCrystalSlug={activeCrystal}
+              currentUser={username}
+              onBack={() => setCurrentView('chat')}
+              onNavigate={(slug) => setActiveCrystal(slug)}
+              onCrystalSaved={loadCrystals}
+              onDeleteCrystal={handleDeleteCrystal}
+              onOpenMemoryVault={() => {
+                setCurrentView('memories')
+                setActiveCrystal(null)
+              }}
+            />
+          )}
         </div>
       </div>
     </div>

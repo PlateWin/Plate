@@ -1,7 +1,7 @@
 # Phase 3 Design: Creative Pulse & Structural Logic
 
 ## 1. Goal: The "Creation First" Evolution
-Following the connectivity established in Phase 2, Phase 3 transforms Plate into a powerhouse for **Creative Writing** and **Structured Knowledge Synthesis**. We will merge the fluid AI assistance of **Notion AI** (democratized via free API keys) with the local-first structural rigor of **Obsidian**, topped with two industry-first innovative features.
+Following the connectivity established in Phase 2, Phase 3 transforms FlowCrystal into a powerhouse for **Creative Writing** and **Structured Knowledge Synthesis**. We will merge the fluid AI assistance of **Notion AI** (democratized via free API keys) with the local-first structural rigor of **Obsidian**, topped with two industry-first innovative features.
 
 ---
 

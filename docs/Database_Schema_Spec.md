@@ -1,6 +1,6 @@
-# Project Plate 数据库架构规格说明书 (v1.0)
+# FlowCrystal 数据库架构规格说明书 (v1.0)
 
-本文档定义了 Project Plate 系统的核心数据库模型、字段定义及索引策略。系统使用 GORM (Go) 进行对象生命周期管理，并以 MySQL 作为存储引擎。
+本文档定义了 FlowCrystal 系统的核心数据库模型、字段定义及索引策略。系统使用 GORM (Go) 进行对象生命周期管理，并以 MySQL 作为存储引擎。
 
 ---
 

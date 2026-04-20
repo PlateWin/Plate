@@ -10,6 +10,6 @@ import (
 func PingCheck(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"status":  "UP",
-		"message": "Plate Core Service is running smoothly",
+		"message": "FlowCrystal Core Service is running smoothly",
 	})
 }

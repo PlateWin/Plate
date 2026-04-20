@@ -39,3 +39,6 @@ main
 # OS
 .DS_Store
 Thumbs.db
+
+# Codex temp
+_tmp_ai_req/
