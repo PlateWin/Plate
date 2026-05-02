@@ -248,24 +248,25 @@ nav.scrolled {
   transform: translateY(0) scale(1);
 }
 
-.photo-card::after {
+.photo-card::before {
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: inherit;
+  background: var(--primary-color);
+  opacity: 0;
+  z-index: 2;
+  mix-blend-mode: color;
+  transition: opacity var(--motion-duration-base) var(--motion-ease-standard);
   pointer-events: none;
-  border: 1px solid transparent;
-  transition: border-color var(--motion-duration-fast) ease;
+}
+
+.photo-card:hover::before {
+  opacity: 0.55;
 }
 
 .photo-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 40px rgba(0, 47, 167, 0.12);
-  border-color: rgba(0, 47, 167, 0.3);
-}
-
-.photo-card:hover::after {
-  border-color: rgba(0, 47, 167, 0.35);
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 30px 60px rgba(0, 47, 167, 0.18);
 }
 
 .photo-card.is-hidden {
@@ -317,12 +318,13 @@ nav.scrolled {
   height: 100%;
   object-fit: cover;
   display: block;
-  filter: saturate(1.04) contrast(1.03);
-  transition: transform var(--motion-duration-slow) var(--motion-ease-emphasis);
+  filter: saturate(1) contrast(1);
+  transition: transform var(--motion-duration-slow) var(--motion-ease-emphasis), filter var(--motion-duration-base) ease;
 }
 
 .photo-card:hover img {
-  transform: scale(1.04);
+  transform: scale(1.08);
+  filter: saturate(1.2) contrast(1.1);
 }
 
 .photo-meta {
@@ -330,11 +332,12 @@ nav.scrolled {
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 1.1rem 1rem 1.1rem;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(6, 10, 28, 0.72) 100%);
-  transform: translateY(12%);
-  opacity: 0.86;
-  transition: transform var(--motion-duration-base) var(--motion-ease-standard), opacity var(--motion-duration-base) var(--motion-ease-standard);
+  padding: 1.5rem 1.2rem;
+  background: linear-gradient(0deg, rgba(0, 47, 167, 0.85) 0%, rgba(0, 47, 167, 0.4) 60%, transparent 100%);
+  transform: translateY(100%);
+  opacity: 0;
+  z-index: 3;
+  transition: transform var(--motion-duration-base) var(--motion-ease-emphasis), opacity var(--motion-duration-base) ease;
 }
 
 .photo-card:hover .photo-meta {
