@@ -92,8 +92,55 @@
   padding-bottom: 0.5rem;
 }
 
+/* --- A2: Immersive Typography --- */
+
+/* Drop Cap (首字下沉) */
+.markdown-body > p:first-of-type::first-letter {
+    font-family: var(--font-display);
+    float: left;
+    font-size: 4.8rem;
+    line-height: 1;
+    margin-right: 0.8rem;
+    margin-top: 0.2rem;
+    color: #002FA7;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* Paragraph Spacing & Line Height */
 .markdown-body p {
-  margin-bottom: 1.5rem;
+    font-size: 1.15rem;
+    line-height: 1.85;
+    margin-bottom: 2.2rem;
+    color: var(--text-primary);
+    opacity: 0.92;
+}
+
+/* Blockquote Style (Klein Blue Accent) */
+.markdown-body blockquote {
+    margin: 3.5rem 0;
+    padding: 2rem 2.5rem;
+    background: rgba(0, 47, 167, 0.03);
+    border-left: 5px solid #002FA7;
+    border-radius: 0 16px 16px 0;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    backdrop-filter: blur(5px);
+}
+
+.markdown-body blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* Inline Code Style */
+.markdown-body :not(pre) > code {
+    background: rgba(0, 47, 167, 0.08);
+    color: #002FA7;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
 }
 
 .markdown-body a {
@@ -120,23 +167,6 @@
   display: block;
 }
 
-/* Glassmorphic Blockquotes */
-.markdown-body blockquote {
-  margin: 2rem 0;
-  padding: 1.5rem 2rem;
-  background: var(--glass-bg);
-  border-left: 4px solid var(--primary-color);
-  border-radius: 0 12px 12px 0;
-  backdrop-filter: blur(10px);
-  font-style: italic;
-  color: var(--text-secondary);
-}
-
-.markdown-body blockquote p:last-child {
-  margin-bottom: 0;
-}
-
-/* Lists */
 .markdown-body ul, .markdown-body ol {
   margin-bottom: 1.5rem;
   padding-left: 2rem;
@@ -144,16 +174,6 @@
 
 .markdown-body li {
   margin-bottom: 0.5rem;
-}
-
-/* Inline Code */
-.markdown-body code {
-  font-family: 'Courier New', Courier, monospace;
-  background: rgba(0, 47, 167, 0.08);
-  color: var(--primary-color);
-  padding: 0.2em 0.4em;
-  border-radius: 4px;
-  font-size: 0.9em;
 }
 
 /* Code Blocks */

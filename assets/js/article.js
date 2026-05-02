@@ -73,10 +73,28 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById('reading-links').style.display = 'block';
         interactionsContainer.style.display = 'block';
         
-        gsap.fromTo([contentContainer, interactionsContainer], 
+        // --- A2: Immersive Reveal Animation ---
+        // 1. Initial Header Animation
+        gsap.fromTo([contentContainer.firstChild, '.interactions-container'], 
             { opacity: 0, y: 30 }, 
-            { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", stagger: 0.2 }
+            { opacity: 1, y: 0, duration: 1, ease: "power3.out", stagger: 0.2 }
         );
+
+        // 2. Scroll-triggered Paragraph Animations
+        const elements = contentContainer.querySelectorAll('p, blockquote, h2, h3, img, pre, .comment-item');
+        elements.forEach((el) => {
+            gsap.from(el, {
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top 90%",
+                    toggleActions: "play none none none"
+                },
+                opacity: 0,
+                y: 20,
+                duration: 0.8,
+                ease: "power2.out"
+            });
+        });
         
         document.title = `${post.title} | Plate.`;
 
