@@ -12,7 +12,7 @@ const initTransition = async () => {
 
     const isFirstLoad = !sessionStorage.getItem('plate_visited');
 
-    // Failsafe: If anything hangs, reveal the page after 2.5s anyway
+    // Failsafe: 2.5s anyway
     const failsafe = setTimeout(() => {
         gsap.to(mask, { scaleY: 0, duration: 0.5, ease: "power2.out" });
         gsap.set(mask, { pointerEvents: "none" });
@@ -20,7 +20,6 @@ const initTransition = async () => {
 
     try {
         if (typeof gsap === 'undefined') {
-            console.error('GSAP not loaded');
             clearTimeout(failsafe);
             mask.style.display = 'none';
             return;
@@ -30,19 +29,15 @@ const initTransition = async () => {
 
         if (isFirstLoad) {
             sessionStorage.setItem('plate_visited', 'true');
-            // Everything is Klein Blue now
+            // Initial Splash: Show Logo
             gsap.set(mask, { scaleY: 1, opacity: 1, backgroundColor: '#002FA7', pointerEvents: 'all' });
+            gsap.set(logoContainer, { display: 'flex', opacity: 0 });
 
             let siteName = 'Plate';
             try {
-                // Set a timeout for config fetch to avoid hanging
-                const configPromise = fetchSiteConfig();
-                const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject('timeout'), 1000));
-                const config = await Promise.race([configPromise, timeoutPromise]);
+                const config = await fetchSiteConfig();
                 siteName = config.site.name || 'Plate';
-            } catch (e) {
-                console.warn('Config fetch failed or timed out, using default name');
-            }
+            } catch (e) { console.warn('Config fetch failed'); }
             
             logoContainer.innerHTML = `${siteName}<span class="dot">.</span>`;
 
@@ -69,15 +64,15 @@ const initTransition = async () => {
                     gsap.set(mask, { transformOrigin: "top" });
                 },
                 onComplete: () => {
-                    gsap.set(mask, { pointerEvents: "none", backgroundColor: '#002FA7' });
+                    gsap.set(mask, { pointerEvents: "none" });
+                    gsap.set(logoContainer, { display: 'none' }); 
                     clearTimeout(failsafe);
                 }
             });
 
         } else {
-            // Subsequent Page Load: Smooth reveal from top
-            // If we are coming from a transition, it might be blue. 
-            // We ensure it's blue for consistency if it was just loaded.
+            // Subsequent Page Load: Pure Blue reveal
+            gsap.set(logoContainer, { display: 'none' });
             gsap.set(mask, { transformOrigin: "top", backgroundColor: '#002FA7' });
             gsap.to(mask, {
                 scaleY: 0,
@@ -108,8 +103,9 @@ document.addEventListener('click', (e) => {
 
         e.preventDefault();
         const mask = document.querySelector('.page-mask');
+        const logoContainer = document.querySelector('.transition-logo');
         if (mask) {
-            // Ensure transition is Klein Blue
+            if (logoContainer) gsap.set(logoContainer, { display: 'none' }); 
             gsap.set(mask, { transformOrigin: "bottom", backgroundColor: '#002FA7', pointerEvents: "all" });
             gsap.to(mask, {
                 scaleY: 1,
