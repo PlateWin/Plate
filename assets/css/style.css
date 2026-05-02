@@ -72,7 +72,7 @@ nav.scrolled {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 1.4rem;
+  gap: 2.5rem;
 }
 .nav-links a {
   color: var(--text-primary);
