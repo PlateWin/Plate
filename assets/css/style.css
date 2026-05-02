@@ -1,3 +1,39 @@
+/* --- A4: Unified Selection & Scrollbar --- */
+::selection {
+  background-color: #002FA7 !important;
+  color: #FFFFFF !important;
+}
+
+::-moz-selection {
+  background-color: #002FA7 !important;
+  color: #FFFFFF !important;
+}
+
+/* Custom Scrollbar - Forced Visibility */
+html, body {
+  scrollbar-width: auto !important; /* Firefox */
+  -ms-overflow-style: auto !important; /* IE/Edge */
+}
+
+::-webkit-scrollbar {
+  width: 10px !important;
+  display: block !important;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.02) !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #002FA7 !important;
+  border-radius: 10px !important;
+  border: 2px solid #FAFAFC !important; /* Padding effect */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #002585 !important;
+}
+
 :root {
   --bg-color: #fafafc;
   --text-primary: #111;
@@ -27,16 +63,7 @@ body {
   line-height: 1.5;
   overflow-x: hidden;
 }
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: 0 0;
-}
-::-webkit-scrollbar-thumb {
-  background: #0000001a;
-  border-radius: 4px;
-}
+
 nav {
   z-index: 1000;
   -webkit-backdrop-filter: blur(20px);
@@ -1565,14 +1592,7 @@ html.lenis body {
   font-size: 0.9rem;
   line-height: 1.6;
 }
-::selection {
-  color: #fff;
-  background: #5b21b6;
-}
-::selection {
-  color: #fff;
-  background: #5b21b6;
-}
+
 .scene-3d {
   perspective: 1200px;
   z-index: 10;
