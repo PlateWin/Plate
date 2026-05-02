@@ -1,11 +1,11 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Plate. çš„è¿‘æœŸçŠ¶æ€ã€ç ”ç©¶è®¡åˆ’ä¸Žæ­£åœ¨æŽ¨è¿›çš„åšå®¢åŠŸèƒ½ï¿½?>
+  <meta name="description" content="Plate. µÄ½üÆÚ×´Ì¬¡¢ÑÐ¾¿¼Æ»®ÓëÕýÔÚÍÆ½øµÄ²©¿Í¹¦ÄÜ??>
   <meta property="og:title" content="Now | Plate.">
-  <meta property="og:description" content="Plate. å½“å‰æ­£åœ¨ç ”ç©¶å’Œæž„å»ºçš„äº‹æƒ…ï¿½?>
+  <meta property="og:description" content="Plate. µ±Ç°ÕýÔÚÑÐ¾¿ºÍ¹¹½¨µÄÊÂÇé??>
   <meta property="og:type" content="website">
   <title>Now | Plate.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,8 +18,18 @@
   <link rel="stylesheet" href="./assets/css/style.css">
   
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        .page-mask {
+            position: fixed; inset: 0; background: #111; z-index: 10000;
+            transform-origin: top; transform: scaleY(1); display: flex;
+            justify-content: center; align-items: center; pointer-events: all;
+        }
+    </style>
 </head>
 <body>
+    <div class="page-mask"><div class="transition-logo"></div></div>
+    
+    
   <!-- Page Transition Mask -->
   
   <div class="scroll-progress-container"><div class="scroll-progress-bar"></div></div>
@@ -42,14 +52,14 @@
       <div class="reveal-mask"><div class="reveal-inner" id="now-hero-line-1">Current</div></div>
       <div class="reveal-mask"><div class="reveal-inner"><em id="now-hero-line-2">Signal.</em></div></div>
     </h1>
-    <div class="reveal-mask"><p class="hero-subtitle reveal-inner" id="now-hero-subtitle">è®°å½•æœ€è¿‘æ­£åœ¨æŽ¨è¿›çš„æ–¹å‘ï¼Œè®©åšå®¢ä¸ä»…æ˜¯å½’æ¡£ï¼Œä¹Ÿæ˜¯æŒç»­æ›´æ–°çš„å·¥ä½œå°ï¿½?/p></div>
+    <div class="reveal-mask"><p class="hero-subtitle reveal-inner" id="now-hero-subtitle">¼ÇÂ¼×î½üÕýÔÚÍÆ½øµÄ·½Ïò£¬ÈÃ²©¿Í²»½öÊÇ¹éµµ£¬Ò²ÊÇ³ÖÐø¸üÐÂµÄ¹¤×÷Ì¨??/p></div>
   </header>
 
   <main class="page-main">
     <section class="card-grid" id="now-cards">
-      <article class="glass-card"><p class="meta-line">Research</p><h2>RAG Security</h2><p>ç»§ç»­å®Œå–„çŸ¥è¯†æ³¨å…¥æ£€æµ‹ã€å› æžœå®¡è®¡ä¸Žå›¾è°±å¼‚å¸¸èŠ‚ç‚¹è¯†åˆ«æ–¹æ¡ˆï¿½?/p></article>
-      <article class="glass-card"><p class="meta-line">Product</p><h2>FlowCrystal / Redou</h2><p>æŽ¨è¿›é•¿æœŸè®°å¿†ã€å¯Œæ–‡æœ¬ç»“æ™¶ã€ä¸Šä¸‹æ–‡è¿žç»­æ€§å’Œæœ¬åœ°å…œåº•æœºåˆ¶ï¿½?/p></article>
-      <article class="glass-card"><p class="meta-line">Writing</p><h2>Blog Phase 2</h2><p>è¡¥é½æ ‡ç­¾ã€å½’æ¡£ã€é˜…è¯»é“¾è·¯ã€åŸºç¡€é¡µé¢ã€SEO ä¸Žå‘å¸ƒæ£€æŸ¥æ¸…å•ï¿½?/p></article>
+      <article class="glass-card"><p class="meta-line">Research</p><h2>RAG Security</h2><p>¼ÌÐøÍêÉÆÖªÊ¶×¢Èë¼ì²â¡¢Òò¹ûÉó¼ÆÓëÍ¼Æ×Òì³£½ÚµãÊ¶±ð·½°¸??/p></article>
+      <article class="glass-card"><p class="meta-line">Product</p><h2>FlowCrystal / Redou</h2><p>ÍÆ½ø³¤ÆÚ¼ÇÒä¡¢¸»ÎÄ±¾½á¾§¡¢ÉÏÏÂÎÄÁ¬ÐøÐÔºÍ±¾µØ¶µµ×»úÖÆ??/p></article>
+      <article class="glass-card"><p class="meta-line">Writing</p><h2>Blog Phase 2</h2><p>²¹Æë±êÇ©¡¢¹éµµ¡¢ÔÄ¶ÁÁ´Â·¡¢»ù´¡Ò³Ãæ¡¢SEO Óë·¢²¼¼ì²éÇåµ¥??/p></article>
     </section>
   </main>
 
@@ -57,6 +67,11 @@
   <script type="module" src="./assets/js/main.js"></script>
   <script type="module" src="./assets/js/now.js"></script>
   
+    <script type='module' src='./assets/js/transition.js'></script>
 </body>
 </html>
+
+
+
+
 

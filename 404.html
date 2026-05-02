@@ -1,9 +1,9 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="é¡µé¢æœªæ‰¾åˆ°ï¼Œè¿”å›ž Plate. é¦–é¡µç»§ç»­æµè§ˆæ–‡ç« ã€é¡¹ç›®å’Œæ‘„å½±å†…å®¹ï¿½?>
+  <meta name="description" content="Ò³ÃæÎ´ÕÒµ½£¬·µ»Ø Plate. Ê×Ò³¼ÌÐøä¯ÀÀÎÄÕÂ¡¢ÏîÄ¿ºÍÉãÓ°ÄÚÈÝ??>
   <meta name="robots" content="noindex">
   <title>404 | Plate.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,8 +16,18 @@
   <link rel="stylesheet" href="./assets/css/style.css">
   
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        .page-mask {
+            position: fixed; inset: 0; background: #111; z-index: 10000;
+            transform-origin: top; transform: scaleY(1); display: flex;
+            justify-content: center; align-items: center; pointer-events: all;
+        }
+    </style>
 </head>
 <body>
+    <div class="page-mask"><div class="transition-logo"></div></div>
+    
+    
   <!-- Page Transition Mask -->
   
   <div class="scroll-progress-container"><div class="scroll-progress-bar"></div></div>
@@ -39,12 +49,17 @@
       <div class="reveal-mask"><div class="reveal-inner">Page</div></div>
       <div class="reveal-mask"><div class="reveal-inner"><em>Missing.</em></div></div>
     </h1>
-    <div class="reveal-mask"><p class="hero-subtitle reveal-inner">è¿™æ¡è·¯å¾„æ²¡æœ‰æ‰¾åˆ°å¯¹åº”å†…å®¹ã€‚ä½ å¯ä»¥å›žåˆ°é¦–é¡µï¼Œç»§ç»­æŽ¢ç´¢æ–‡ç« ã€é¡¹ç›®å’Œæ‘„å½±å¿—ï¿½?/p></div>
+    <div class="reveal-mask"><p class="hero-subtitle reveal-inner">ÕâÌõÂ·¾¶Ã»ÓÐÕÒµ½¶ÔÓ¦ÄÚÈÝ¡£Äã¿ÉÒÔ»Øµ½Ê×Ò³£¬¼ÌÐøÌ½Ë÷ÎÄÕÂ¡¢ÏîÄ¿ºÍÉãÓ°Ö¾??/p></div>
     <a class="articles-tool-link" href="/index.html" style="margin-top: 2rem; width: fit-content;">Return Home</a>
   </header>
 
   <script type="module" src="./assets/js/main.js"></script>
   
+    <script type='module' src='./assets/js/transition.js'></script>
 </body>
 </html>
+
+
+
+
 

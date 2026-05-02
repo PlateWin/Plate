@@ -1,4 +1,4 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
@@ -14,8 +14,18 @@
   <link rel="stylesheet" href="./assets/css/style.css">
   
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        .page-mask {
+            position: fixed; inset: 0; background: #111; z-index: 10000;
+            transform-origin: top; transform: scaleY(1); display: flex;
+            justify-content: center; align-items: center; pointer-events: all;
+        }
+    </style>
 </head>
 <body>
+    <div class="page-mask"><div class="transition-logo"></div></div>
+    
+    
   <!-- Page Transition Mask -->
   
   <div class="scroll-progress-container">
@@ -46,7 +56,7 @@
       <div class="reveal-mask"><div class="reveal-inner"><em>Tags.</em></div></div>
     </h1>
     <div class="reveal-mask">
-      <p class="hero-subtitle reveal-inner">æŒ‰ä¸»é¢˜èšåˆä½ çš„æ–‡ç« å†…å®¹ï¼Œä¿æŒé˜…è¯»è·¯å¾„æ¸…æ™°å¯æŽ¢ç´¢ï¿½?/p>
+      <p class="hero-subtitle reveal-inner">°´Ö÷Ìâ¾ÛºÏÄãµÄÎÄÕÂÄÚÈÝ£¬±£³ÖÔÄ¶ÁÂ·¾¶ÇåÎú¿ÉÌ½Ë÷??/p>
     </div>
   </header>
 
@@ -61,6 +71,11 @@
   <script type="module" src="./assets/js/main.js"></script>
   <script type="module" src="./assets/js/tags.js"></script>
   
+    <script type='module' src='./assets/js/transition.js'></script>
 </body>
 </html>
+
+
+
+
 

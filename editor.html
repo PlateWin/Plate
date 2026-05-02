@@ -1,4 +1,4 @@
-Ôªø<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -11,8 +11,18 @@
     <link href="https://fonts.cdnfonts.com/css/opposans" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/css/editor.css">
+    <style>
+        .page-mask {
+            position: fixed; inset: 0; background: #111; z-index: 10000;
+            transform-origin: top; transform: scaleY(1); display: flex;
+            justify-content: center; align-items: center; pointer-events: all;
+        }
+    </style>
 </head>
 <body>
+    <div class="page-mask"><div class="transition-logo"></div></div>
+    
+    
     <nav id="navbar">
         <div class="logo">Plate<span class="dot">.</span> Console</div>
         <div class="nav-links">
@@ -27,17 +37,17 @@
 
     <section id="login-panel" class="login-panel glass-card">
         <h1>Private Console</h1>
-        <p>Ê≠§È°µÈù¢‰ªÖ‰æõÁÆ°ÁêÜÂëòËÆøÈóÆÔºåËØ∑ËæìÂÖ•ÁÆ°ÁêÜÂëò‰ª§Áâå‰ª•ÁªßÁª≠ÔøΩ?/p>
+        <p>¥À“≥√ÊΩˆπ©π‹¿Ì‘±∑√Œ £¨«Î ‰»Îπ‹¿Ì‘±¡Ó≈∆“‘ºÃ–¯??/p>
         <input id="admin-token" type="password" placeholder="Admin token">
         <button id="btn-login" class="btn-publish">Enter Console</button>
     </section>
 
     <div id="console-app" class="console-shell" style="display:none;">
         <aside class="console-sidebar glass-card">
-            <button class="console-tab active" data-panel="posts-panel">ÊñáÁ´†</button>
-            <button class="console-tab" data-panel="config-panel">Ê®°ÊùøÈÖçÁΩÆ</button>
-            <button class="console-tab" data-panel="photos-panel">ÁÖßÁâáÁÆ°ÁêÜ</button>
-            <button id="btn-logout" class="console-tab danger-tab">ÈÄÄÔøΩ?/button>
+            <button class="console-tab active" data-panel="posts-panel">Œƒ’¬</button>
+            <button class="console-tab" data-panel="config-panel">ƒ£∞Â≈‰÷√</button>
+            <button class="console-tab" data-panel="photos-panel">’’∆¨π‹¿Ì</button>
+            <button id="btn-logout" class="console-tab danger-tab">ÕÀ??/button>
         </aside>
 
         <main class="console-main">
@@ -49,10 +59,10 @@
                     </aside>
                     <div class="editor-workspace">
                         <div class="workspace-header glass-card">
-                            <input type="text" id="post-title" class="title-input" placeholder="ÊñáÁ´†Ê†áÈ¢ò">
-                            <div class="workspace-actions"><button id="btn-delete" class="btn-icon danger">Âà†Èô§</button><button id="btn-save" class="btn-publish">‰øùÂ≠òÂèëÂ∏É</button></div>
+                            <input type="text" id="post-title" class="title-input" placeholder="Œƒ’¬±ÍÃ‚">
+                            <div class="workspace-actions"><button id="btn-delete" class="btn-icon danger">…æ≥˝</button><button id="btn-save" class="btn-publish">±£¥Ê∑¢≤º</button></div>
                         </div>
-                        <div class="metadata-row glass-card"><input type="text" id="post-id" placeholder="slug-id"><input type="text" id="post-tags" placeholder="Ê†áÁ≠æÔºåÈÄóÂè∑ÂàÜÈöî"><input type="text" id="post-excerpt" placeholder="ÊëòË¶Å"></div>
+                        <div class="metadata-row glass-card"><input type="text" id="post-id" placeholder="slug-id"><input type="text" id="post-tags" placeholder="±Í«©£¨∂∫∫≈∑÷∏Ù"><input type="text" id="post-excerpt" placeholder="’™“™"></div>
                         <div class="toolbar glass-card"><button data-cmd="bold">B</button><button data-cmd="italic">I</button><button data-cmd="h2">H</button><button data-cmd="link"></button><button data-cmd="code">{}</button><button data-cmd="image"></button></div>
                         <div class="writing-area"><div class="editor-pane glass-card"><textarea id="post-content" placeholder="# Start your story..."></textarea></div><div id="live-preview" class="preview-pane glass-card markdown-body"></div></div>
                     </div>
@@ -63,173 +73,173 @@
                 <div class="config-card glass-card">
                     <div class="config-header">
                         <div>
-                            <h2>ÂºÄÊ∫êÊ®°ÊùøÈÖçÔøΩ?/h2>
-                            <p class="config-lead">ËøôÈáåÁª¥Êä§ÂçöÂÆ¢Ê®°ÊùøÁöÑÈªòËÆ§ÂÜÖÂÆπ„ÄÇ‰Ω†ÊîπÂÆåÂêéÔºåÈ¶ñÈ°µ„ÄÅAbout„ÄÅNow ÂíåÊëÑÂΩ±ËØ¥Êòé‰ºöÁõ¥Êé•ËØªÂèñËøô‰∫õÈÖçÁΩÆÔøΩ?/p>
+                            <h2>ø™‘¥ƒ£∞Â≈‰??/h2>
+                            <p class="config-lead">’‚¿ÔŒ¨ª§≤©øÕƒ£∞Âµƒƒ¨»œƒ⁄»›°£ƒ„∏ƒÕÍ∫Û£¨ ◊“≥°¢About°¢Now ∫Õ…„”∞Àµ√˜ª·÷±Ω”∂¡»°’‚–©≈‰÷√??/p>
                         </div>
-                        <button id="btn-save-config" class="btn-publish">‰øùÂ≠òÊ®°ÊùøÈÖçÁΩÆ</button>
+                        <button id="btn-save-config" class="btn-publish">±£¥Êƒ£∞Â≈‰÷√</button>
                     </div>
 
                     <div class="config-section">
-                        <h3>Âü∫Á°ÄÁ´ôÁÇπ‰ø°ÊÅØ</h3>
+                        <h3>ª˘¥°’æµ„–≈œ¢</h3>
                         <div class="config-grid two-col">
-                            <label>Á´ôÁÇπÔøΩ?input id="cfg-site-name" placeholder="Plate."></label>
+                            <label>’æµ„??input id="cfg-site-name" placeholder="Plate."></label>
                             <label>Tagline<input id="cfg-site-tagline" placeholder="Algorithm & Aesthetics"></label>
                         </div>
-                        <label>È°µËÑöÊñáÊ°à<input id="cfg-footer-text" placeholder="¬© 2026 Plate. Powered by Logic & Space."></label>
-                        <label>ËÅîÁ≥ªÈÇÆÁÆ±<input id="cfg-contact-email" placeholder="hello@example.com"></label>
+                        <label>“≥Ω≈Œƒ∞∏<input id="cfg-footer-text" placeholder="? 2026 Plate. Powered by Logic & Space."></label>
+                        <label>¡™œµ” œ‰<input id="cfg-contact-email" placeholder="hello@example.com"></label>
                     </div>
 
                     <div class="config-section">
-                        <h3>È¶ñÈ°µ Hero</h3>
-                        <label>È¶ñÈ°µÊ†áÈ¢òÔºàÁî®Êç¢Ë°åÂàÜÊàê‰∏§Ë°åÔøΩ?textarea id="cfg-hero-title" placeholder="Algorithmic&#10;Aesthetics."></textarea></label>
-                        <label>È¶ñÈ°µÂâØÊ†áÔøΩ?textarea id="cfg-hero-subtitle" placeholder="Describe the tone of your template."></textarea></label>
+                        <h3> ◊“≥ Hero</h3>
+                        <label> ◊“≥±ÍÃ‚£®”√ªª––∑÷≥…¡Ω––??textarea id="cfg-hero-title" placeholder="Algorithmic&#10;Aesthetics."></textarea></label>
+                        <label> ◊“≥∏±±Í??textarea id="cfg-hero-subtitle" placeholder="Describe the tone of your template."></textarea></label>
                     </div>
 
                     <div class="config-section">
-                        <h3>È¶ñÈ°µ About</h3>
-                        <label>About Ê†áÈ¢ò<input id="cfg-home-about-title" placeholder="Build with clarity."></label>
-                        <label>About Á¨¨‰∏ÄÔøΩ?textarea id="cfg-home-about-paragraph-1"></textarea></label>
-                        <label>About Á¨¨‰∫åÔøΩ?textarea id="cfg-home-about-paragraph-2"></textarea></label>
+                        <h3> ◊“≥ About</h3>
+                        <label>About ±ÍÃ‚<input id="cfg-home-about-title" placeholder="Build with clarity."></label>
+                        <label>About µ⁄“ª??textarea id="cfg-home-about-paragraph-1"></textarea></label>
+                        <label>About µ⁄∂˛??textarea id="cfg-home-about-paragraph-2"></textarea></label>
                         <div class="config-grid three-col">
-                            <label>ÁªüËÆ° 1 Êï∞ÔøΩ?input id="cfg-home-stat-1-value" placeholder="12+"></label>
-                            <label>ÁªüËÆ° 1 Ê†áÁ≠æ<input id="cfg-home-stat-1-label" placeholder="Posts Ready"></label>
+                            <label>Õ≥º∆ 1  ˝??input id="cfg-home-stat-1-value" placeholder="12+"></label>
+                            <label>Õ≥º∆ 1 ±Í«©<input id="cfg-home-stat-1-label" placeholder="Posts Ready"></label>
                             <span></span>
-                            <label>ÁªüËÆ° 2 Êï∞ÔøΩ?input id="cfg-home-stat-2-value" placeholder="3"></label>
-                            <label>ÁªüËÆ° 2 Ê†áÁ≠æ<input id="cfg-home-stat-2-label" placeholder="Content Modes"></label>
+                            <label>Õ≥º∆ 2  ˝??input id="cfg-home-stat-2-value" placeholder="3"></label>
+                            <label>Õ≥º∆ 2 ±Í«©<input id="cfg-home-stat-2-label" placeholder="Content Modes"></label>
                             <span></span>
-                            <label>ÁªüËÆ° 3 Êï∞ÔøΩ?input id="cfg-home-stat-3-value" placeholder="1"></label>
-                            <label>ÁªüËÆ° 3 Ê†áÁ≠æ<input id="cfg-home-stat-3-label" placeholder="Admin Console"></label>
+                            <label>Õ≥º∆ 3  ˝??input id="cfg-home-stat-3-value" placeholder="1"></label>
+                            <label>Õ≥º∆ 3 ±Í«©<input id="cfg-home-stat-3-label" placeholder="Admin Console"></label>
                             <span></span>
                         </div>
                     </div>
 
                     <div class="config-section">
-                        <h3>È¶ñÈ°µÈ°πÁõÆÂç°Áâá</h3>
+                        <h3> ◊“≥œÓƒøø®∆¨</h3>
                         <div class="config-stack">
                             <div class="config-subcard">
-                                <h4>È°πÁõÆ 1</h4>
-                                <label>Ê†áÈ¢ò<input id="cfg-project-1-title"></label>
-                                <label>ÂâØÊ†áÔøΩ?input id="cfg-project-1-subtitle"></label>
-                                <label>ÂçñÁÇπ 1<input id="cfg-project-1-bullet-1"></label>
-                                <label>ÂçñÁÇπ 2<input id="cfg-project-1-bullet-2"></label>
-                                <label>ÂçñÁÇπ 3<input id="cfg-project-1-bullet-3"></label>
-                                <label>ÊäÄÊúØÊ†áÁ≠æÔºàÈÄóÂè∑ÂàÜÈöîÔøΩ?input id="cfg-project-1-badges"></label>
+                                <h4>œÓƒø 1</h4>
+                                <label>±ÍÃ‚<input id="cfg-project-1-title"></label>
+                                <label>∏±±Í??input id="cfg-project-1-subtitle"></label>
+                                <label>¬Ùµ„ 1<input id="cfg-project-1-bullet-1"></label>
+                                <label>¬Ùµ„ 2<input id="cfg-project-1-bullet-2"></label>
+                                <label>¬Ùµ„ 3<input id="cfg-project-1-bullet-3"></label>
+                                <label>ºº ı±Í«©£®∂∫∫≈∑÷∏Ù??input id="cfg-project-1-badges"></label>
                                 <div class="config-grid two-col">
-                                    <label>ÈìæÊé•ÊñáÊ°à<input id="cfg-project-1-link-text"></label>
-                                    <label>ÈìæÊé•Âú∞ÂùÄ<input id="cfg-project-1-link-url"></label>
+                                    <label>¡¥Ω”Œƒ∞∏<input id="cfg-project-1-link-text"></label>
+                                    <label>¡¥Ω”µÿ÷∑<input id="cfg-project-1-link-url"></label>
                                 </div>
                             </div>
                             <div class="config-subcard">
-                                <h4>È°πÁõÆ 2</h4>
-                                <label>Ê†áÈ¢ò<input id="cfg-project-2-title"></label>
-                                <label>ÂâØÊ†áÔøΩ?input id="cfg-project-2-subtitle"></label>
-                                <label>ÂçñÁÇπ 1<input id="cfg-project-2-bullet-1"></label>
-                                <label>ÂçñÁÇπ 2<input id="cfg-project-2-bullet-2"></label>
-                                <label>ÂçñÁÇπ 3<input id="cfg-project-2-bullet-3"></label>
-                                <label>ÊäÄÊúØÊ†áÁ≠æÔºàÈÄóÂè∑ÂàÜÈöîÔøΩ?input id="cfg-project-2-badges"></label>
+                                <h4>œÓƒø 2</h4>
+                                <label>±ÍÃ‚<input id="cfg-project-2-title"></label>
+                                <label>∏±±Í??input id="cfg-project-2-subtitle"></label>
+                                <label>¬Ùµ„ 1<input id="cfg-project-2-bullet-1"></label>
+                                <label>¬Ùµ„ 2<input id="cfg-project-2-bullet-2"></label>
+                                <label>¬Ùµ„ 3<input id="cfg-project-2-bullet-3"></label>
+                                <label>ºº ı±Í«©£®∂∫∫≈∑÷∏Ù??input id="cfg-project-2-badges"></label>
                                 <div class="config-grid two-col">
-                                    <label>ÈìæÊé•ÊñáÊ°à<input id="cfg-project-2-link-text"></label>
-                                    <label>ÈìæÊé•Âú∞ÂùÄ<input id="cfg-project-2-link-url"></label>
+                                    <label>¡¥Ω”Œƒ∞∏<input id="cfg-project-2-link-text"></label>
+                                    <label>¡¥Ω”µÿ÷∑<input id="cfg-project-2-link-url"></label>
                                 </div>
                             </div>
                             <div class="config-subcard">
-                                <h4>È°πÁõÆ 3</h4>
-                                <label>Ê†áÈ¢ò<input id="cfg-project-3-title"></label>
-                                <label>ÂâØÊ†áÔøΩ?input id="cfg-project-3-subtitle"></label>
-                                <label>ÂçñÁÇπ 1<input id="cfg-project-3-bullet-1"></label>
-                                <label>ÂçñÁÇπ 2<input id="cfg-project-3-bullet-2"></label>
-                                <label>ÂçñÁÇπ 3<input id="cfg-project-3-bullet-3"></label>
-                                <label>ÊäÄÊúØÊ†áÁ≠æÔºàÈÄóÂè∑ÂàÜÈöîÔøΩ?input id="cfg-project-3-badges"></label>
+                                <h4>œÓƒø 3</h4>
+                                <label>±ÍÃ‚<input id="cfg-project-3-title"></label>
+                                <label>∏±±Í??input id="cfg-project-3-subtitle"></label>
+                                <label>¬Ùµ„ 1<input id="cfg-project-3-bullet-1"></label>
+                                <label>¬Ùµ„ 2<input id="cfg-project-3-bullet-2"></label>
+                                <label>¬Ùµ„ 3<input id="cfg-project-3-bullet-3"></label>
+                                <label>ºº ı±Í«©£®∂∫∫≈∑÷∏Ù??input id="cfg-project-3-badges"></label>
                                 <div class="config-grid two-col">
-                                    <label>ÈìæÊé•ÊñáÊ°à<input id="cfg-project-3-link-text"></label>
-                                    <label>ÈìæÊé•Âú∞ÂùÄ<input id="cfg-project-3-link-url"></label>
+                                    <label>¡¥Ω”Œƒ∞∏<input id="cfg-project-3-link-text"></label>
+                                    <label>¡¥Ω”µÿ÷∑<input id="cfg-project-3-link-url"></label>
                                 </div>
                             </div>
                             <div class="config-subcard">
-                                <h4>È°πÁõÆ 4</h4>
-                                <label>Ê†áÈ¢ò<input id="cfg-project-4-title"></label>
-                                <label>ÂâØÊ†áÔøΩ?input id="cfg-project-4-subtitle"></label>
-                                <label>ÂçñÁÇπ 1<input id="cfg-project-4-bullet-1"></label>
-                                <label>ÂçñÁÇπ 2<input id="cfg-project-4-bullet-2"></label>
-                                <label>ÂçñÁÇπ 3<input id="cfg-project-4-bullet-3"></label>
-                                <label>ÊäÄÊúØÊ†áÁ≠æÔºàÈÄóÂè∑ÂàÜÈöîÔøΩ?input id="cfg-project-4-badges"></label>
+                                <h4>œÓƒø 4</h4>
+                                <label>±ÍÃ‚<input id="cfg-project-4-title"></label>
+                                <label>∏±±Í??input id="cfg-project-4-subtitle"></label>
+                                <label>¬Ùµ„ 1<input id="cfg-project-4-bullet-1"></label>
+                                <label>¬Ùµ„ 2<input id="cfg-project-4-bullet-2"></label>
+                                <label>¬Ùµ„ 3<input id="cfg-project-4-bullet-3"></label>
+                                <label>ºº ı±Í«©£®∂∫∫≈∑÷∏Ù??input id="cfg-project-4-badges"></label>
                                 <div class="config-grid two-col">
-                                    <label>ÈìæÊé•ÊñáÊ°à<input id="cfg-project-4-link-text"></label>
-                                    <label>ÈìæÊé•Âú∞ÂùÄ<input id="cfg-project-4-link-url"></label>
+                                    <label>¡¥Ω”Œƒ∞∏<input id="cfg-project-4-link-text"></label>
+                                    <label>¡¥Ω”µÿ÷∑<input id="cfg-project-4-link-url"></label>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="config-section">
-                        <h3>About È°µÈù¢</h3>
+                        <h3>About “≥√Ê</h3>
                         <div class="config-grid three-col compact-grid">
-                            <label>Hero Ê†áÁ≠æ<input id="cfg-about-hero-label"></label>
-                            <label>Ê†áÈ¢òÁ¨¨‰∏ÄÔøΩ?input id="cfg-about-hero-line-1"></label>
-                            <label>Ê†áÈ¢òÁ¨¨‰∫åÔøΩ?input id="cfg-about-hero-line-2"></label>
+                            <label>Hero ±Í«©<input id="cfg-about-hero-label"></label>
+                            <label>±ÍÃ‚µ⁄“ª??input id="cfg-about-hero-line-1"></label>
+                            <label>±ÍÃ‚µ⁄∂˛??input id="cfg-about-hero-line-2"></label>
                         </div>
-                        <label>Hero ÂâØÊ†áÔøΩ?textarea id="cfg-about-hero-subtitle"></textarea></label>
+                        <label>Hero ∏±±Í??textarea id="cfg-about-hero-subtitle"></textarea></label>
                         <div class="config-stack">
                             <div class="config-subcard">
-                                <h4>About Âç°Áâá 1</h4>
+                                <h4>About ø®∆¨ 1</h4>
                                 <label>Meta<input id="cfg-about-card-1-meta"></label>
-                                <label>Ê†áÈ¢ò<input id="cfg-about-card-1-title"></label>
-                                <label>Ê≠£Êñá<textarea id="cfg-about-card-1-body"></textarea></label>
+                                <label>±ÍÃ‚<input id="cfg-about-card-1-title"></label>
+                                <label>’˝Œƒ<textarea id="cfg-about-card-1-body"></textarea></label>
                             </div>
                             <div class="config-subcard">
-                                <h4>About Âç°Áâá 2</h4>
+                                <h4>About ø®∆¨ 2</h4>
                                 <label>Meta<input id="cfg-about-card-2-meta"></label>
-                                <label>Ê†áÈ¢ò<input id="cfg-about-card-2-title"></label>
-                                <label>Ê≠£Êñá<textarea id="cfg-about-card-2-body"></textarea></label>
+                                <label>±ÍÃ‚<input id="cfg-about-card-2-title"></label>
+                                <label>’˝Œƒ<textarea id="cfg-about-card-2-body"></textarea></label>
                             </div>
                             <div class="config-subcard">
-                                <h4>About Âç°Áâá 3</h4>
+                                <h4>About ø®∆¨ 3</h4>
                                 <label>Meta<input id="cfg-about-card-3-meta"></label>
-                                <label>Ê†áÈ¢ò<input id="cfg-about-card-3-title"></label>
-                                <label>Ê≠£Êñá<textarea id="cfg-about-card-3-body"></textarea></label>
+                                <label>±ÍÃ‚<input id="cfg-about-card-3-title"></label>
+                                <label>’˝Œƒ<textarea id="cfg-about-card-3-body"></textarea></label>
                             </div>
                         </div>
                     </div>
 
                     <div class="config-section">
-                        <h3>Now È°µÈù¢</h3>
+                        <h3>Now “≥√Ê</h3>
                         <div class="config-grid three-col compact-grid">
-                            <label>Hero Ê†áÁ≠æ<input id="cfg-now-hero-label"></label>
-                            <label>Ê†áÈ¢òÁ¨¨‰∏ÄÔøΩ?input id="cfg-now-hero-line-1"></label>
-                            <label>Ê†áÈ¢òÁ¨¨‰∫åÔøΩ?input id="cfg-now-hero-line-2"></label>
+                            <label>Hero ±Í«©<input id="cfg-now-hero-label"></label>
+                            <label>±ÍÃ‚µ⁄“ª??input id="cfg-now-hero-line-1"></label>
+                            <label>±ÍÃ‚µ⁄∂˛??input id="cfg-now-hero-line-2"></label>
                         </div>
-                        <label>Hero ÂâØÊ†áÔøΩ?textarea id="cfg-now-hero-subtitle"></textarea></label>
+                        <label>Hero ∏±±Í??textarea id="cfg-now-hero-subtitle"></textarea></label>
                         <div class="config-stack">
                             <div class="config-subcard">
-                                <h4>Now ÔøΩ?1</h4>
+                                <h4>Now ??1</h4>
                                 <label>Meta<input id="cfg-now-item-1-meta"></label>
-                                <label>Ê†áÈ¢ò<input id="cfg-now-item-1-title"></label>
-                                <label>Ê≠£Êñá<textarea id="cfg-now-item-1-body"></textarea></label>
+                                <label>±ÍÃ‚<input id="cfg-now-item-1-title"></label>
+                                <label>’˝Œƒ<textarea id="cfg-now-item-1-body"></textarea></label>
                             </div>
                             <div class="config-subcard">
-                                <h4>Now ÔøΩ?2</h4>
+                                <h4>Now ??2</h4>
                                 <label>Meta<input id="cfg-now-item-2-meta"></label>
-                                <label>Ê†áÈ¢ò<input id="cfg-now-item-2-title"></label>
-                                <label>Ê≠£Êñá<textarea id="cfg-now-item-2-body"></textarea></label>
+                                <label>±ÍÃ‚<input id="cfg-now-item-2-title"></label>
+                                <label>’˝Œƒ<textarea id="cfg-now-item-2-body"></textarea></label>
                             </div>
                             <div class="config-subcard">
-                                <h4>Now ÔøΩ?3</h4>
+                                <h4>Now ??3</h4>
                                 <label>Meta<input id="cfg-now-item-3-meta"></label>
-                                <label>Ê†áÈ¢ò<input id="cfg-now-item-3-title"></label>
-                                <label>Ê≠£Êñá<textarea id="cfg-now-item-3-body"></textarea></label>
+                                <label>±ÍÃ‚<input id="cfg-now-item-3-title"></label>
+                                <label>’˝Œƒ<textarea id="cfg-now-item-3-body"></textarea></label>
                             </div>
                         </div>
                     </div>
 
                     <div class="config-section">
-                        <h3>SEO ‰∏éÊëÑÂΩ±ËØ¥ÔøΩ?/h3>
-                        <label>È¶ñÈ°µ SEO Ê†áÈ¢ò<input id="cfg-seo-home-title"></label>
-                        <label>È¶ñÈ°µ SEO ÊèèËø∞<textarea id="cfg-seo-home-description"></textarea></label>
-                        <label>About SEO Ê†áÈ¢ò<input id="cfg-seo-about-title"></label>
-                        <label>About SEO ÊèèËø∞<textarea id="cfg-seo-about-description"></textarea></label>
-                        <label>Now SEO Ê†áÈ¢ò<input id="cfg-seo-now-title"></label>
-                        <label>Now SEO ÊèèËø∞<textarea id="cfg-seo-now-description"></textarea></label>
-                        <label>ÊëÑÂΩ±ËØ¥Êòé<textarea id="cfg-photo-note"></textarea></label>
+                        <h3>SEO ”Î…„”∞Àµ??/h3>
+                        <label> ◊“≥ SEO ±ÍÃ‚<input id="cfg-seo-home-title"></label>
+                        <label> ◊“≥ SEO √Ë ˆ<textarea id="cfg-seo-home-description"></textarea></label>
+                        <label>About SEO ±ÍÃ‚<input id="cfg-seo-about-title"></label>
+                        <label>About SEO √Ë ˆ<textarea id="cfg-seo-about-description"></textarea></label>
+                        <label>Now SEO ±ÍÃ‚<input id="cfg-seo-now-title"></label>
+                        <label>Now SEO √Ë ˆ<textarea id="cfg-seo-now-description"></textarea></label>
+                        <label>…„”∞Àµ√˜<textarea id="cfg-photo-note"></textarea></label>
                     </div>
 
                 </div>
@@ -238,17 +248,17 @@
             <section id="photos-panel" class="console-panel">
                 <div class="panel-grid photos-grid">
                     <div class="config-card glass-card">
-                        <h2>‰∏ä‰º†ÁÖßÁâá</h2>
-                        <label>ÈÄâÊã©ÂõæÁâá<input id="photo-file" type="file" accept="image/*"></label>
-                        <label>Ê†áÈ¢ò<input id="photo-title" placeholder="Street Pulse"></label>
-                        <label>ÂâØÊ†á<input id="photo-subtitle" placeholder="ÂüéÂ∏Ç  Ë°óÊãç"></label>
-                        <label>ÂàÜÁ±ª<select id="photo-category"><option value="street">Ë°óÊãç</option><option value="portrait">‰∫∫ÂÉè</option><option value="night">Â§úÊôØ</option><option value="minimal">ÊûÅÁÆÄ</option></select></label>
-                        <label>ÊãçÊëÑÊó∂Èó¥<input id="photo-time" placeholder="2026-05-01 18:00"></label>
-                        <label>Á∫¨Â∫¶<input id="photo-lat" placeholder="29.56301"></label>
-                        <label>ÁªèÂ∫¶<input id="photo-lng" placeholder="106.55156"></label>
-                        <button id="btn-save-photo" class="btn-publish">‰∏ä‰º†Âπ∂‰øùÔøΩ?/button>
+                        <h2>…œ¥´’’∆¨</h2>
+                        <label>—°‘ÒÕº∆¨<input id="photo-file" type="file" accept="image/*"></label>
+                        <label>±ÍÃ‚<input id="photo-title" placeholder="Street Pulse"></label>
+                        <label>∏±±Í<input id="photo-subtitle" placeholder="≥« –  Ω÷≈ƒ"></label>
+                        <label>∑÷¿‡<select id="photo-category"><option value="street">Ω÷≈ƒ</option><option value="portrait">»ÀœÒ</option><option value="night">“πæ∞</option><option value="minimal">º´ºÚ</option></select></label>
+                        <label>≈ƒ…„ ±º‰<input id="photo-time" placeholder="2026-05-01 18:00"></label>
+                        <label>Œ≥∂»<input id="photo-lat" placeholder="29.56301"></label>
+                        <label>æ≠∂»<input id="photo-lng" placeholder="106.55156"></label>
+                        <button id="btn-save-photo" class="btn-publish">…œ¥´≤¢±£??/button>
                     </div>
-                    <div class="config-card glass-card"><h2>ÁÖßÁâáÂàóË°®</h2><div id="photo-list" class="photo-console-list"></div></div>
+                    <div class="config-card glass-card"><h2>’’∆¨¡–±Ì</h2><div id="photo-list" class="photo-console-list"></div></div>
                 </div>
             </section>
         </main>
@@ -256,6 +266,11 @@
 
     <div id="toast" class="toast">Saved successfully!</div>
     <script type="module" src="./assets/js/editor.js"></script>
+    <script type='module' src='./assets/js/transition.js'></script>
 </body>
 </html>
+
+
+
+
 

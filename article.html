@@ -1,11 +1,11 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Plate. æŠ€æœ¯åšå®¢æ–‡ç« è¯¦æƒ…ï¼Œèšç„¦ç®—æ³•ã€ç¾Žå­¦ã€LLMã€å®‰å…¨ä¸Žå‰ç«¯å·¥ç¨‹ã€‚">
+    <meta name="description" content="Plate. ¼¼Êõ²©¿ÍÎÄÕÂÏêÇé£¬¾Û½¹Ëã·¨¡¢ÃÀÑ§¡¢LLM¡¢°²È«ÓëÇ°¶Ë¹¤³Ì¡£">
     <meta property="og:title" content="Article | Plate.">
-    <meta property="og:description" content="Plate. æŠ€æœ¯åšå®¢æ–‡ç« è¯¦æƒ…ã€‚">
+    <meta property="og:description" content="Plate. ¼¼Êõ²©¿ÍÎÄÕÂÏêÇé¡£">
     <meta property="og:type" content="article">
     <title>Article | Plate.</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,8 +32,18 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <!-- Highlight.js for Code Syntax -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <style>
+        .page-mask {
+            position: fixed; inset: 0; background: #111; z-index: 10000;
+            transform-origin: top; transform: scaleY(1); display: flex;
+            justify-content: center; align-items: center; pointer-events: all;
+        }
+    </style>
 </head>
 <body>
+    <div class="page-mask"><div class="transition-logo"></div></div>
+    
+    
     <!-- Scroll Progress -->
     <div class="scroll-progress-container">
         <div class="scroll-progress-bar"></div>
@@ -106,5 +116,10 @@
 
     <script type="module" src="./assets/js/main.js"></script>
     <script type="module" src="./assets/js/article.js"></script>
+    <script type='module' src='./assets/js/transition.js'></script>
 </body>
 </html>
+
+
+
+

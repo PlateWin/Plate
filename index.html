@@ -1,11 +1,11 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Plate. çš„ä¸ªäººä½œå“é›†ä¸æŠ€æœ¯åšå®¢ï¼Œè®°å½•ç®—æ³•ã€ç¾å­¦ã€LLM å®‰å…¨ã€è®°å¿†å¢å¼ºã€å‰ç«¯å·¥ç¨‹å’Œæ‘„å½±åˆ›ä½œã€‚">
+    <meta name="description" content="Plate. µÄ¸öÈË×÷Æ·¼¯Óë¼¼Êõ²©¿Í£¬¼ÇÂ¼Ëã·¨¡¢ÃÀÑ§¡¢LLM °²È«¡¢¼ÇÒäÔöÇ¿¡¢Ç°¶Ë¹¤³ÌºÍÉãÓ°´´×÷¡£">
     <meta property="og:title" content="Plate. | Algorithm & Aesthetics">
-    <meta property="og:description" content="æ¢ç´¢ç®—æ³•ã€ç¾å­¦ã€LLM å®‰å…¨ã€è®°å¿†å¢å¼ºä¸é«˜è´¨æ„Ÿäº¤äº’ã€‚">
+    <meta property="og:description" content="Ì½Ë÷Ëã·¨¡¢ÃÀÑ§¡¢LLM °²È«¡¢¼ÇÒäÔöÇ¿Óë¸ßÖÊ¸Ğ½»»¥¡£">
     <meta property="og:type" content="website">
     <title>Plate. | Algorithm & Aesthetics</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,8 +18,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        .page-mask {
+            position: fixed; inset: 0; background: #111; z-index: 10000;
+            transform-origin: top; transform: scaleY(1); display: flex;
+            justify-content: center; align-items: center; pointer-events: all;
+        }
+    </style>
 </head>
 <body>
+    <div class="page-mask"><div class="transition-logo"></div></div>
+    
+    
     <div class="scroll-progress-container">
         <div class="scroll-progress-bar"></div>
     </div>
@@ -49,11 +59,11 @@
             <div class="reveal-mask"><div class="reveal-inner"><span class="italic-brand" id="home-hero-line-2">Aesthetics.</span></div></div>
         </h1>
         <div class="reveal-mask">
-            <p class="hero-subtitle reveal-inner" id="home-hero-subtitle">è‡´åŠ›åœ¨å†·å³»çš„ç®—æ³•é€»è¾‘ä¸æµåŠ¨çš„è§†è§‰ç¾å­¦é—´ï¼Œå¯»æ‰¾æŠ€æœ¯ä¸è‰ºæœ¯çš„å…±æŒ¯ç‚¹ã€‚</p>
+            <p class="hero-subtitle reveal-inner" id="home-hero-subtitle">ÖÂÁ¦ÔÚÀä¾şµÄËã·¨Âß¼­ÓëÁ÷¶¯µÄÊÓ¾õÃÀÑ§¼ä£¬Ñ°ÕÒ¼¼ÊõÓëÒÕÊõµÄ¹²Õñµã¡£</p>
         </div>
     </header>
 
-    <!-- Connector 1: Hero ï¿½?About | å½—æ˜Ÿè½¨è¿¹ -->
+    <!-- Connector 1: Hero ??About | åçĞÇ¹ì¼£ -->
     <div class="section-connector" aria-hidden="true">
         <svg class="connector-svg" viewBox="0 0 900 180">
             <path data-order="0"   d="M 720 12 C 670 75, 360 85, 220 168" />
@@ -77,8 +87,8 @@
                 <div class="section-label reveal-element">00 // Philosophy</div>
                 <h2 class="about-title reveal-text" id="home-about-title">Algorithm & Aesthetics</h2>
                 <div class="about-text reveal-element" id="home-about-text">
-                    <p>æˆ‘æ˜¯ä¸€åçƒ­è¡·äºæ„å»ºâ€œæœ‰çµé­‚çš„ç³»ç»Ÿâ€çš„å…¨æ ˆå¼€å‘è€…ä¸æ·±åº¦å­¦ä¹ ç ”ç©¶è€…ã€‚åœ¨æˆ‘çœ‹æ¥ï¼Œ**ç®—æ³•**æ˜¯ä¸–ç•Œçš„åº•å±‚é€»è¾‘ï¼Œå®ƒä¸¥è°¨ã€æ·±é‚ƒã€å……æ»¡ç§©åºï¼›ï¿½?*ç¾å­¦**æ˜¯è¿æ¥äººä¸æŠ€æœ¯çš„æ¡¥æ¢ï¼Œå®ƒæµåŠ¨ã€ç›´è§‚ã€å¯Œæœ‰æƒ…æ„Ÿï¿½?/p>
-                    <p>æˆ‘çš„å·¥ä½œèšç„¦äºå¤§å‹è¯­è¨€æ¨¡å‹ï¼ˆLLMï¼‰çš„è®°å¿†å¢å¼ºã€å®‰å…¨å®¡è®¡ä»¥åŠç›¸å…³å‰æ²¿æŠ€æœ¯çš„åº”ç”¨ã€‚æˆ‘è¿½æ±‚çš„ä¸ä»…æ˜¯ä»£ç çš„æ‰§è¡Œæ•ˆç‡ï¼Œæ›´æ˜¯æ¯ä¸€æ¬¡äº¤äº’æ‰€å¸¦æ¥çš„è´¨æ„Ÿä¸å…±é¸£ï¿½?/p>
+                    <p>ÎÒÊÇÒ»ÃûÈÈÖÔÓÚ¹¹½¨¡°ÓĞÁé»êµÄÏµÍ³¡±µÄÈ«Õ»¿ª·¢ÕßÓëÉî¶ÈÑ§Ï°ÑĞ¾¿Õß¡£ÔÚÎÒ¿´À´£¬**Ëã·¨**ÊÇÊÀ½çµÄµ×²ãÂß¼­£¬ËüÑÏ½÷¡¢Éîåä¡¢³äÂúÖÈĞò£»??*ÃÀÑ§**ÊÇÁ¬½ÓÈËÓë¼¼ÊõµÄÇÅÁº£¬ËüÁ÷¶¯¡¢Ö±¹Û¡¢¸»ÓĞÇé¸Ğ??/p>
+                    <p>ÎÒµÄ¹¤×÷¾Û½¹ÓÚ´óĞÍÓïÑÔÄ£ĞÍ£¨LLM£©µÄ¼ÇÒäÔöÇ¿¡¢°²È«Éó¼ÆÒÔ¼°Ïà¹ØÇ°ÑØ¼¼ÊõµÄÓ¦ÓÃ¡£ÎÒ×·ÇóµÄ²»½öÊÇ´úÂëµÄÖ´ĞĞĞ§ÂÊ£¬¸üÊÇÃ¿Ò»´Î½»»¥Ëù´øÀ´µÄÖÊ¸ĞÓë¹²Ãù??/p>
                 </div>
                 <div class="about-stats reveal-element" id="home-about-stats">
                     <div class="stat-item">
@@ -98,7 +108,7 @@
         </div>
     </section>
 
-    <!-- Connector 2: About ï¿½?Tools | å›å“ -->
+    <!-- Connector 2: About ??Tools | »ØÏì -->
     <div class="section-connector" aria-hidden="true">
         <svg class="connector-svg" viewBox="0 0 900 180">
             <path data-order="0"    d="M 210 12 C 280 75, 590 100, 680 168" />
@@ -146,13 +156,13 @@
                 <span>Obsidian</span>
             </div>
             <div class="node node-satellite magnetic" data-id="7">
-                <div class="tool-icon-text">ğŸ”®</div>
+                <div class="tool-icon-text">??</div>
                 <span>FlowCrystal</span>
             </div>
         </div>
     </section>
 
-    <!-- Connector 3: Tools ï¿½?Experience | åˆ†å‰ -->
+    <!-- Connector 3: Tools ??Experience | ·Ö²æ -->
     <div class="section-connector" aria-hidden="true">
         <svg class="connector-svg" viewBox="0 0 900 180">
             <path data-order="0"   d="M 450 0 C 450 45, 450 55, 450 78" />
@@ -172,8 +182,8 @@
                     <span class="exp-role">Core Developer & Security Researcher</span>
                 </div>
                 <div class="exp-content">
-                    <h3 class="exp-title">çŸ¥å‡ å®‰å…¨ (InsightSafe) & Redou</h3>
-                    <p class="exp-desc">è´Ÿè´£ LLM è®°å¿†å¢å¼ºå¼•æ“ä¸å®‰å…¨å®¡è®¡ç³»ç»Ÿçš„æ ¸å¿ƒæ¶æ„ã€‚å¼•å…¥å›¾ç¥ç»ç½‘ç»œï¼ˆGNNï¼‰ä¸å› æœæ¨æ–­æ¨¡å‹ï¼ŒæˆåŠŸé˜²ï¿½?RAG åœºæ™¯ä¸‹çš„çŸ¥è¯†æŠ•æ¯’ä¸æç¤ºè¯æ³¨å…¥æ”»å‡»ã€‚åŸºï¿½?TEE æ¶æ„è®¾è®¡äº†é«˜éšç§æ•°æ®å¤„ç†æµï¿½?/p>
+                    <h3 class="exp-title">Öª¼¸°²È« (InsightSafe) & Redou</h3>
+                    <p class="exp-desc">¸ºÔğ LLM ¼ÇÒäÔöÇ¿ÒıÇæÓë°²È«Éó¼ÆÏµÍ³µÄºËĞÄ¼Ü¹¹¡£ÒıÈëÍ¼Éñ¾­ÍøÂç£¨GNN£©ÓëÒò¹ûÍÆ¶ÏÄ£ĞÍ£¬³É¹¦·À??RAG ³¡¾°ÏÂµÄÖªÊ¶Í¶¶¾ÓëÌáÊ¾´Ê×¢Èë¹¥»÷¡£»ù??TEE ¼Ü¹¹Éè¼ÆÁË¸ßÒşË½Êı¾İ´¦ÀíÁ÷??/p>
                 </div>
             </div>
 
@@ -184,7 +194,7 @@
                 </div>
                 <div class="exp-content">
                     <h3 class="exp-title">MindDream Platform</h3>
-                    <p class="exp-desc">ç‹¬ç«‹è®¾è®¡å¹¶å®ç°äº†åŸºäºå¤§æ¨¡å‹çš„å…¨æ ˆå¿ƒç†å­¦æ¢¦å¢ƒè§£æå¹³å°ã€‚å‰ç«¯é‡‡ï¿½?Vue 3 æ„å»ºé«˜æ€§èƒ½äº¤äº’ï¼Œåç«¯æ•´åˆå¤ï¿½?AI å·¥ä½œæµè¿›è¡Œè‡ªç„¶è¯­è¨€ç»“æ„åŒ–åˆ†æä¸ç”¨æˆ·è¡Œä¸ºå»ºæ¨¡ï¿½?/p>
+                    <p class="exp-desc">¶ÀÁ¢Éè¼Æ²¢ÊµÏÖÁË»ùÓÚ´óÄ£ĞÍµÄÈ«Õ»ĞÄÀíÑ§ÃÎ¾³½âÎöÆ½Ì¨¡£Ç°¶Ë²É??Vue 3 ¹¹½¨¸ßĞÔÄÜ½»»¥£¬ºó¶ËÕûºÏ¸´??AI ¹¤×÷Á÷½øĞĞ×ÔÈ»ÓïÑÔ½á¹¹»¯·ÖÎöÓëÓÃ»§ĞĞÎª½¨Ä£??/p>
                 </div>
             </div>
             
@@ -194,14 +204,14 @@
                     <span class="exp-role">Algorithmic Competitor</span>
                 </div>
                 <div class="exp-content">
-                    <h3 class="exp-title">ç®—æ³•ç«èµ›ä¸æ€§èƒ½ä¼˜åŒ–</h3>
-                    <p class="exp-desc">é•¿æœŸæ´»è·ƒäºå›½å®¶çº§ä¸çœçº§ç®—æ³•ç«èµ›ï¼Œä¸“æ³¨äºå›¾è®ºã€åŠ¨æ€è§„åˆ’ä¸æ•°æ®ç»“æ„ä¼˜åŒ–ã€‚å¤šæ¬¡åœ¨è“æ¡¥æ¯ã€GPLT ç­‰èµ›äº‹ä¸­æ–©è·ä¸€äºŒç­‰å¥–ï¼Œå¯¹ä»£ç çš„æ—¶é—´å¤æ‚åº¦ä¸ç©ºé—´å¤æ‚åº¦æœ‰ç€è‹›åˆ»çš„è¿½æ±‚ï¿½?/p>
+                    <h3 class="exp-title">Ëã·¨¾ºÈüÓëĞÔÄÜÓÅ»¯</h3>
+                    <p class="exp-desc">³¤ÆÚ»îÔ¾ÓÚ¹ú¼Ò¼¶ÓëÊ¡¼¶Ëã·¨¾ºÈü£¬×¨×¢ÓÚÍ¼ÂÛ¡¢¶¯Ì¬¹æ»®ÓëÊı¾İ½á¹¹ÓÅ»¯¡£¶à´ÎÔÚÀ¶ÇÅ±­¡¢GPLT µÈÈüÊÂÖĞÕ¶»ñÒ»¶şµÈ½±£¬¶Ô´úÂëµÄÊ±¼ä¸´ÔÓ¶ÈÓë¿Õ¼ä¸´ÔÓ¶ÈÓĞ×Å¿Á¿ÌµÄ×·Çó??/p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Connector 4: Experience ï¿½?Projects | åŒæµ -->
+    <!-- Connector 4: Experience ??Projects | Ë«Á÷ -->
     <div class="section-connector" aria-hidden="true">
         <svg class="connector-svg" viewBox="0 0 900 180">
             <path data-order="0"    d="M 690 12 C 645 80, 330 105, 255 168" />
@@ -219,7 +229,7 @@
         </div>
     </section>
 
-    <!-- Connector 5: Projects ï¿½?Lab | é¢‘ç‡ï¿½?-->
+    <!-- Connector 5: Projects ??Lab | ÆµÂÊ??-->
     <div class="section-connector" aria-hidden="true">
         <svg class="connector-svg" viewBox="0 0 900 180">
             <path data-order="0" d="M 60 90 C 105 28, 195 28, 240 90 C 285 150, 375 150, 430 85 C 485 22, 575 22, 620 90 C 665 155, 755 155, 810 90" />
@@ -235,7 +245,7 @@
                 <article class="lab-feature">
                     <p class="lab-kicker">Current Experiment</p>
                     <h3>Counterfactual RAG Safety Gate</h3>
-                    <p>æŠŠæ£€ç´¢ä¸Šä¸‹æ–‡çœ‹æˆå¯å¹²é¢„å›¾ç»“æ„ï¼Œé€æ®µç§»é™¤é«˜é£é™©æ¥æºï¼Œè§‚å¯Ÿå›ç­”æ¦‚ç‡å’Œè¯­ä¹‰æ”¯æŒåº¦çš„å˜åŒ–ï¼Œç”¨å› æœå·®åˆ†å®šä½çŸ¥è¯†æ³¨å…¥ï¿½?/p>
+                    <p>°Ñ¼ìË÷ÉÏÏÂÎÄ¿´³É¿É¸ÉÔ¤Í¼½á¹¹£¬Öğ¶ÎÒÆ³ı¸ß·çÏÕÀ´Ô´£¬¹Û²ì»Ø´ğ¸ÅÂÊºÍÓïÒåÖ§³Ö¶ÈµÄ±ä»¯£¬ÓÃÒò¹û²î·Ö¶¨Î»ÖªÊ¶×¢Èë??/p>
                     <div class="lab-metrics">
                         <div><span>Attack surface cut</span><strong>37%</strong></div>
                         <div><span>Median overhead</span><strong>18ms</strong></div>
@@ -265,23 +275,23 @@
                 <article>
                     <span>01</span>
                     <h4>Graph Audit</h4>
-                    <p>å°†æ–‡æ¡£ã€å¼•ç”¨ã€å®ä½“å’Œå›ç­”ç‰‡æ®µç»„ç»‡æˆè¯æ®å›¾ï¼Œæ‰¾å‡ºå¼‚å¸¸å½±å“è·¯å¾„ï¿½?/p>
+                    <p>½«ÎÄµµ¡¢ÒıÓÃ¡¢ÊµÌåºÍ»Ø´ğÆ¬¶Î×éÖ¯³ÉÖ¤¾İÍ¼£¬ÕÒ³öÒì³£Ó°ÏìÂ·¾¶??/p>
                 </article>
                 <article>
                     <span>02</span>
                     <h4>Memory Routing</h4>
-                    <p>æŒ‰æ—¶é—´ã€è¯­ä¹‰è·ç¦»å’Œå®‰å…¨æƒé‡è°ƒåº¦é•¿æœŸè®°å¿†ï¼Œé¿å…æ—§äº‹å®è¿‡åº¦æ”¯é…ï¿½?/p>
+                    <p>°´Ê±¼ä¡¢ÓïÒå¾àÀëºÍ°²È«È¨ÖØµ÷¶È³¤ÆÚ¼ÇÒä£¬±ÜÃâ¾ÉÊÂÊµ¹ı¶ÈÖ§Åä??/p>
                 </article>
                 <article>
                     <span>03</span>
                     <h4>Interaction Physics</h4>
-                    <p>ç”¨æ’å€¼ã€é€Ÿåº¦å’Œé˜»å°¼æ§åˆ¶ç•Œé¢å“åº”ï¼Œè®©æŠ€æœ¯è¡¨è¾¾ä¿æŒå¯æ„Ÿä½†ä¸å–§å“—ï¿½?/p>
+                    <p>ÓÃ²åÖµ¡¢ËÙ¶ÈºÍ×èÄá¿ØÖÆ½çÃæÏìÓ¦£¬ÈÃ¼¼Êõ±í´ï±£³Ö¿É¸Ğµ«²»Ğú»©??/p>
                 </article>
             </div>
         </div>
     </section>
 
-    <!-- Connector 6: Lab ï¿½?Marquee | è½¨è¿¹æ•£ç‚¹ -->
+    <!-- Connector 6: Lab ??Marquee | ¹ì¼£É¢µã -->
     <div class="section-connector" aria-hidden="true">
         <svg class="connector-svg" viewBox="0 0 900 180">
             <path data-order="0" d="M 255 12 C 340 75, 570 105, 650 168" />
@@ -306,7 +316,7 @@
         </div>
     </section>
 
-    <!-- Connector 7: Marquee ï¿½?Honors | æ˜Ÿå›¾ -->
+    <!-- Connector 7: Marquee ??Honors | ĞÇÍ¼ -->
     <div class="section-connector" aria-hidden="true">
         <svg class="connector-svg" viewBox="0 0 900 180">
             <path data-order="0"   d="M 175 35 L 440 95" />
@@ -336,24 +346,24 @@
             <div class="timeline-item left">
                 <div class="timeline-dot"></div>
                 <div class="milestone-card magnetic">
-                    <h3 class="award-title"><span class="highlight-dot"></span>ä¸ªäººå›½å®¶çº§ä¸‰ç­‰å¥–</h3>
-                    <p class="award-desc">å›¢é˜Ÿç¨‹åºè®¾è®¡å¤©æ¢¯ï¿½?/p>
+                    <h3 class="award-title"><span class="highlight-dot"></span>¸öÈË¹ú¼Ò¼¶ÈıµÈ½±</h3>
+                    <p class="award-desc">ÍÅ¶Ó³ÌĞòÉè¼ÆÌìÌİ??/p>
                 </div>
             </div>
             
             <div class="timeline-item right">
                 <div class="timeline-dot"></div>
                 <div class="milestone-card magnetic">
-                    <h3 class="award-title"><span class="highlight-dot"></span>çœèµ›ä¸€ç­‰å¥–</h3>
-                    <p class="award-desc">ç¬¬åä¸ƒå±Šè“æ¡¥æ¯è½¯ä»¶èµ› C/C++ Bï¿½?/p>
+                    <h3 class="award-title"><span class="highlight-dot"></span>Ê¡ÈüÒ»µÈ½±</h3>
+                    <p class="award-desc">µÚÊ®Æß½ìÀ¶ÇÅ±­Èí¼şÈü C/C++ B??/p>
                 </div>
             </div>
             
             <div class="timeline-item left">
                 <div class="timeline-dot"></div>
                 <div class="milestone-card magnetic">
-                    <h3 class="award-title"><span class="highlight-dot"></span>æ ¡èµ›ä¸€ã€äºŒç­‰å¥–</h3>
-                    <p class="award-desc">é‡åº†å·¥ç¨‹å­¦é™¢â€œå°æŒ‘ï¿½?/p>
+                    <h3 class="award-title"><span class="highlight-dot"></span>Ğ£ÈüÒ»¡¢¶şµÈ½±</h3>
+                    <p class="award-desc">ÖØÇì¹¤³ÌÑ§Ôº¡°Ğ¡Ìô??/p>
                 </div>
             </div>
 
@@ -363,64 +373,64 @@
             <div class="timeline-item right">
                 <div class="timeline-dot"></div>
                 <div class="milestone-card magnetic">
-                    <h3 class="award-title"><span class="highlight-dot"></span>çœèµ›äºŒç­‰ï¿½?/h3>
-                    <p class="award-desc">ç¬¬åå…­å±Šè“æ¡¥æ¯è½¯ä»¶èµ› C/C++ Bï¿½?/p>
+                    <h3 class="award-title"><span class="highlight-dot"></span>Ê¡Èü¶şµÈ??/h3>
+                    <p class="award-desc">µÚÊ®Áù½ìÀ¶ÇÅ±­Èí¼şÈü C/C++ B??/p>
                 </div>
             </div>
 
             <div class="timeline-item left">
                 <div class="timeline-dot"></div>
                 <div class="milestone-card magnetic">
-                    <h3 class="award-title"><span class="highlight-dot"></span>å…¨å›½æ€»å†³èµ›ä¸‰ç­‰å¥–</h3>
-                    <p class="award-desc">ç¿æŠ—æœºå™¨äººå¼€å‘è€…å¤§èµ›ç¼–ç¨‹æŠ€èƒ½ç«ï¿½?/p>
+                    <h3 class="award-title"><span class="highlight-dot"></span>È«¹ú×Ü¾öÈüÈıµÈ½±</h3>
+                    <p class="award-desc">î£¿¹»úÆ÷ÈË¿ª·¢Õß´óÈü±à³Ì¼¼ÄÜ¾º??/p>
                 </div>
             </div>
 
             <div class="timeline-item right">
                 <div class="timeline-dot"></div>
                 <div class="milestone-card magnetic">
-                    <h3 class="award-title"><span class="highlight-dot"></span>çœèµ›ä¸‰ç­‰ï¿½?/h3>
-                    <p class="award-desc">ç¬¬äºŒåä¸ƒå±Šä¸­å›½æœºå™¨äººåŠäººå·¥æ™ºèƒ½å¤§ï¿½?/p>
+                    <h3 class="award-title"><span class="highlight-dot"></span>Ê¡ÈüÈıµÈ??/h3>
+                    <p class="award-desc">µÚ¶şÊ®Æß½ìÖĞ¹ú»úÆ÷ÈË¼°ÈË¹¤ÖÇÄÜ´ó??/p>
                 </div>
             </div>
 
             <div class="timeline-item left">
                 <div class="timeline-dot"></div>
                 <div class="milestone-card magnetic">
-                    <h3 class="award-title"><span class="highlight-dot"></span>å›¢é˜Ÿä¸‰ç­‰ï¿½?/h3>
-                    <p class="award-desc">ç¬¬åå±Šâ€œä¸­å›½é«˜æ ¡è®¡ç®—æœºå¤§èµ›-å›¢ä½“ç¨‹åºè®¾è®¡å¤©æ¢¯èµ›â€é‡åº†å¸‚</p>
+                    <h3 class="award-title"><span class="highlight-dot"></span>ÍÅ¶ÓÈıµÈ??/h3>
+                    <p class="award-desc">µÚÊ®½ì¡°ÖĞ¹ú¸ßĞ£¼ÆËã»ú´óÈü-ÍÅÌå³ÌĞòÉè¼ÆÌìÌİÈü¡±ÖØÇìÊĞ</p>
                 </div>
             </div>
 
             <div class="timeline-item right">
                 <div class="timeline-dot"></div>
                 <div class="milestone-card magnetic">
-                    <h3 class="award-title"><span class="highlight-dot"></span>åŒºåŸŸäºŒç­‰ï¿½?/h3>
-                    <p class="award-desc">ç¬¬å…­å±Šå…¨å›½é«˜æ ¡è®¡ç®—æœºèƒ½åŠ›æŒ‘æˆ˜ï¿½?(C++ç§‘ç›®)</p>
+                    <h3 class="award-title"><span class="highlight-dot"></span>ÇøÓò¶şµÈ??/h3>
+                    <p class="award-desc">µÚÁù½ìÈ«¹ú¸ßĞ£¼ÆËã»úÄÜÁ¦ÌôÕ½??(C++¿ÆÄ¿)</p>
                 </div>
             </div>
 
             <div class="timeline-item left">
                 <div class="timeline-dot"></div>
                 <div class="milestone-card magnetic">
-                    <h3 class="award-title"><span class="highlight-dot"></span>å¸‚èµ›ä¸‰ç­‰ï¿½?/h3>
-                    <p class="award-desc">é‡åº†å¸‚ç»Ÿè®¡å»ºï¿½?/p>
+                    <h3 class="award-title"><span class="highlight-dot"></span>ÊĞÈüÈıµÈ??/h3>
+                    <p class="award-desc">ÖØÇìÊĞÍ³¼Æ½¨??/p>
                 </div>
             </div>
 
             <div class="timeline-item right">
                 <div class="timeline-dot"></div>
                 <div class="milestone-card magnetic">
-                    <h3 class="award-title"><span class="highlight-dot"></span>æ ¡èµ›äºŒç­‰ï¿½?/h3>
-                    <p class="award-desc">å¤§å­¦ç”Ÿæ•°å­¦å»ºæ¨¡ç«ï¿½?/p>
+                    <h3 class="award-title"><span class="highlight-dot"></span>Ğ£Èü¶şµÈ??/h3>
+                    <p class="award-desc">´óÑ§ÉúÊıÑ§½¨Ä£¾º??/p>
                 </div>
             </div>
 
             <div class="timeline-item left">
                 <div class="timeline-dot"></div>
                 <div class="milestone-card magnetic">
-                    <h3 class="award-title"><span class="highlight-dot"></span>æ ¡èµ›ä¸‰ç­‰ï¿½?/h3>
-                    <p class="award-desc">ç¬¬åä¹å±Šâ€œæŒ‘æˆ˜æ¯ï¿½?/p>
+                    <h3 class="award-title"><span class="highlight-dot"></span>Ğ£ÈüÈıµÈ??/h3>
+                    <p class="award-desc">µÚÊ®¾Å½ì¡°ÌôÕ½±­??/p>
                 </div>
             </div>
 
@@ -430,39 +440,39 @@
             <div class="timeline-item right">
                 <div class="timeline-dot"></div>
                 <div class="milestone-card magnetic">
-                    <h3 class="award-title"><span class="highlight-dot"></span>äºŒç­‰ï¿½?/h3>
-                    <p class="award-desc">â€œæ³°è¿ªæ¯â€æ•°æ®åˆ†ææŠ€èƒ½èµ› (Aï¿½?</p>
+                    <h3 class="award-title"><span class="highlight-dot"></span>¶şµÈ??/h3>
+                    <p class="award-desc">¡°Ì©µÏ±­¡±Êı¾İ·ÖÎö¼¼ÄÜÈü (A??</p>
                 </div>
             </div>
 
             <div class="timeline-item left">
                 <div class="timeline-dot"></div>
                 <div class="milestone-card magnetic">
-                    <h3 class="award-title"><span class="highlight-dot"></span>ä¸‰ç­‰ï¿½?/h3>
-                    <p class="award-desc">â€œæ³°è¿ªæ¯â€æ•°æ®åˆ†ææŠ€èƒ½èµ› (Bï¿½?</p>
+                    <h3 class="award-title"><span class="highlight-dot"></span>ÈıµÈ??/h3>
+                    <p class="award-desc">¡°Ì©µÏ±­¡±Êı¾İ·ÖÎö¼¼ÄÜÈü (B??</p>
                 </div>
             </div>
 
             <div class="timeline-item right">
                 <div class="timeline-dot"></div>
                 <div class="milestone-card magnetic">
-                    <h3 class="award-title"><span class="highlight-dot"></span>åŒºåŸŸäºŒç­‰ï¿½?/h3>
-                    <p class="award-desc">ç¬¬å…­å±Šå…¨å›½é«˜æ ¡è®¡ç®—æœºèƒ½åŠ›æŒ‘æˆ˜ï¿½?(Cè¯­è¨€)</p>
+                    <h3 class="award-title"><span class="highlight-dot"></span>ÇøÓò¶şµÈ??/h3>
+                    <p class="award-desc">µÚÁù½ìÈ«¹ú¸ßĞ£¼ÆËã»úÄÜÁ¦ÌôÕ½??(CÓïÑÔ)</p>
                 </div>
             </div>
 
             <div class="timeline-item left">
                 <div class="timeline-dot"></div>
                 <div class="milestone-card magnetic">
-                    <h3 class="award-title"><span class="highlight-dot"></span>äºŒç­‰ï¿½?/h3>
-                    <p class="award-desc">ç¬¬ä¸ƒå±Šä¼ æ™ºæ¯ ITè®¡ç®—å¤§èµ›</p>
+                    <h3 class="award-title"><span class="highlight-dot"></span>¶şµÈ??/h3>
+                    <p class="award-desc">µÚÆß½ì´«ÖÇ±­ IT¼ÆËã´óÈü</p>
                 </div>
             </div>
 
         </div>
     </section>
 
-    <!-- Connector 8: Honors ï¿½?Articles | æ±‡èš -->
+    <!-- Connector 8: Honors ??Articles | »ã¾Û -->
     <div class="section-connector" aria-hidden="true">
         <svg class="connector-svg" viewBox="0 0 900 180">
             <path data-order="0"   d="M 205 12 C 250 85, 420 138, 455 175" />
@@ -526,6 +536,11 @@
     <script type="module" src="./assets/js/main.js"></script>
     <script type="module" src="./assets/js/ai-assistant.js"></script>
     
+    <script type='module' src='./assets/js/transition.js'></script>
 </body>
 </html>
+
+
+
+
 

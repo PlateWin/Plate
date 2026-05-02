@@ -1,11 +1,11 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="å…³äº Plate.ï¼šå…¨æ ˆå¼€å‘è€…ã€æ·±åº¦å­¦ä¹ ç ”ç©¶è€…ï¼Œå…³æ³¨ LLM è®°å¿†å¢å¼ºã€å®‰å…¨å®¡è®¡ã€ç®—æ³•ä¸è§†è§‰ç¾å­¦ã€‚">
+  <meta name="description" content="¹ØÓÚ Plate.£ºÈ«Õ»¿ª·¢Õß¡¢Éî¶ÈÑ§Ï°ÑĞ¾¿Õß£¬¹Ø×¢ LLM ¼ÇÒäÔöÇ¿¡¢°²È«Éó¼Æ¡¢Ëã·¨ÓëÊÓ¾õÃÀÑ§¡£">
   <meta property="og:title" content="About | Plate.">
-  <meta property="og:description" content="äº†è§£ Plate. çš„æŠ€æœ¯æ–¹å‘ã€é¡¹ç›®ç»å†ä¸åˆ›ä½œç†å¿µã€‚">
+  <meta property="og:description" content="ÁË½â Plate. µÄ¼¼Êõ·½Ïò¡¢ÏîÄ¿¾­ÀúÓë´´×÷ÀíÄî¡£">
   <meta property="og:type" content="profile">
   <title>About | Plate.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,8 +17,18 @@
   <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
   <link rel="stylesheet" href="./assets/css/style.css">
   <link rel="stylesheet" href="./assets/css/phase2.css">
+    <style>
+        .page-mask {
+            position: fixed; inset: 0; background: #111; z-index: 10000;
+            transform-origin: top; transform: scaleY(1); display: flex;
+            justify-content: center; align-items: center; pointer-events: all;
+        }
+    </style>
 </head>
 <body>
+    <div class="page-mask"><div class="transition-logo"></div></div>
+    
+    
   <div class="scroll-progress-container"><div class="scroll-progress-bar"></div></div>
   <div class="aurora-bg"><div class="aurora-blob blob-1"></div><div class="aurora-blob blob-2"></div></div>
   <div class="cursor-dot"></div><div class="cursor-outline"></div>
@@ -39,20 +49,25 @@
       <div class="reveal-mask"><div class="reveal-inner" id="about-hero-line-1">Algorithmic</div></div>
       <div class="reveal-mask"><div class="reveal-inner"><span class="italic-brand" id="about-hero-line-2">Builder.</span></div></div>
     </h1>
-    <div class="reveal-mask"><p class="hero-subtitle reveal-inner" id="about-hero-subtitle">æˆ‘å…³æ³¨å¤§æ¨¡å‹è®°å¿†ã€å®‰å…¨å®¡è®¡ã€ç®—æ³•å·¥ç¨‹ä¸é«˜è´¨æ„Ÿäº¤äº’ï¼Œè¯•å›¾æŠŠä¸¥è°¨ç³»ç»Ÿåšå¾—æ›´æœ‰æ¸©åº¦ã€‚</p></div>
+    <div class="reveal-mask"><p class="hero-subtitle reveal-inner" id="about-hero-subtitle">ÎÒ¹Ø×¢´óÄ£ĞÍ¼ÇÒä¡¢°²È«Éó¼Æ¡¢Ëã·¨¹¤³ÌÓë¸ßÖÊ¸Ğ½»»¥£¬ÊÔÍ¼°ÑÑÏ½÷ÏµÍ³×öµÃ¸üÓĞÎÂ¶È¡£</p></div>
   </header>
 
   <main class="page-main">
     <section class="card-grid" id="about-cards">
-      <article class="glass-card"><p class="meta-line">Focus</p><h2>LLM Memory & Security</h2><p>å›´ç»• Redouã€InsightSafe ç­‰æ–¹å‘ï¼Œæ¢ç´¢é•¿æœŸè®°å¿†ã€RAG å®‰å…¨ã€GNNã€å› æœæ¨æ–­ä¸ TEE æ¶æ„ã€‚</p></article>
-      <article class="glass-card"><p class="meta-line">Stack</p><h2>Full-stack Engineering</h2><p>å¸¸ç”¨ C++ã€Pythonã€Goã€JavaScriptã€Reactã€Vueã€Node æ„å»ºç ”ç©¶åŸå‹ä¸äº§å“ç³»ç»Ÿã€‚</p></article>
-      <article class="glass-card"><p class="meta-line">Taste</p><h2>Algorithm & Aesthetics</h2><p>ç›¸ä¿¡å¤æ‚ç³»ç»Ÿä¹Ÿå¯ä»¥æ¸…æ™°ã€å…‹åˆ¶ã€ä¼˜é›…ã€‚é¡µé¢é‡Œçš„åŠ¨æ•ˆã€ç•™ç™½ä¸ç»ç’ƒè´¨æ„Ÿéƒ½æœåŠ¡äºé˜…è¯»ä½“éªŒã€‚</p></article>
+      <article class="glass-card"><p class="meta-line">Focus</p><h2>LLM Memory & Security</h2><p>Î§ÈÆ Redou¡¢InsightSafe µÈ·½Ïò£¬Ì½Ë÷³¤ÆÚ¼ÇÒä¡¢RAG °²È«¡¢GNN¡¢Òò¹ûÍÆ¶ÏÓë TEE ¼Ü¹¹¡£</p></article>
+      <article class="glass-card"><p class="meta-line">Stack</p><h2>Full-stack Engineering</h2><p>³£ÓÃ C++¡¢Python¡¢Go¡¢JavaScript¡¢React¡¢Vue¡¢Node ¹¹½¨ÑĞ¾¿Ô­ĞÍÓë²úÆ·ÏµÍ³¡£</p></article>
+      <article class="glass-card"><p class="meta-line">Taste</p><h2>Algorithm & Aesthetics</h2><p>ÏàĞÅ¸´ÔÓÏµÍ³Ò²¿ÉÒÔÇåÎú¡¢¿ËÖÆ¡¢ÓÅÑÅ¡£Ò³ÃæÀïµÄ¶¯Ğ§¡¢Áô°×Óë²£Á§ÖÊ¸Ğ¶¼·şÎñÓÚÔÄ¶ÁÌåÑé¡£</p></article>
     </section>
   </main>
 
   <footer><p id="site-footer-text">&copy; 2026 Plate. Powered by Logic & Space.</p></footer>
   <script type="module" src="./assets/js/main.js"></script>
   <script type="module" src="./assets/js/about.js"></script>
+    <script type='module' src='./assets/js/transition.js'></script>
 </body>
 </html>
+
+
+
+
 

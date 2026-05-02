@@ -1,17 +1,27 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plate. æ‘„å½±å¿— | å…‹èŽ±å› è“å½±åƒ</title>
+    <title>Plate. ÉãÓ°Ö¾ | ¿ËÀ³ÒòÀ¶Ó°Ïñ</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Bodoni+Moda:ital,opsz,wght@1,6..96,400;1,6..96,700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/css/photography.css">
+    <style>
+        .page-mask {
+            position: fixed; inset: 0; background: #111; z-index: 10000;
+            transform-origin: top; transform: scaleY(1); display: flex;
+            justify-content: center; align-items: center; pointer-events: all;
+        }
+    </style>
 </head>
 <body>
+    <div class="page-mask"><div class="transition-logo"></div></div>
+    
+    
     <div class="bg-glow glow-1"></div>
     <div class="bg-glow glow-2"></div>
 
@@ -25,99 +35,104 @@
     </nav>
 
     <header class="hero">
-        <p class="section-label">05 // æ‘„å½±å¿—</p>
+        <p class="section-label">05 // ÉãÓ°Ö¾</p>
         <h1 class="hero-title">
             <div class="reveal-mask"><div class="reveal-inner">In Light and Shadow</div></div>
             <div class="reveal-mask"><div class="reveal-inner"><span class="italic-brand hero-title-en">Order and Breath.</span></div></div>
         </h1>
         <div class="reveal-mask">
-            <p class="hero-subtitle reveal-inner">åœ¨ç®—æ³•ä¹‹å¤–ï¼Œæˆ‘ç”¨é•œå¤´è®°å½•åŸŽå¸‚å‘¼å¸ã€å…‰å½±æµåŠ¨å’Œäººç¾¤æƒ…ç»ªã€‚æ¯ä¸€å¼ ç…§ç‰‡éƒ½åƒä¸€æ¬¡çŸ­æš‚ä½†ç²¾ç¡®çš„é‡‡æ ·ã€‚</p>
+            <p class="hero-subtitle reveal-inner">ÔÚËã·¨Ö®Íâ£¬ÎÒÓÃ¾µÍ·¼ÇÂ¼³ÇÊÐºôÎü¡¢¹âÓ°Á÷¶¯ºÍÈËÈºÇéÐ÷¡£Ã¿Ò»ÕÅÕÕÆ¬¶¼ÏñÒ»´Î¶ÌÔÝµ«¾«È·µÄ²ÉÑù¡£</p>
         </div>
     </header>
 
     <main class="content">
         <section class="toolbar">
             <div class="filter-group" id="filter-group">
-                <button class="filter-btn active" data-filter="all">å…¨éƒ¨</button>
-                <button class="filter-btn" data-filter="street">è¡—å¤´</button>
-                <button class="filter-btn" data-filter="portrait">äººåƒ</button>
-                <button class="filter-btn" data-filter="night">å¤œæ™¯</button>
-                <button class="filter-btn" data-filter="minimal">æžç®€</button>
+                <button class="filter-btn active" data-filter="all">È«²¿</button>
+                <button class="filter-btn" data-filter="street">½ÖÍ·</button>
+                <button class="filter-btn" data-filter="portrait">ÈËÏñ</button>
+                <button class="filter-btn" data-filter="night">Ò¹¾°</button>
+                <button class="filter-btn" data-filter="minimal">¼«¼ò</button>
             </div>
         </section>
 
         <section class="gallery" id="gallery">
             <article class="photo-card" data-category="street" data-shot-time="2026-02-18 17:42" data-lat="29.56301" data-lng="106.55156">
-                <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1400&q=80" alt="è¡—å¤´è“è°ƒ">
+                <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1400&q=80" alt="½ÖÍ·À¶µ÷">
                 <div class="photo-meta">
                     <h3>Street Pulse</h3>
-                    <p>é‡åº† Â· é›¨åŽè·¯å£</p>
+                    <p>ÖØÇì ¡¤ ÓêºóÂ·¿Ú</p>
                 </div>
             </article>
             <article class="photo-card" data-category="portrait" data-shot-time="2026-01-09 15:26" data-lat="29.56690" data-lng="106.45718">
-                <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1400&q=80" alt="äººåƒç‰¹å†™">
+                <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1400&q=80" alt="ÈËÏñÌØÐ´">
                 <div class="photo-meta">
                     <h3>Quiet Focus</h3>
-                    <p>è‡ªç„¶å…‰äººåƒ</p>
+                    <p>×ÔÈ»¹âÈËÏñ</p>
                 </div>
             </article>
             <article class="photo-card" data-category="night" data-shot-time="2025-12-21 21:14" data-lat="31.23042" data-lng="121.47370">
-                <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1400&q=80" alt="å¤œæ™¯å»ºç­‘">
+                <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1400&q=80" alt="Ò¹¾°½¨Öþ">
                 <div class="photo-meta">
                     <h3>Blue Circuit</h3>
-                    <p>å¤œæ™šå»ºç­‘çº¿æ¡</p>
+                    <p>Ò¹Íí½¨ÖþÏßÌõ</p>
                 </div>
             </article>
             <article class="photo-card" data-category="minimal" data-shot-time="2025-11-02 06:48" data-lat="30.57282" data-lng="104.06680">
-                <img src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=1400&q=80" alt="æžç®€é£Žæ™¯">
+                <img src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=1400&q=80" alt="¼«¼ò·ç¾°">
                 <div class="photo-meta">
                     <h3>Empty Margin</h3>
-                    <p>ç•™ç™½ä¸Žç§©åº</p>
+                    <p>Áô°×ÓëÖÈÐò</p>
                 </div>
             </article>
             <article class="photo-card" data-category="street" data-shot-time="2026-03-03 19:05" data-lat="22.54310" data-lng="114.05787">
-                <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1400&q=80" alt="åŸŽå¸‚è¡—æ™¯">
+                <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1400&q=80" alt="³ÇÊÐ½Ö¾°">
                 <div class="photo-meta">
                     <h3>Crosswalk Echo</h3>
-                    <p>åŸŽå¸‚èŠ‚å¥åˆ‡ç‰‡</p>
+                    <p>³ÇÊÐ½Ú×àÇÐÆ¬</p>
                 </div>
             </article>
             <article class="photo-card" data-category="night" data-shot-time="2025-10-27 23:32" data-lat="25.03300" data-lng="121.56540">
-                <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1400&q=80" alt="å¤œæ™šæ˜Ÿç©º">
+                <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1400&q=80" alt="Ò¹ÍíÐÇ¿Õ">
                 <div class="photo-meta">
                     <h3>After Midnight</h3>
-                    <p>é•¿æ›å…‰å®žéªŒ</p>
+                    <p>³¤ÆØ¹âÊµÑé</p>
                 </div>
             </article>
             <article class="photo-card" data-category="portrait" data-shot-time="2026-04-11 14:56" data-lat="30.27408" data-lng="120.15507">
-                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=1400&q=80" alt="å®¤å†…äººåƒ">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=1400&q=80" alt="ÊÒÄÚÈËÏñ">
                 <div class="photo-meta">
                     <h3>Soft Interval</h3>
-                    <p>çª—è¾¹æ¼«å°„å…‰</p>
+                    <p>´°±ßÂþÉä¹â</p>
                 </div>
             </article>
             <article class="photo-card" data-category="minimal" data-shot-time="2025-09-16 07:20" data-lat="24.47979" data-lng="118.08942">
-                <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80" alt="æžç®€æµ·é¢">
+                <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80" alt="¼«¼òº£Ãæ">
                 <div class="photo-meta">
                     <h3>Silent Horizon</h3>
-                    <p>æžç®€è‰²å—</p>
+                    <p>¼«¼òÉ«¿é</p>
                 </div>
             </article>
         </section>
 
         <section class="notes" id="photo-note-section">
-            <h2>æ‘„å½±æ‰‹è®°</h2>
-            <p id="photo-note-text">æˆ‘åçˆ± 35mm å’Œ 50mm ç„¦æ®µï¼Œå®ƒä»¬èƒ½ç»™æˆ‘è¶³å¤Ÿçš„å™äº‹è‡ªç”±ï¼Œä¹Ÿèƒ½ä¿ç•™çŽ°åœºçš„å‘¼å¸æ„Ÿã€‚åŽæœŸå€¾å‘å…‹åˆ¶ï¼Œå¼ºè°ƒ Klein Blue çš„å†·é™åŸºè°ƒï¼Œè€Œä¸æ˜¯é«˜é¥±å’Œçš„è§†è§‰è½°ç‚¸ã€‚</p>
+            <h2>ÉãÓ°ÊÖ¼Ç</h2>
+            <p id="photo-note-text">ÎÒÆ«°® 35mm ºÍ 50mm ½¹¶Î£¬ËüÃÇÄÜ¸øÎÒ×ã¹»µÄÐðÊÂ×ÔÓÉ£¬Ò²ÄÜ±£ÁôÏÖ³¡µÄºôÎü¸Ð¡£ºóÆÚÇãÏò¿ËÖÆ£¬Ç¿µ÷ Klein Blue µÄÀä¾²»ùµ÷£¬¶ø²»ÊÇ¸ß±¥ºÍµÄÊÓ¾õºäÕ¨¡£</p>
         </section>
     </main>
 
     <div class="lightbox" id="lightbox" aria-hidden="true">
-        <button class="lightbox-close" id="lightbox-close" aria-label="å…³é—­é¢„è§ˆ">&times;</button>
+        <button class="lightbox-close" id="lightbox-close" aria-label="¹Ø±ÕÔ¤ÀÀ">&times;</button>
         <img id="lightbox-image" src="" alt="Photo Preview">
         <div class="lightbox-caption" id="lightbox-caption"></div>
     </div>
 
     <script type="module" src="./assets/js/photography.js"></script>
+    <script type='module' src='./assets/js/transition.js'></script>
 </body>
 </html>
+
+
+
+
 
