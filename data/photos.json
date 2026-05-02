@@ -1,0 +1,37 @@
+{
+  "photos": [
+    {
+      "id": "street-pulse",
+      "title": "Street Pulse",
+      "subtitle": "重庆 · 雨后路口",
+      "category": "street",
+      "shotTime": "2026-02-18 17:42",
+      "lat": "29.56301",
+      "lng": "106.55156",
+      "src": "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1400&q=80",
+      "alt": "街头蓝调"
+    },
+    {
+      "id": "quiet-focus",
+      "title": "Quiet Focus",
+      "subtitle": "自然光人像",
+      "category": "portrait",
+      "shotTime": "2026-01-09 15:26",
+      "lat": "29.56690",
+      "lng": "106.45718",
+      "src": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1400&q=80",
+      "alt": "人像特写"
+    },
+    {
+      "id": "1777718602834",
+      "title": "123",
+      "subtitle": "123",
+      "category": "street",
+      "shotTime": "",
+      "lat": "",
+      "lng": "",
+      "src": "/uploads/1777718602818-file_00000000153871f5b24f963b010ebebb.png",
+      "alt": "123"
+    }
+  ]
+}

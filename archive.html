@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Archive | Plate.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=Bodoni+Moda:ital,opsz,wght@1,6..96,400;1,6..96,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/opposans" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+  <link rel="stylesheet" href="./assets/css/style.css">
+  
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+  <!-- Page Transition Mask -->
+  
+  <div class="scroll-progress-container">
+    <div class="scroll-progress-bar"></div>
+  </div>
+
+  <div class="aurora-bg">
+    <div class="aurora-blob blob-1"></div>
+    <div class="aurora-blob blob-2"></div>
+  </div>
+
+  <div class="cursor-dot"></div>
+  <div class="cursor-outline"></div>
+
+  <nav id="navbar">
+    <div class="logo">Plate<span class="dot">.</span></div>
+    <div class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/index.html#articles">Writings</a>
+      <a href="/tags.html">Tags</a>
+    </div>
+  </nav>
+
+  <header class="page-hero">
+    <p class="section-label reveal-element">07 // Timeline</p>
+    <h1 class="hero-title">
+      <div class="reveal-mask"><div class="reveal-inner">Writing</div></div>
+      <div class="reveal-mask"><div class="reveal-inner"><em>Archive.</em></div></div>
+    </h1>
+    <div class="reveal-mask">
+      <p class="hero-subtitle reveal-inner">按年月回溯更新轨迹，让内容沉淀形成可追溯历史�?/p>
+    </div>
+  </header>
+
+  <main class="page-main">
+    <section id="archive-root"></section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Plate. Powered by Logic & Space.</p>
+  </footer>
+
+  <script type="module" src="./assets/js/main.js"></script>
+  <script type="module" src="./assets/js/archive.js"></script>
+  
+</body>
+</html>
+

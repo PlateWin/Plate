@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Plate. 的近期状态、研究计划与正在推进的博客功能�?>
+  <meta property="og:title" content="Now | Plate.">
+  <meta property="og:description" content="Plate. 当前正在研究和构建的事情�?>
+  <meta property="og:type" content="website">
+  <title>Now | Plate.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=Bodoni+Moda:ital,opsz,wght@1,6..96,400;1,6..96,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/opposans" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+  <link rel="stylesheet" href="./assets/css/style.css">
+  
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+  <!-- Page Transition Mask -->
+  
+  <div class="scroll-progress-container"><div class="scroll-progress-bar"></div></div>
+  <div class="aurora-bg"><div class="aurora-blob blob-1"></div><div class="aurora-blob blob-2"></div></div>
+  <div class="cursor-dot"></div><div class="cursor-outline"></div>
+
+  <nav id="navbar">
+    <div class="logo" data-site-name>Plate<span class="dot">.</span></div>
+    <div class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/index.html#articles">Writings</a>
+      <a href="/photography.html">Photography</a>
+    </div>
+  </nav>
+
+  <header class="page-hero">
+    <p class="section-label reveal-element" id="now-hero-label">09 // Now</p>
+    <h1 class="hero-title">
+      <div class="reveal-mask"><div class="reveal-inner" id="now-hero-line-1">Current</div></div>
+      <div class="reveal-mask"><div class="reveal-inner"><em id="now-hero-line-2">Signal.</em></div></div>
+    </h1>
+    <div class="reveal-mask"><p class="hero-subtitle reveal-inner" id="now-hero-subtitle">记录最近正在推进的方向，让博客不仅是归档，也是持续更新的工作台�?/p></div>
+  </header>
+
+  <main class="page-main">
+    <section class="card-grid" id="now-cards">
+      <article class="glass-card"><p class="meta-line">Research</p><h2>RAG Security</h2><p>继续完善知识注入检测、因果审计与图谱异常节点识别方案�?/p></article>
+      <article class="glass-card"><p class="meta-line">Product</p><h2>FlowCrystal / Redou</h2><p>推进长期记忆、富文本结晶、上下文连续性和本地兜底机制�?/p></article>
+      <article class="glass-card"><p class="meta-line">Writing</p><h2>Blog Phase 2</h2><p>补齐标签、归档、阅读链路、基础页面、SEO 与发布检查清单�?/p></article>
+    </section>
+  </main>
+
+  <footer><p id="site-footer-text">&copy; 2026 Plate. Powered by Logic & Space.</p></footer>
+  <script type="module" src="./assets/js/main.js"></script>
+  <script type="module" src="./assets/js/now.js"></script>
+  
+</body>
+</html>
+

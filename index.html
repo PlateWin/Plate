@@ -1,0 +1,531 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Plate. 的个人作品集与技术博客，记录算法、美学、LLM 安全、记忆增强、前端工程和摄影创作。">
+    <meta property="og:title" content="Plate. | Algorithm & Aesthetics">
+    <meta property="og:description" content="探索算法、美学、LLM 安全、记忆增强与高质感交互。">
+    <meta property="og:type" content="website">
+    <title>Plate. | Algorithm & Aesthetics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=Bodoni+Moda:ital,opsz,wght@1,6..96,400;1,6..96,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/opposans" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/phase2.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <div class="scroll-progress-container">
+        <div class="scroll-progress-bar"></div>
+    </div>
+
+    <div class="aurora-bg">
+        <div class="aurora-blob blob-1"></div>
+        <div class="aurora-blob blob-2"></div>
+    </div>
+
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <nav id="navbar">
+        <div class="logo" data-site-name>Plate<span class="dot">.</span></div>
+        <div class="nav-links">
+            <a href="#projects" class="magnetic">Projects</a>
+            <a href="#articles" class="magnetic">Writings</a>
+            <a href="/about.html" class="magnetic">About</a>
+            <a href="/photography.html" class="magnetic">Photography</a>
+        </div>
+    </nav>
+
+    <header class="page-hero hero">
+        <p class="section-label reveal-element">00 // Home</p>
+        <h1 class="hero-title" id="home-hero-title">
+            <div class="reveal-mask"><div class="reveal-inner" id="home-hero-line-1">Algorithmic</div></div>
+            <div class="reveal-mask"><div class="reveal-inner"><span class="italic-brand" id="home-hero-line-2">Aesthetics.</span></div></div>
+        </h1>
+        <div class="reveal-mask">
+            <p class="hero-subtitle reveal-inner" id="home-hero-subtitle">致力在冷峻的算法逻辑与流动的视觉美学间，寻找技术与艺术的共振点。</p>
+        </div>
+    </header>
+
+    <!-- Connector 1: Hero �?About | 彗星轨迹 -->
+    <div class="section-connector" aria-hidden="true">
+        <svg class="connector-svg" viewBox="0 0 900 180">
+            <path data-order="0"   d="M 720 12 C 670 75, 360 85, 220 168" />
+            <circle cx="620" cy="44"  r="2.5" data-appear="0.2"  data-mo="0.55" />
+            <circle cx="490" cy="88"  r="2"   data-appear="0.42" data-mo="0.45" />
+            <circle cx="360" cy="126" r="3"   data-appear="0.62" data-mo="0.60" />
+            <circle cx="250" cy="158" r="2"   data-appear="0.80" data-mo="0.40" />
+        </svg>
+    </div>
+
+    <!-- 00.5 About Me -->
+    <section id="about" class="section-container about-section">
+        <div class="about-grid">
+            <div class="about-visual reveal-element">
+                <div class="avatar-container glass-card avatar-placeholder">
+                    <div class="avatar-placeholder-mark">P</div>
+                    <div class="avatar-glow"></div>
+                </div>
+            </div>
+            <div class="about-content">
+                <div class="section-label reveal-element">00 // Philosophy</div>
+                <h2 class="about-title reveal-text" id="home-about-title">Algorithm & Aesthetics</h2>
+                <div class="about-text reveal-element" id="home-about-text">
+                    <p>我是一名热衷于构建“有灵魂的系统”的全栈开发者与深度学习研究者。在我看来，**算法**是世界的底层逻辑，它严谨、深邃、充满秩序；�?*美学**是连接人与技术的桥梁，它流动、直观、富有情感�?/p>
+                    <p>我的工作聚焦于大型语言模型（LLM）的记忆增强、安全审计以及相关前沿技术的应用。我追求的不仅是代码的执行效率，更是每一次交互所带来的质感与共鸣�?/p>
+                </div>
+                <div class="about-stats reveal-element" id="home-about-stats">
+                    <div class="stat-item">
+                        <span class="stat-num">10+</span>
+                        <span class="stat-label">Awards</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-num">50K+</span>
+                        <span class="stat-label">Lines of Code</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-num">5+</span>
+                        <span class="stat-label">Core Projects</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Connector 2: About �?Tools | 回响 -->
+    <div class="section-connector" aria-hidden="true">
+        <svg class="connector-svg" viewBox="0 0 900 180">
+            <path data-order="0"    d="M 210 12 C 280 75, 590 100, 680 168" />
+            <path data-order="0.12" d="M 175 12 C 240 82, 560 110, 650 168" class="ghost" />
+        </svg>
+    </div>
+
+    <section id="tools" class="section-container" style="min-height: auto; padding-top: 5vh; padding-bottom: 5vh;">
+        <div class="section-label reveal-element">01 // Daily Stack</div>
+        
+        <div class="node-graph-container reveal-element">
+            <svg class="node-lines"></svg>
+            
+            <div class="node node-center magnetic" data-id="center">
+                <div class="card-glow"></div>
+                <svg viewBox="0 0 24 24" width="40" height="40" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z"/></svg>
+            </div>
+
+            <div class="node node-satellite magnetic" data-id="0">
+                <img src="https://cdn.simpleicons.org/googlegemini/002FA7" alt="Gemini" onerror="this.src='https://unpkg.com/simple-icons@13.13.0/icons/googlegemini.svg'">
+                <span>Gemini</span>
+            </div>
+            <div class="node node-satellite magnetic" data-id="1">
+                <img src="https://cdn.simpleicons.org/anthropic/002FA7" alt="Claude" onerror="this.src='https://unpkg.com/simple-icons@13.13.0/icons/anthropic.svg'">
+                <span>Claude</span>
+            </div>
+            <div class="node node-satellite magnetic" data-id="2">
+                <div class="tool-icon-text" style="color: var(--primary-color);">{"}</div>
+                <span>CodeX</span>
+            </div>
+            <div class="node node-satellite magnetic" data-id="3">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" alt="VSCode">
+                <span>VSCode</span>
+            </div>
+            <div class="node node-satellite magnetic" data-id="4">
+                <img src="https://cdn.simpleicons.org/adobepremierepro/002FA7" alt="PR" onerror="this.src='https://unpkg.com/simple-icons@13.13.0/icons/adobepremierepro.svg'">
+                <span>PR</span>
+            </div>
+            <div class="node node-satellite magnetic" data-id="5">
+                <img src="https://cdn.simpleicons.org/adobeaftereffects/002FA7" alt="AE" onerror="this.src='https://unpkg.com/simple-icons@13.13.0/icons/adobeaftereffects.svg'">
+                <span>AE</span>
+            </div>
+            <div class="node node-satellite magnetic" data-id="6">
+                <img src="https://cdn.simpleicons.org/obsidian/002FA7" alt="Obsidian" onerror="this.src='https://unpkg.com/simple-icons@13.13.0/icons/obsidian.svg'">
+                <span>Obsidian</span>
+            </div>
+            <div class="node node-satellite magnetic" data-id="7">
+                <div class="tool-icon-text">🔮</div>
+                <span>FlowCrystal</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Connector 3: Tools �?Experience | 分叉 -->
+    <div class="section-connector" aria-hidden="true">
+        <svg class="connector-svg" viewBox="0 0 900 180">
+            <path data-order="0"   d="M 450 0 C 450 45, 450 55, 450 78" />
+            <circle cx="450" cy="78" r="5" data-appear="0.28" data-mo="0.9" />
+            <path data-order="0.3" d="M 450 78 C 420 118, 230 142, 195 178" />
+            <path data-order="0.3" d="M 450 78 C 480 118, 670 142, 705 178" />
+        </svg>
+    </div>
+
+    <section id="experience" class="section-container">
+        <div class="section-label reveal-element">01.5 // Experience & Research</div>
+        
+        <div class="experience-list">
+            <div class="exp-item reveal-element">
+                <div class="exp-meta">
+                    <span class="exp-year">2025 - 2026</span>
+                    <span class="exp-role">Core Developer & Security Researcher</span>
+                </div>
+                <div class="exp-content">
+                    <h3 class="exp-title">知几安全 (InsightSafe) & Redou</h3>
+                    <p class="exp-desc">负责 LLM 记忆增强引擎与安全审计系统的核心架构。引入图神经网络（GNN）与因果推断模型，成功防�?RAG 场景下的知识投毒与提示词注入攻击。基�?TEE 架构设计了高隐私数据处理流�?/p>
+                </div>
+            </div>
+
+            <div class="exp-item reveal-element">
+                <div class="exp-meta">
+                    <span class="exp-year">2024 - 2025</span>
+                    <span class="exp-role">Full Stack Architect</span>
+                </div>
+                <div class="exp-content">
+                    <h3 class="exp-title">MindDream Platform</h3>
+                    <p class="exp-desc">独立设计并实现了基于大模型的全栈心理学梦境解析平台。前端采�?Vue 3 构建高性能交互，后端整合复�?AI 工作流进行自然语言结构化分析与用户行为建模�?/p>
+                </div>
+            </div>
+            
+            <div class="exp-item reveal-element">
+                <div class="exp-meta">
+                    <span class="exp-year">2023 - Present</span>
+                    <span class="exp-role">Algorithmic Competitor</span>
+                </div>
+                <div class="exp-content">
+                    <h3 class="exp-title">算法竞赛与性能优化</h3>
+                    <p class="exp-desc">长期活跃于国家级与省级算法竞赛，专注于图论、动态规划与数据结构优化。多次在蓝桥杯、GPLT 等赛事中斩获一二等奖，对代码的时间复杂度与空间复杂度有着苛刻的追求�?/p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Connector 4: Experience �?Projects | 双流 -->
+    <div class="section-connector" aria-hidden="true">
+        <svg class="connector-svg" viewBox="0 0 900 180">
+            <path data-order="0"    d="M 690 12 C 645 80, 330 105, 255 168" />
+            <path data-order="0.08" d="M 730 32 C 685 96, 370 120, 295 168" class="ghost" />
+        </svg>
+    </div>
+
+    <section id="projects" class="section-container">
+        <div class="section-label reveal-element">02 // Projects Showcase</div>
+
+        <div class="projects-stack">
+            <div class="featured-projects" id="home-featured-projects"></div>
+
+            <div class="secondary-projects reveal-element" id="home-secondary-projects"></div>
+        </div>
+    </section>
+
+    <!-- Connector 5: Projects �?Lab | 频率�?-->
+    <div class="section-connector" aria-hidden="true">
+        <svg class="connector-svg" viewBox="0 0 900 180">
+            <path data-order="0" d="M 60 90 C 105 28, 195 28, 240 90 C 285 150, 375 150, 430 85 C 485 22, 575 22, 620 90 C 665 155, 755 155, 810 90" />
+        </svg>
+    </div>
+
+    <section id="lab" class="section-container">
+        <div class="section-label reveal-element">02.5 // The Lab</div>
+        <p class="section-subtext reveal-element">A collection of elegant algorithms and architectural experiments.</p>
+        
+        <div class="lab-board reveal-element">
+            <div class="lab-board-main">
+                <article class="lab-feature">
+                    <p class="lab-kicker">Current Experiment</p>
+                    <h3>Counterfactual RAG Safety Gate</h3>
+                    <p>把检索上下文看成可干预图结构，逐段移除高风险来源，观察回答概率和语义支持度的变化，用因果差分定位知识注入�?/p>
+                    <div class="lab-metrics">
+                        <div><span>Attack surface cut</span><strong>37%</strong></div>
+                        <div><span>Median overhead</span><strong>18ms</strong></div>
+                        <div><span>False reject target</span><strong>&lt; 3%</strong></div>
+                    </div>
+                </article>
+
+                <div class="lab-code-panel">
+                    <div class="snippet-header">
+                        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                        <span class="file-name">causal_gate.py</span>
+                    </div>
+                    <pre><code class="language-python">def score_context(source, answer):
+    support = semantic_support(source, answer)
+    risk = injection_likelihood(source)
+    delta = answer_prob() - intervene(source).answer_prob()
+
+    return {
+        "safe": support &gt; 0.72 and risk &lt; 0.18,
+        "causal_delta": round(delta, 4),
+        "action": "route" if delta &gt; 0.21 else "keep"
+    }</code></pre>
+                </div>
+            </div>
+
+            <div class="lab-methods">
+                <article>
+                    <span>01</span>
+                    <h4>Graph Audit</h4>
+                    <p>将文档、引用、实体和回答片段组织成证据图，找出异常影响路径�?/p>
+                </article>
+                <article>
+                    <span>02</span>
+                    <h4>Memory Routing</h4>
+                    <p>按时间、语义距离和安全权重调度长期记忆，避免旧事实过度支配�?/p>
+                </article>
+                <article>
+                    <span>03</span>
+                    <h4>Interaction Physics</h4>
+                    <p>用插值、速度和阻尼控制界面响应，让技术表达保持可感但不喧哗�?/p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Connector 6: Lab �?Marquee | 轨迹散点 -->
+    <div class="section-connector" aria-hidden="true">
+        <svg class="connector-svg" viewBox="0 0 900 180">
+            <path data-order="0" d="M 255 12 C 340 75, 570 105, 650 168" />
+            <circle cx="255" cy="12"  r="2.5" data-appear="0.00" data-mo="0.7" />
+            <circle cx="330" cy="42"  r="2"   data-appear="0.16" data-mo="0.5" />
+            <circle cx="400" cy="74"  r="3.5" data-appear="0.32" data-mo="0.6" />
+            <circle cx="475" cy="105" r="2"   data-appear="0.50" data-mo="0.5" />
+            <circle cx="558" cy="136" r="3"   data-appear="0.68" data-mo="0.6" />
+            <circle cx="650" cy="168" r="2.5" data-appear="0.86" data-mo="0.7" />
+        </svg>
+    </div>
+
+    <!-- Infinite Marquee -->
+    <section class="marquee-section">
+        <div class="marquee-container">
+            <div class="marquee-content">
+                <span>ALGORITHM &bull; AESTHETICS &bull; BIOINFORMATICS &bull; FULL-STACK &bull; DEEP LEARNING &bull;</span>
+                <span>ALGORITHM &bull; AESTHETICS &bull; BIOINFORMATICS &bull; FULL-STACK &bull; DEEP LEARNING &bull;</span>
+                <span>ALGORITHM &bull; AESTHETICS &bull; BIOINFORMATICS &bull; FULL-STACK &bull; DEEP LEARNING &bull;</span>
+                <span>ALGORITHM &bull; AESTHETICS &bull; BIOINFORMATICS &bull; FULL-STACK &bull; DEEP LEARNING &bull;</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Connector 7: Marquee �?Honors | 星图 -->
+    <div class="section-connector" aria-hidden="true">
+        <svg class="connector-svg" viewBox="0 0 900 180">
+            <path data-order="0"   d="M 175 35 L 440 95" />
+            <path data-order="0.1" d="M 440 95 L 700 148" />
+            <path data-order="0.1" d="M 440 95 L 555 32" />
+            <path data-order="0.2" d="M 440 95 L 305 158" />
+            <circle cx="175" cy="35"  r="5" data-appear="0.00" data-mo="0.9" />
+            <circle cx="555" cy="32"  r="4" data-appear="0.18" data-mo="0.7" />
+            <circle cx="440" cy="95"  r="7" data-appear="0.25" data-mo="0.95" />
+            <circle cx="700" cy="148" r="5" data-appear="0.45" data-mo="0.9" />
+            <circle cx="305" cy="158" r="4" data-appear="0.52" data-mo="0.7" />
+        </svg>
+    </div>
+
+    <section id="honors" class="section-container">
+        <div class="section-label reveal-element">03 // Milestones</div>
+        
+        <div class="timeline-container">
+            <div class="timeline-track-wrap">
+                <div class="timeline-track"></div>
+                <div class="timeline-progress"></div>
+            </div>
+
+            <!-- 2026 -->
+            <div class="timeline-year-node reveal-element"><span>2026</span></div>
+            
+            <div class="timeline-item left">
+                <div class="timeline-dot"></div>
+                <div class="milestone-card magnetic">
+                    <h3 class="award-title"><span class="highlight-dot"></span>个人国家级三等奖</h3>
+                    <p class="award-desc">团队程序设计天梯�?/p>
+                </div>
+            </div>
+            
+            <div class="timeline-item right">
+                <div class="timeline-dot"></div>
+                <div class="milestone-card magnetic">
+                    <h3 class="award-title"><span class="highlight-dot"></span>省赛一等奖</h3>
+                    <p class="award-desc">第十七届蓝桥杯软件赛 C/C++ B�?/p>
+                </div>
+            </div>
+            
+            <div class="timeline-item left">
+                <div class="timeline-dot"></div>
+                <div class="milestone-card magnetic">
+                    <h3 class="award-title"><span class="highlight-dot"></span>校赛一、二等奖</h3>
+                    <p class="award-desc">重庆工程学院“小挑�?/p>
+                </div>
+            </div>
+
+            <!-- 2025 -->
+            <div class="timeline-year-node reveal-element"><span>2025</span></div>
+
+            <div class="timeline-item right">
+                <div class="timeline-dot"></div>
+                <div class="milestone-card magnetic">
+                    <h3 class="award-title"><span class="highlight-dot"></span>省赛二等�?/h3>
+                    <p class="award-desc">第十六届蓝桥杯软件赛 C/C++ B�?/p>
+                </div>
+            </div>
+
+            <div class="timeline-item left">
+                <div class="timeline-dot"></div>
+                <div class="milestone-card magnetic">
+                    <h3 class="award-title"><span class="highlight-dot"></span>全国总决赛三等奖</h3>
+                    <p class="award-desc">睿抗机器人开发者大赛编程技能竞�?/p>
+                </div>
+            </div>
+
+            <div class="timeline-item right">
+                <div class="timeline-dot"></div>
+                <div class="milestone-card magnetic">
+                    <h3 class="award-title"><span class="highlight-dot"></span>省赛三等�?/h3>
+                    <p class="award-desc">第二十七届中国机器人及人工智能大�?/p>
+                </div>
+            </div>
+
+            <div class="timeline-item left">
+                <div class="timeline-dot"></div>
+                <div class="milestone-card magnetic">
+                    <h3 class="award-title"><span class="highlight-dot"></span>团队三等�?/h3>
+                    <p class="award-desc">第十届“中国高校计算机大赛-团体程序设计天梯赛”重庆市</p>
+                </div>
+            </div>
+
+            <div class="timeline-item right">
+                <div class="timeline-dot"></div>
+                <div class="milestone-card magnetic">
+                    <h3 class="award-title"><span class="highlight-dot"></span>区域二等�?/h3>
+                    <p class="award-desc">第六届全国高校计算机能力挑战�?(C++科目)</p>
+                </div>
+            </div>
+
+            <div class="timeline-item left">
+                <div class="timeline-dot"></div>
+                <div class="milestone-card magnetic">
+                    <h3 class="award-title"><span class="highlight-dot"></span>市赛三等�?/h3>
+                    <p class="award-desc">重庆市统计建�?/p>
+                </div>
+            </div>
+
+            <div class="timeline-item right">
+                <div class="timeline-dot"></div>
+                <div class="milestone-card magnetic">
+                    <h3 class="award-title"><span class="highlight-dot"></span>校赛二等�?/h3>
+                    <p class="award-desc">大学生数学建模竞�?/p>
+                </div>
+            </div>
+
+            <div class="timeline-item left">
+                <div class="timeline-dot"></div>
+                <div class="milestone-card magnetic">
+                    <h3 class="award-title"><span class="highlight-dot"></span>校赛三等�?/h3>
+                    <p class="award-desc">第十九届“挑战杯�?/p>
+                </div>
+            </div>
+
+            <!-- 2024 -->
+            <div class="timeline-year-node reveal-element"><span>2024</span></div>
+
+            <div class="timeline-item right">
+                <div class="timeline-dot"></div>
+                <div class="milestone-card magnetic">
+                    <h3 class="award-title"><span class="highlight-dot"></span>二等�?/h3>
+                    <p class="award-desc">“泰迪杯”数据分析技能赛 (A�?</p>
+                </div>
+            </div>
+
+            <div class="timeline-item left">
+                <div class="timeline-dot"></div>
+                <div class="milestone-card magnetic">
+                    <h3 class="award-title"><span class="highlight-dot"></span>三等�?/h3>
+                    <p class="award-desc">“泰迪杯”数据分析技能赛 (B�?</p>
+                </div>
+            </div>
+
+            <div class="timeline-item right">
+                <div class="timeline-dot"></div>
+                <div class="milestone-card magnetic">
+                    <h3 class="award-title"><span class="highlight-dot"></span>区域二等�?/h3>
+                    <p class="award-desc">第六届全国高校计算机能力挑战�?(C语言)</p>
+                </div>
+            </div>
+
+            <div class="timeline-item left">
+                <div class="timeline-dot"></div>
+                <div class="milestone-card magnetic">
+                    <h3 class="award-title"><span class="highlight-dot"></span>二等�?/h3>
+                    <p class="award-desc">第七届传智杯 IT计算大赛</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Connector 8: Honors �?Articles | 汇聚 -->
+    <div class="section-connector" aria-hidden="true">
+        <svg class="connector-svg" viewBox="0 0 900 180">
+            <path data-order="0"   d="M 205 12 C 250 85, 420 138, 455 175" />
+            <path data-order="0.1" d="M 695 12 C 650 85, 490 138, 455 175" />
+            <circle cx="455" cy="175" r="5.5" data-appear="0.82" data-mo="0.92" />
+        </svg>
+    </div>
+
+    <section id="articles" class="section-container" style="padding-bottom: 8rem;">
+        <div class="section-label reveal-element">04 // Writings</div>
+        <div class="articles-tools reveal-element">
+            <input id="article-search-input" type="search" placeholder="Search by title, excerpt, tag..." aria-label="Search articles">
+            <div class="articles-tools-links">
+                <a href="/tags.html" class="articles-tool-link">Browse by tags</a>
+                <a href="/archive.html" class="articles-tool-link">Browse archive</a>
+            </div>
+        </div>
+        
+        <div id="dynamic-articles-list" class="articles-list">
+            <!-- Articles will be dynamically loaded here from the CMS Backend -->
+        </div>
+    </section>
+
+    <footer>
+        <p id="site-footer-text">&copy; 2026 Plate. Powered by Logic & Space.</p>
+    </footer>
+
+    <!-- AI Assistant Widget (Neural Hub) -->
+    <div id="ai-assistant" class="ai-widget">
+        <button id="ai-toggle" class="ai-bubble" title="Talk to Plate. AI">
+            <div class="ai-pulse"></div>
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+        </button>
+
+        <div id="ai-window" class="ai-chat-window">
+            <div class="ai-header">
+                <div class="ai-status">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Plate. AI Online</span>
+                </div>
+                <button id="ai-close" class="ai-close-btn">&times;</button>
+            </div>
+            <div id="ai-messages" class="ai-messages-container">
+                <div class="message ai-message">
+                    Hello! I am **Plate. AI**, your digital guide to this portfolio. How can I help you explore my projects, awards, or technical stack today?
+                </div>
+            </div>
+            <div class="ai-input-area">
+                <textarea id="ai-input" placeholder="Ask about projects, awards..." rows="1"></textarea>
+                <button id="ai-send" class="ai-send-btn">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="./assets/js/main.js"></script>
+    <script type="module" src="./assets/js/ai-assistant.js"></script>
+    
+</body>
+</html>
+

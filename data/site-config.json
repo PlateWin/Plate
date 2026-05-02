@@ -1,0 +1,154 @@
+{
+  "site": {
+    "name": "Plate",
+    "tagline": "Algorithm & Aesthetics",
+    "footerText": "© 2026 Plate. Powered by Logic & Space.",
+    "contactEmail": "hello@example.com"
+  },
+  "home": {
+    "heroTitle": "Algorithmic\nAesthetics.",
+    "heroSubtitle": "A clean, high-contrast blog template for developers, researchers, and makers who want writing, projects, and photography in one place.",
+    "aboutTitle": "Build with clarity.",
+    "aboutParagraphs": [
+      "This template is designed for people who want a portfolio and blog without a heavy framework. You can publish writing, highlight projects, and keep a lightweight personal home on the open web.",
+      "Use the admin console to replace the default copy with your own voice, then keep growing the site through Markdown posts, structured metadata, and a small Node.js backend."
+    ],
+    "stats": [
+      {
+        "value": "12+",
+        "label": "Posts Ready"
+      },
+      {
+        "value": "3",
+        "label": "Content Modes"
+      },
+      {
+        "value": "1",
+        "label": "Admin Console"
+      }
+    ],
+    "featuredProjects": [
+      {
+        "title": "Project Alpha",
+        "subtitle": "Your flagship project or research work",
+        "bullets": [
+          "Describe the core idea in one strong sentence.",
+          "Add a second bullet for implementation detail or outcome.",
+          "Use the third bullet for what makes the work memorable."
+        ],
+        "badges": [
+          "TypeScript",
+          "Node.js",
+          "Design Systems"
+        ],
+        "linkText": "View Project ↗",
+        "linkUrl": "https://example.com"
+      },
+      {
+        "title": "Project Beta",
+        "subtitle": "A product, tool, or experiment worth highlighting",
+        "bullets": [
+          "Summarize what this project helps users do.",
+          "Mention a notable technical or product decision.",
+          "Share one result, tradeoff, or unique angle."
+        ],
+        "badges": [
+          "React",
+          "Go",
+          "UX"
+        ],
+        "linkText": "Live Demo ↗",
+        "linkUrl": "https://example.com/demo"
+      },
+      {
+        "title": "Project Gamma",
+        "subtitle": "A supporting project card for the homepage grid",
+        "bullets": [
+          "Keep each bullet short and readable.",
+          "This slot works well for open-source work.",
+          "You can also use it for freelance or research output."
+        ],
+        "badges": [
+          "Open Source",
+          "API",
+          "Tooling"
+        ],
+        "linkText": "",
+        "linkUrl": ""
+      },
+      {
+        "title": "Project Delta",
+        "subtitle": "Another concise project summary",
+        "bullets": [
+          "Good for infrastructure, experiments, or side projects.",
+          "Keep the copy concrete instead of vague.",
+          "Let the badges communicate stack quickly."
+        ],
+        "badges": [
+          "LLM",
+          "Security",
+          "Data"
+        ],
+        "linkText": "",
+        "linkUrl": ""
+      }
+    ]
+  },
+  "aboutPage": {
+    "heroLabel": "08 // About",
+    "heroTitleLine1": "Creative",
+    "heroTitleLine2": "Engineer.",
+    "heroSubtitle": "Introduce your background, technical focus, and the kind of work you care about building.",
+    "cards": [
+      {
+        "meta": "Focus",
+        "title": "What you work on",
+        "body": "Use this card to explain your main interests, such as product engineering, AI tooling, security research, or frontend systems."
+      },
+      {
+        "meta": "Stack",
+        "title": "How you build",
+        "body": "Summarize your common languages, frameworks, and the kinds of systems you are comfortable designing or shipping."
+      },
+      {
+        "meta": "Taste",
+        "title": "What you value",
+        "body": "Explain the principles behind your work: clarity, performance, calm interfaces, strong writing, or maintainable architecture."
+      }
+    ]
+  },
+  "nowPage": {
+    "heroLabel": "09 // Now",
+    "heroTitleLine1": "Current",
+    "heroTitleLine2": "Signal.",
+    "heroSubtitle": "A short snapshot of what you are exploring, building, or publishing right now.",
+    "items": [
+      {
+        "meta": "Research",
+        "title": "What I am learning",
+        "body": "Share the topic, paper trail, or technical direction you are actively studying."
+      },
+      {
+        "meta": "Product",
+        "title": "What I am building",
+        "body": "Describe the current product, tool, or internal system you are pushing forward."
+      },
+      {
+        "meta": "Writing",
+        "title": "What I will publish next",
+        "body": "Mention the next article, essay, tutorial, or release note you plan to ship."
+      }
+    ]
+  },
+  "photography": {
+    "note": "Use this section for your visual taste, shooting habits, or the role photography plays in your creative practice."
+  },
+  "seo": {
+    "homeTitle": "Plate. | Open Source Blog Template",
+    "homeDescription": "An open-source personal blog template with writing, projects, photography, and a lightweight admin console.",
+    "aboutTitle": "About | Plate.",
+    "aboutDescription": "Learn about the person behind the site and the kind of work they build.",
+    "nowTitle": "Now | Plate.",
+    "nowDescription": "A current snapshot of ongoing work, research, and writing."
+  }
+}

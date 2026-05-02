@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="关于 Plate.：全栈开发者、深度学习研究者，关注 LLM 记忆增强、安全审计、算法与视觉美学。">
+  <meta property="og:title" content="About | Plate.">
+  <meta property="og:description" content="了解 Plate. 的技术方向、项目经历与创作理念。">
+  <meta property="og:type" content="profile">
+  <title>About | Plate.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=Bodoni+Moda:ital,opsz,wght@1,6..96,400;1,6..96,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/opposans" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="stylesheet" href="./assets/css/phase2.css">
+</head>
+<body>
+  <div class="scroll-progress-container"><div class="scroll-progress-bar"></div></div>
+  <div class="aurora-bg"><div class="aurora-blob blob-1"></div><div class="aurora-blob blob-2"></div></div>
+  <div class="cursor-dot"></div><div class="cursor-outline"></div>
+
+  <nav id="navbar">
+    <div class="logo" data-site-name>Plate<span class="dot">.</span></div>
+    <div class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/index.html#projects">Projects</a>
+      <a href="/index.html#articles">Writings</a>
+      <a href="/photography.html">Photography</a>
+    </div>
+  </nav>
+
+  <header class="page-hero">
+    <p class="section-label reveal-element" id="about-hero-label">08 // About</p>
+    <h1 class="hero-title">
+      <div class="reveal-mask"><div class="reveal-inner" id="about-hero-line-1">Algorithmic</div></div>
+      <div class="reveal-mask"><div class="reveal-inner"><span class="italic-brand" id="about-hero-line-2">Builder.</span></div></div>
+    </h1>
+    <div class="reveal-mask"><p class="hero-subtitle reveal-inner" id="about-hero-subtitle">我关注大模型记忆、安全审计、算法工程与高质感交互，试图把严谨系统做得更有温度。</p></div>
+  </header>
+
+  <main class="page-main">
+    <section class="card-grid" id="about-cards">
+      <article class="glass-card"><p class="meta-line">Focus</p><h2>LLM Memory & Security</h2><p>围绕 Redou、InsightSafe 等方向，探索长期记忆、RAG 安全、GNN、因果推断与 TEE 架构。</p></article>
+      <article class="glass-card"><p class="meta-line">Stack</p><h2>Full-stack Engineering</h2><p>常用 C++、Python、Go、JavaScript、React、Vue、Node 构建研究原型与产品系统。</p></article>
+      <article class="glass-card"><p class="meta-line">Taste</p><h2>Algorithm & Aesthetics</h2><p>相信复杂系统也可以清晰、克制、优雅。页面里的动效、留白与玻璃质感都服务于阅读体验。</p></article>
+    </section>
+  </main>
+
+  <footer><p id="site-footer-text">&copy; 2026 Plate. Powered by Logic & Space.</p></footer>
+  <script type="module" src="./assets/js/main.js"></script>
+  <script type="module" src="./assets/js/about.js"></script>
+</body>
+</html>
+
