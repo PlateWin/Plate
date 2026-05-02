@@ -30,8 +30,8 @@ const initTransition = async () => {
 
         if (isFirstLoad) {
             sessionStorage.setItem('plate_visited', 'true');
-            // Splash starts black (from CSS)
-            gsap.set(mask, { scaleY: 1, opacity: 1, backgroundColor: '#111', pointerEvents: 'all' });
+            // Everything is Klein Blue now
+            gsap.set(mask, { scaleY: 1, opacity: 1, backgroundColor: '#002FA7', pointerEvents: 'all' });
 
             let siteName = 'Plate';
             try {
