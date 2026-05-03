@@ -48,6 +48,7 @@
             <button class="console-tab" data-panel="config-panel">模板配置</button>
             <button class="console-tab" data-panel="photos-panel">照片管理</button>
             <button class="console-tab" data-panel="fragments-panel">碎片</button>
+            <button class="console-tab" data-panel="api-panel">API 配置</button>
             <button id="btn-logout" class="console-tab danger-tab">退出</button>
         </aside>
 
@@ -274,6 +275,42 @@
                     <div class="config-card glass-card">
                         <h2>碎片列表</h2>
                         <div id="fragment-list" class="fragment-console-list"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="api-panel" class="console-panel">
+                <div class="config-card glass-card">
+                    <div class="config-header">
+                        <div>
+                            <h2>AI 助手配置</h2>
+                            <p class="config-lead">管理 AI 助手的 API 密钥、推理地址和模型。所有配置保存在服务端，不会暴露给前端。</p>
+                        </div>
+                        <button id="btn-save-api-config" class="btn-publish">保存全部</button>
+                    </div>
+
+                    <div class="config-section">
+                        <h3>API 接入</h3>
+                        <p class="config-lead" style="margin-bottom: 1rem;">支持任何 OpenAI 兼容的 API 服务（SiliconFlow、OpenAI、DeepSeek、Ollama 等）。</p>
+                        <label>请求地址（Chat Completions）
+                            <input id="cfg-api-url" type="url" placeholder="https://api.siliconflow.cn/v1/chat/completions">
+                        </label>
+                        <label>模型名称
+                            <input id="cfg-api-model" type="text" placeholder="deepseek-ai/DeepSeek-V4-Flash">
+                        </label>
+                    </div>
+
+                    <div class="config-section">
+                        <h3>API Key</h3>
+                        <div style="position:relative;">
+                            <label>密钥
+                                <div style="display:flex;gap:0.5rem;align-items:center;">
+                                    <input id="cfg-api-key" type="password" placeholder="sk-xxxxxxxxxxxxxxxxxxxxxxxx" style="flex:1;">
+                                    <button id="btn-toggle-key-vis" class="btn-publish" style="padding:0.5rem 0.8rem;font-size:0.8rem;white-space:nowrap;">显示</button>
+                                </div>
+                            </label>
+                        </div>
+                        <label id="api-key-status" style="font-size:0.82rem;color:var(--text-secondary);margin-top:0.5rem;">当前状态：未配置</label>
                     </div>
                 </div>
             </section>

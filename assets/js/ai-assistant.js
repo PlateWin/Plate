@@ -122,7 +122,7 @@ function initAI() {
         const typingId = showTypingIndicator();
 
         try {
-            const response = await fetch('/api/ai', {
+            const response = await fetch('http://localhost:3001/api/ai', {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -137,7 +137,7 @@ function initAI() {
             removeTypingIndicator(typingId);
 
             if (response.status === 503) {
-                appendMessage('ai', "AI 助手暂不可用（API Key 未配置）。请联系站点管理员。");
+                appendMessage('ai', "暂时连不上大脑... API Key 还没配置，稍后再来看看吧。");
                 return;
             }
 
@@ -150,7 +150,7 @@ function initAI() {
             }
         } catch (error) {
             removeTypingIndicator(typingId);
-            appendMessage('ai', "⚠️ Neural link interrupted. Please check my status and try again later.");
+            appendMessage('ai', "连接出了点问题，稍等一下再试试？");
             console.error("AI Error:", error);
         } finally {
             isLoading = false;
@@ -270,9 +270,9 @@ function initAI() {
         wrapper.className = 'ai-quick-actions';
         wrapper.id = 'ai-quick-actions';
         const prompts = [
-            'FlowCrystal 最核心能力是什么？',
-            '说说 InsightSafe 的技术亮点',
-            '帮我快速了解所有奖项'
+            '你最骄傲的项目是什么？',
+            'InsightSafe 怎么防御知识注入？',
+            '介绍一下你的技术栈和获奖经历'
         ];
 
         prompts.forEach((prompt) => {

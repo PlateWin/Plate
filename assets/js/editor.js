@@ -133,6 +133,7 @@ function showConsole() {
   fetchConfig();
   fetchPhotos();
   fetchFragments();
+  fetchApiConfig();
 }
 
 async function verifyAdminToken(token) {
@@ -599,6 +600,68 @@ async function deleteFragment(id) {
 }
 
 btnSaveFragment.addEventListener('click', saveFragment);
+
+// API Configuration
+const cfgApiKey = document.getElementById('cfg-api-key');
+const cfgApiUrl = document.getElementById('cfg-api-url');
+const cfgApiModel = document.getElementById('cfg-api-model');
+const btnSaveApiConfig = document.getElementById('btn-save-api-config');
+const btnToggleKeyVis = document.getElementById('btn-toggle-key-vis');
+const apiKeyStatus = document.getElementById('api-key-status');
+
+async function fetchApiConfig() {
+  try {
+    const res = await adminFetch(`${API_ROOT}/secrets`);
+    if (!res) return;
+    const data = await res.json();
+    cfgApiUrl.value = data.apiUrl || '';
+    cfgApiModel.value = data.model || '';
+    if (data.siliconflowApiKey) {
+      cfgApiKey.value = data.siliconflowApiKey;
+      apiKeyStatus.textContent = `当前状态：已配置 (${data.siliconflowApiKeyMasked})`;
+      apiKeyStatus.style.color = '#10b981';
+    } else {
+      cfgApiKey.value = '';
+      apiKeyStatus.textContent = '当前状态：未配置';
+      apiKeyStatus.style.color = 'var(--text-secondary)';
+    }
+  } catch (e) {
+    console.error('fetchApiConfig error:', e);
+  }
+}
+
+async function saveApiConfig() {
+  if (!requireAdminSession()) return;
+
+  try {
+    const res = await adminFetch(`${API_ROOT}/secrets`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        siliconflowApiKey: cfgApiKey.value.trim(),
+        apiUrl: cfgApiUrl.value.trim(),
+        model: cfgApiModel.value.trim()
+      })
+    });
+    if (!res) return;
+    if (res.ok) {
+      showToast('AI 配置保存成功！');
+      fetchApiConfig();
+    } else {
+      showToast('保存失败', true);
+    }
+  } catch (e) {
+    showToast('网络错误：' + e.message, true);
+  }
+}
+
+btnToggleKeyVis.addEventListener('click', () => {
+  const isPassword = cfgApiKey.type === 'password';
+  cfgApiKey.type = isPassword ? 'text' : 'password';
+  btnToggleKeyVis.textContent = isPassword ? '隐藏' : '显示';
+});
+
+btnSaveApiConfig.addEventListener('click', saveApiConfig);
 
 tokenInput.addEventListener('keydown', (event) => {
   if (event.key === 'Enter') btnLogin.click();

@@ -21,6 +21,7 @@ const CONFIG_PATH = path.join(__dirname, 'data', 'site-config.json');
 const PHOTOS_PATH = path.join(__dirname, 'data', 'photos.json');
 const FRAGMENTS_PATH = path.join(__dirname, 'data', 'fragments.json');
 const WALL_PATH = path.join(__dirname, 'data', 'wall.json');
+const SECRETS_PATH = path.join(__dirname, 'data', 'secrets.json');
 const UPLOADS_DIR = path.join(__dirname, 'public', 'uploads');
 const ADMIN_TOKEN = process.env.ADMIN_TOKEN || 'plate-admin';
 
@@ -330,6 +331,34 @@ app.delete('/api/wall/:id', requireAdmin, (req, res) => {
     res.json({ success: true });
 });
 
+// Secrets / API Key config
+app.get('/api/secrets', requireAdmin, (req, res) => {
+    const secrets = readJson(SECRETS_PATH, {});
+    const key = secrets.siliconflowApiKey || '';
+    res.json({
+        siliconflowApiKey: key,
+        siliconflowApiKeyMasked: key ? '****' + key.slice(-4) : '',
+        apiUrl: secrets.apiUrl || 'https://api.siliconflow.cn/v1/chat/completions',
+        model: secrets.model || 'deepseek-ai/DeepSeek-V4-Flash'
+    });
+});
+
+app.put('/api/secrets', requireAdmin, (req, res) => {
+    const { siliconflowApiKey, apiUrl, model } = req.body;
+    const secrets = readJson(SECRETS_PATH, {});
+    if (typeof siliconflowApiKey === 'string') {
+        secrets.siliconflowApiKey = siliconflowApiKey.trim();
+    }
+    if (typeof apiUrl === 'string') {
+        secrets.apiUrl = apiUrl.trim();
+    }
+    if (typeof model === 'string') {
+        secrets.model = model.trim();
+    }
+    writeJson(SECRETS_PATH, secrets);
+    res.json({ success: true });
+});
+
 app.post('/api/upload-image', requireAdmin, (req, res) => {
     const { fileName, dataUrl } = req.body;
     const match = /^data:(image\/[a-zA-Z0-9.+-]+);base64,(.+)$/.exec(dataUrl || '');
@@ -370,18 +399,22 @@ app.get('/rss.xml', (req, res) => {
 
 // AI proxy — keeps API key server-side
 app.post('/api/ai', async (req, res) => {
-    const apiKey = process.env.SILICONFLOW_API_KEY;
+    const secrets = readJson(SECRETS_PATH, {});
+    const apiKey = process.env.SILICONFLOW_API_KEY || secrets.siliconflowApiKey;
     if (!apiKey) {
         return res.status(503).json({ error: 'AI service not configured' });
     }
+    const apiUrl = secrets.apiUrl || 'https://api.siliconflow.cn/v1/chat/completions';
+    const body = { ...req.body };
+    if (secrets.model) body.model = secrets.model;
     try {
-        const response = await fetch('https://api.siliconflow.cn/v1/chat/completions', {
+        const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${apiKey}`,
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(req.body)
+            body: JSON.stringify(body)
         });
         const data = await response.json();
         res.status(response.status).json(data);
