@@ -1,0 +1,166 @@
+/* fragments.css — Fragments (思维碎片) page styles */
+
+.tag-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  max-width: 720px;
+  margin: 0 auto 2rem;
+  padding: 0 1rem;
+}
+
+.tag-filter-btn {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.78rem;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.tag-filter-btn:hover,
+.tag-filter-btn.active {
+  background: var(--primary-color);
+  color: #fff;
+  border-color: var(--primary-color);
+}
+
+.fragments-feed {
+  position: relative;
+  max-width: 720px;
+  margin: 0 auto;
+  padding-left: 2rem;
+  border-left: 2px solid rgba(0, 47, 167, 0.15);
+}
+
+.fragment-card {
+  position: relative;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 1.5rem 1.8rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-glass);
+  backdrop-filter: blur(12px);
+  transition: transform 0.3s var(--motion-ease-standard), box-shadow 0.3s;
+}
+
+.fragment-card::before {
+  content: '';
+  position: absolute;
+  left: -2.35rem;
+  top: 1.8rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  border: 2px solid var(--bg-color);
+  box-shadow: 0 0 0 3px rgba(0, 47, 167, 0.12);
+}
+
+.fragment-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 48px rgba(0, 47, 167, 0.08), var(--shadow-glass);
+}
+
+.fragment-date {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  margin-bottom: 0.8rem;
+  cursor: default;
+}
+
+.fragment-date .relative-time {
+  transition: opacity 0.2s;
+}
+
+.fragment-date .absolute-time {
+  display: none;
+  font-size: 0.72rem;
+  opacity: 0.7;
+}
+
+.fragment-card:hover .absolute-time {
+  display: inline;
+  margin-left: 0.5rem;
+}
+
+.fragment-text {
+  font-family: 'OPPOSans', 'Inter', -apple-system, sans-serif;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-primary);
+}
+
+.fragment-text p {
+  margin-bottom: 0.8rem;
+}
+
+.fragment-text p:last-child {
+  margin-bottom: 0;
+}
+
+.fragment-text code {
+  background: rgba(0, 47, 167, 0.08);
+  color: var(--primary-color);
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.88em;
+}
+
+.fragment-text a {
+  color: var(--primary-color);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--primary-color);
+}
+
+.fragment-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 1rem;
+}
+
+.fragment-tag {
+  font-size: 0.72rem;
+  color: var(--primary-color);
+  background: rgba(0, 47, 167, 0.06);
+  border-radius: 999px;
+  padding: 0.2rem 0.6rem;
+  font-family: var(--font-sans);
+  font-weight: 600;
+}
+
+.fragments-empty {
+  text-align: center;
+  padding: 6rem 1rem;
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+  .fragments-feed {
+    padding-left: 1.2rem;
+  }
+
+  .fragment-card {
+    padding: 1.2rem 1.3rem;
+  }
+
+  .fragment-card::before {
+    left: -1.6rem;
+    width: 8px;
+    height: 8px;
+  }
+
+  .fragment-text {
+    font-size: 0.95rem;
+  }
+}

@@ -19,6 +19,7 @@ const DB_PATH = path.join(__dirname, 'data', 'db.json');
 const POSTS_DIR = path.join(__dirname, 'public', 'posts');
 const CONFIG_PATH = path.join(__dirname, 'data', 'site-config.json');
 const PHOTOS_PATH = path.join(__dirname, 'data', 'photos.json');
+const FRAGMENTS_PATH = path.join(__dirname, 'data', 'fragments.json');
 const UPLOADS_DIR = path.join(__dirname, 'public', 'uploads');
 const ADMIN_TOKEN = process.env.ADMIN_TOKEN || 'plate-admin';
 
@@ -248,6 +249,37 @@ app.delete('/api/photos/:id', requireAdmin, (req, res) => {
     const photosDb = readJson(PHOTOS_PATH, { photos: [] });
     photosDb.photos = photosDb.photos.filter((photo) => photo.id !== req.params.id);
     writeJson(PHOTOS_PATH, photosDb);
+    res.json({ success: true });
+});
+
+// Fragments API
+app.get('/api/fragments', (req, res) => {
+    const data = readJson(FRAGMENTS_PATH, { fragments: [] });
+    data.fragments.sort((a, b) => new Date(b.date) - new Date(a.date));
+    res.json(data.fragments);
+});
+
+app.post('/api/fragments', requireAdmin, (req, res) => {
+    const { text, tags } = req.body;
+    if (!text || !text.trim()) {
+        return res.status(400).json({ error: 'text is required' });
+    }
+    const data = readJson(FRAGMENTS_PATH, { fragments: [] });
+    const fragment = {
+        id: String(Date.now()),
+        text: text.trim(),
+        date: new Date().toISOString(),
+        tags: Array.isArray(tags) ? tags.filter(Boolean) : []
+    };
+    data.fragments.unshift(fragment);
+    writeJson(FRAGMENTS_PATH, data);
+    res.status(201).json(fragment);
+});
+
+app.delete('/api/fragments/:id', requireAdmin, (req, res) => {
+    const data = readJson(FRAGMENTS_PATH, { fragments: [] });
+    data.fragments = data.fragments.filter((f) => f.id !== req.params.id);
+    writeJson(FRAGMENTS_PATH, data);
     res.json({ success: true });
 });
 

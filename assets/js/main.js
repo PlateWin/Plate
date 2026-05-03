@@ -1,6 +1,20 @@
 import { POSTS_URL } from './config.js';
 import { fetchSiteConfig, initHeroReveal, initRevealOnScroll, renderMetaDescription, renderOpenGraph, splitTitleLines } from './site-content.js';
 
+// P2: Random Wander
+window.wanderToRandom = async function () {
+    try {
+        const res = await fetch(POSTS_URL);
+        if (!res.ok) throw new Error('CMS offline');
+        const posts = await res.json();
+        if (!posts.length) return;
+        const post = posts[Math.floor(Math.random() * posts.length)];
+        window.location.href = `/article.html?id=${post.id}`;
+    } catch (e) {
+        console.error('Wander failed:', e);
+    }
+};
+
 // Register GSAP ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
 

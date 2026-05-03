@@ -62,7 +62,7 @@
 
 /* Markdown Content Typography & Glassmorphism */
 .markdown-body {
-  font-family: 'Noto Serif SC', 'OPPOSans', sans-serif;
+  font-family: 'OPPOSans', 'Inter', -apple-system, sans-serif;
   color: #333;
   line-height: 1.8;
   font-size: 1.1rem;
@@ -91,8 +91,20 @@
 
 .markdown-body h2 {
   font-size: 1.8rem;
-  border-bottom: 1px solid var(--glass-border);
-  padding-bottom: 0.5rem;
+  margin-top: 3rem;
+}
+
+.markdown-body h3 {
+  font-size: 1.4rem;
+  position: relative;
+}
+
+.markdown-body h3::before {
+  content: '#';
+  color: #002FA7;
+  margin-right: 0.4em;
+  font-weight: 400;
+  opacity: 0.5;
 }
 
 /* --- A2: Immersive Typography --- */
@@ -124,12 +136,12 @@
 .markdown-body h2::before {
     content: '';
     display: inline-block;
-    width: 4px;
-    height: 1em;
-    background: #002FA7;
+    width: 5px;
+    height: 1.2em;
+    background: linear-gradient(180deg, #002FA7, #3b82f6);
     margin-right: 0.6em;
     vertical-align: middle;
-    border-radius: 2px;
+    border-radius: 3px;
 }
 
 /* Blockquote Style (Klein Blue Accent) */
@@ -156,7 +168,7 @@
     padding: 0.2rem 0.4rem;
     border-radius: 4px;
     font-size: 0.9em;
-    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-family: 'Fira Code', 'JetBrains Mono', monospace;
 }
 
 .markdown-body a {
@@ -181,6 +193,19 @@
   box-shadow: 0 8px 24px rgba(0,0,0,0.1);
   margin: 2rem 0;
   display: block;
+  transition: transform 0.4s var(--motion-ease-standard);
+}
+
+.markdown-body img:hover {
+  transform: scale(1.02);
+}
+
+.markdown-body hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #002FA7 20%, #002FA7 80%, transparent);
+  margin: 3rem 0;
+  opacity: 0.3;
 }
 
 .markdown-body ul, .markdown-body ol {
@@ -192,25 +217,113 @@
   margin-bottom: 0.5rem;
 }
 
-/* Code Blocks */
+.markdown-body li::marker {
+  color: #002FA7;
+}
+
+/* Code Blocks — Plate. Klein Blue Edition */
 .markdown-body pre {
-  margin: 2rem 0;
-  border-radius: 12px;
-  background: #1e1e24;
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+  margin: 2.5rem 0;
+  border-radius: 16px;
+  background: #0f172a;
+  border: 1px solid rgba(0, 47, 167, 0.12);
+  box-shadow:
+      0 20px 40px rgba(0, 0, 0, 0.25),
+      0 0 0 1px rgba(0, 47, 167, 0.05);
   overflow: hidden;
+}
+
+.markdown-body pre .code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.55rem 1rem;
+  background: rgba(0, 47, 167, 0.08);
+  border-bottom: 1px solid rgba(0, 47, 167, 0.1);
+}
+
+.markdown-body pre .code-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.markdown-body pre .code-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.markdown-body pre .code-dots span:nth-child(1) { background: #ff5f56; }
+.markdown-body pre .code-dots span:nth-child(2) { background: #ffbd2e; }
+.markdown-body pre .code-dots span:nth-child(3) { background: #27c93f; }
+
+.markdown-body pre .code-lang {
+  color: #60a5fa;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 .markdown-body pre code {
   display: block;
-  padding: 1.5rem;
+  padding: 1.2rem 1.5rem;
+  padding-left: 5rem;
   background: transparent;
-  color: #abb2bf;
-  font-size: 0.95rem;
-  line-height: 1.5;
+  color: #e2e8f0;
+  font-family: 'Fira Code', 'JetBrains Mono', monospace;
+  font-size: 0.92rem;
+  line-height: 1;
   overflow-x: auto;
+  counter-reset: line;
 }
+.markdown-body pre code .line {
+  display: block;
+  counter-increment: line;
+  position: relative;
+}
+
+.markdown-body pre code .line::before {
+  content: counter(line);
+  position: absolute;
+  left: -3.6rem;
+  width: 2rem;
+  text-align: right;
+  color: #475569;
+  font-size: 0.8em;
+  user-select: none;
+}
+
+/* Plate. Custom Syntax Highlighting — Klein Blue Theme */
+.markdown-body pre code .hljs-keyword,
+.markdown-body pre code .hljs-selector-tag { color: #3b82f6; }
+.markdown-body pre code .hljs-built_in,
+.markdown-body pre code .hljs-type { color: #818cf8; }
+.markdown-body pre code .hljs-literal,
+.markdown-body pre code .hljs-number { color: #38bdf8; }
+.markdown-body pre code .hljs-string { color: #34d399; }
+.markdown-body pre code .hljs-regexp { color: #f472b6; }
+.markdown-body pre code .hljs-function,
+.markdown-body pre code .hljs-title { color: #fbbf24; }
+.markdown-body pre code .hljs-params { color: #e2e8f0; }
+.markdown-body pre code .hljs-comment { color: #64748b; font-style: italic; }
+.markdown-body pre code .hljs-doctag,
+.markdown-body pre code .hljs-meta { color: #94a3b8; }
+.markdown-body pre code .hljs-attr { color: #c084fc; }
+.markdown-body pre code .hljs-variable,
+.markdown-body pre code .hljs-template-variable { color: #f87171; }
+.markdown-body pre code .hljs-addition { color: #34d399; }
+.markdown-body pre code .hljs-deletion { color: #f87171; }
+.markdown-body pre code .hljs-selector-class { color: #3b82f6; }
+.markdown-body pre code .hljs-selector-id { color: #38bdf8; }
+.markdown-body pre code .hljs-attribute { color: #fbbf24; }
+.markdown-body pre code .hljs-section { color: #3b82f6; }
+.markdown-body pre code .hljs-bullet { color: #94a3b8; }
+.markdown-body pre code .hljs-link { color: #60a5fa; }
+.markdown-body pre code .hljs-symbol { color: #38bdf8; }
+.markdown-body pre code .hljs-tag { color: #f87171; }
+.markdown-body pre code .hljs-name { color: #f87171; }
 
 /* Tables */
 .markdown-body table {
@@ -380,8 +493,17 @@
         margin: 0;
     }
 
-    .copy-btn {
-        opacity: 1;
+    .markdown-body pre code {
+        padding-left: 1.2rem;
+        font-size: 0.85rem;
+    }
+
+    .markdown-body pre code .line::before {
+        display: none;
+    }
+
+    .markdown-body pre .code-header {
+        padding: 0.45rem 0.8rem;
     }
 }
 
@@ -493,31 +615,19 @@
     }
 }
 
-/* B2: Copy Button */
-.markdown-body pre {
-    position: relative;
-}
-
+/* B2: Copy Button — inside code header */
 .copy-btn {
-    position: absolute;
-    top: 0.6rem;
-    right: 0.6rem;
-    padding: 0.3rem 0.7rem;
+    padding: 0.25rem 0.6rem;
     background: rgba(0, 47, 167, 0.15);
     border: 1px solid rgba(0, 47, 167, 0.3);
     border-radius: 6px;
-    color: #aaa;
-    font-size: 0.75rem;
+    color: #94a3b8;
+    font-size: 0.7rem;
     font-family: var(--font-sans);
     font-weight: 600;
     cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.2s, background 0.2s, color 0.2s;
+    transition: background 0.2s, color 0.2s;
     z-index: 2;
-}
-
-.markdown-body pre:hover .copy-btn {
-    opacity: 1;
 }
 
 .copy-btn:hover {
@@ -528,7 +638,6 @@
 .copy-btn.copied {
     background: rgba(0, 47, 167, 0.6);
     color: #fff;
-    opacity: 1;
 }
 
 /* B3: Article Progress Bar */

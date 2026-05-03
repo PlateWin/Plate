@@ -1,4 +1,4 @@
-import { API_ROOT, POSTS_URL, CONFIG_URL } from './config.js';
+import { API_ROOT, POSTS_URL, CONFIG_URL, FRAGMENTS_URL } from './config.js';
 import { clearSiteConfigCache, fetchSiteConfig, normalizeSiteConfig } from './site-content.js';
 
 const ADMIN_SESSION_URL = `${API_ROOT}/admin/session`;
@@ -83,6 +83,10 @@ const photoLat = document.getElementById('photo-lat');
 const photoLng = document.getElementById('photo-lng');
 const btnSavePhoto = document.getElementById('btn-save-photo');
 const photoList = document.getElementById('photo-list');
+const fragmentText = document.getElementById('fragment-text');
+const fragmentTags = document.getElementById('fragment-tags');
+const btnSaveFragment = document.getElementById('btn-save-fragment');
+const fragmentList = document.getElementById('fragment-list');
 
 function authHeaders(extra = {}) {
   return { ...extra, 'x-admin-token': adminToken };
@@ -128,6 +132,7 @@ function showConsole() {
   fetchPosts();
   fetchConfig();
   fetchPhotos();
+  fetchFragments();
 }
 
 async function verifyAdminToken(token) {
@@ -534,6 +539,66 @@ btnSave.addEventListener('click', savePost);
 btnDelete.addEventListener('click', deletePost);
 btnSaveConfig.addEventListener('click', saveConfig);
 btnSavePhoto.addEventListener('click', savePhoto);
+
+// Fragments CRUD
+async function fetchFragments() {
+  const res = await fetch(FRAGMENTS_URL);
+  if (!res.ok) return;
+  const fragments = await res.json();
+  fragmentList.innerHTML = '';
+  fragments.forEach((f) => {
+    const item = document.createElement('div');
+    item.className = 'photo-console-item';
+    item.style.flexDirection = 'column';
+    item.style.alignItems = 'flex-start';
+    item.style.gap = '0.3rem';
+    const preview = f.text.length > 80 ? f.text.slice(0, 80) + '...' : f.text;
+    const date = new Date(f.date).toLocaleDateString('zh-CN');
+    item.innerHTML = `<div style="display:flex;justify-content:space-between;width:100%;align-items:center;"><strong>${date}</strong><button data-id="${f.id}" style="background:none;border:1px solid #ff5f5633;color:#FF5F56;border-radius:6px;padding:0.2rem 0.6rem;cursor:pointer;font-size:0.75rem;">删除</button></div><p style="margin:0;font-size:0.85rem;color:var(--text-secondary);">${preview}</p>`;
+    item.querySelector('button').onclick = () => deleteFragment(f.id);
+    fragmentList.appendChild(item);
+  });
+}
+
+async function saveFragment() {
+  if (!requireAdminSession()) return;
+  const text = fragmentText.value.trim();
+  if (!text) return showToast('请输入碎片内容', true);
+
+  const tags = fragmentTags.value.split(/[,，]/).map(t => t.trim()).filter(Boolean);
+  try {
+    const res = await adminFetch(FRAGMENTS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text, tags })
+    });
+    if (!res) return;
+    if (res.ok) {
+      showToast('碎片发布成功！');
+      fragmentText.value = '';
+      fragmentTags.value = '';
+      fetchFragments();
+    } else {
+      const err = await res.json().catch(() => ({}));
+      showToast(err.error || `发布失败 (${res.status})`, true);
+    }
+  } catch (e) {
+    showToast('网络错误：' + e.message, true);
+    console.error('saveFragment error:', e);
+  }
+}
+
+async function deleteFragment(id) {
+  if (!requireAdminSession() || !confirm('确定要删除这条碎片吗？')) return;
+  const res = await adminFetch(`${FRAGMENTS_URL}/${id}`, { method: 'DELETE' });
+  if (!res) return;
+  if (res.ok) {
+    showToast('删除成功！');
+    fetchFragments();
+  }
+}
+
+btnSaveFragment.addEventListener('click', saveFragment);
 
 tokenInput.addEventListener('keydown', (event) => {
   if (event.key === 'Enter') btnLogin.click();

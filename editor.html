@@ -47,6 +47,7 @@
             <button class="console-tab active" data-panel="posts-panel">文章</button>
             <button class="console-tab" data-panel="config-panel">模板配置</button>
             <button class="console-tab" data-panel="photos-panel">照片管理</button>
+            <button class="console-tab" data-panel="fragments-panel">碎片</button>
             <button id="btn-logout" class="console-tab danger-tab">退出</button>
         </aside>
 
@@ -259,6 +260,21 @@
                         <button id="btn-save-photo" class="btn-publish">上传并保存</button>
                     </div>
                     <div class="config-card glass-card"><h2>照片列表</h2><div id="photo-list" class="photo-console-list"></div></div>
+                </div>
+            </section>
+
+            <section id="fragments-panel" class="console-panel">
+                <div class="panel-grid">
+                    <div class="config-card glass-card">
+                        <h2>发布碎片</h2>
+                        <textarea id="fragment-text" rows="4" placeholder="写下此刻的想法..." style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--glass-border);border-radius:8px;padding:1rem;color:#fff;font-family:inherit;margin-bottom:0.8rem;resize:vertical;"></textarea>
+                        <input id="fragment-tags" type="text" placeholder="标签，逗号分隔" style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--glass-border);border-radius:8px;padding:0.8rem;color:#fff;font-family:inherit;margin-bottom:0.8rem;box-sizing:border-box;">
+                        <button id="btn-save-fragment" class="btn-publish">发布</button>
+                    </div>
+                    <div class="config-card glass-card">
+                        <h2>碎片列表</h2>
+                        <div id="fragment-list" class="fragment-console-list"></div>
+                    </div>
                 </div>
             </section>
         </main>

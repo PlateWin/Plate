@@ -67,8 +67,19 @@ document.addEventListener("DOMContentLoaded", async () => {
             hljs.highlightElement(block);
         });
 
-        // B2: Add copy buttons to code blocks
-        addCopyButtons();
+        // B2: Enhance code blocks with header, line numbers, and copy button
+        enhanceCodeBlocks();
+
+        // Render LaTeX with KaTeX
+        if (typeof renderMathInElement === 'function') {
+            renderMathInElement(contentContainer, {
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '$', right: '$', display: false }
+                ],
+                throwOnError: false
+            });
+        }
 
         // B3: Init article reading progress bar
         initArticleProgress();
@@ -185,21 +196,39 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
-function addCopyButtons() {
+function enhanceCodeBlocks() {
     document.querySelectorAll('.markdown-body pre').forEach(pre => {
-        if (pre.querySelector('.copy-btn')) return;
-        const btn = document.createElement('button');
-        btn.className = 'copy-btn';
-        btn.textContent = 'Copy';
-        btn.title = 'Copy code';
-        btn.addEventListener('click', async () => {
-            const code = pre.querySelector('code')?.innerText || '';
+        const code = pre.querySelector('code');
+        if (!code || pre.querySelector('.code-header')) return;
+
+        // 1. Extract language name from highlight.js class
+        const langMatch = [...code.classList].find(c => c.startsWith('language-'));
+        const lang = langMatch ? langMatch.replace('language-', '') : 'code';
+
+        // 2. Create header bar
+        const header = document.createElement('div');
+        header.className = 'code-header';
+
+        const dots = document.createElement('div');
+        dots.className = 'code-dots';
+        dots.innerHTML = '<span></span><span></span><span></span>';
+
+        const langLabel = document.createElement('span');
+        langLabel.className = 'code-lang';
+        langLabel.textContent = lang;
+
+        const copyBtn = document.createElement('button');
+        copyBtn.className = 'copy-btn';
+        copyBtn.textContent = 'Copy';
+        copyBtn.title = 'Copy code';
+        copyBtn.addEventListener('click', async () => {
+            const text = code.innerText;
             try {
                 if (navigator.clipboard && navigator.clipboard.writeText) {
-                    await navigator.clipboard.writeText(code);
+                    await navigator.clipboard.writeText(text);
                 } else {
                     const ta = document.createElement('textarea');
-                    ta.value = code;
+                    ta.value = text;
                     ta.style.position = 'fixed';
                     ta.style.opacity = '0';
                     document.body.appendChild(ta);
@@ -207,13 +236,23 @@ function addCopyButtons() {
                     document.execCommand('copy');
                     document.body.removeChild(ta);
                 }
-                btn.textContent = '✓ Copied';
-                btn.classList.add('copied');
-                setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+                copyBtn.textContent = '✓ Copied';
+                copyBtn.classList.add('copied');
+                setTimeout(() => { copyBtn.textContent = 'Copy'; copyBtn.classList.remove('copied'); }, 2000);
             } catch (err) { console.error('Copy failed:', err); }
         });
-        pre.style.position = 'relative';
-        pre.appendChild(btn);
+
+        header.appendChild(dots);
+        header.appendChild(langLabel);
+        header.appendChild(copyBtn);
+        pre.insertBefore(header, code);
+
+        // 3. Wrap each line in a span for line numbers
+        const lines = code.innerHTML.split('\n');
+        if (lines[lines.length - 1].trim() === '') lines.pop();
+        code.innerHTML = lines.map(line =>
+            `<span class="line">${line || ' '}</span>`
+        ).join('\n');
     });
 }
 
