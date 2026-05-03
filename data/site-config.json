@@ -144,11 +144,11 @@
     "note": "Use this section for your visual taste, shooting habits, or the role photography plays in your creative practice."
   },
   "seo": {
-    "homeTitle": "Plate. | Open Source Blog Template",
-    "homeDescription": "An open-source personal blog template with writing, projects, photography, and a lightweight admin console.",
+    "homeTitle": "Plate. | Algorithm & Aesthetics",
+    "homeDescription": "Plate. 的个人作品集与技术博客，记录算法、美学、LLM 安全、记忆增强、前端工程和摄影创作。",
     "aboutTitle": "About | Plate.",
-    "aboutDescription": "Learn about the person behind the site and the kind of work they build.",
+    "aboutDescription": "了解 Plate. 的技术背景、研究方向、项目经历与创作理念。",
     "nowTitle": "Now | Plate.",
-    "nowDescription": "A current snapshot of ongoing work, research, and writing."
+    "nowDescription": "Plate. 当前状态、研究方向、写作计划和正在搭建的工具。"
   }
 }

@@ -1,14 +1,17 @@
 import express from 'express';
 import cors from 'cors';
+import dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 // Middleware
 app.use(cors());
@@ -23,10 +26,17 @@ const FRAGMENTS_PATH = path.join(__dirname, 'data', 'fragments.json');
 const WALL_PATH = path.join(__dirname, 'data', 'wall.json');
 const SECRETS_PATH = path.join(__dirname, 'data', 'secrets.json');
 const UPLOADS_DIR = path.join(__dirname, 'public', 'uploads');
+const DIST_DIR = path.join(__dirname, 'dist');
 const ADMIN_TOKEN = process.env.ADMIN_TOKEN || 'plate-admin';
+const DEFAULT_AI_API_URL = 'https://api.siliconflow.cn/v1/chat/completions';
+const DEFAULT_AI_MODEL = 'deepseek-ai/DeepSeek-V4-Flash';
 
 fs.mkdirSync(POSTS_DIR, { recursive: true });
 fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+
+if (fs.existsSync(DIST_DIR)) {
+    app.use(express.static(DIST_DIR));
+}
 
 // Helper to read DB
 const readDB = () => {
@@ -50,6 +60,8 @@ const readJson = (filePath, fallback) => {
 const writeJson = (filePath, data) => {
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 };
+
+const getSiteUrl = () => (process.env.SITE_URL || `http://localhost:${PORT}`).replace(/\/$/, '');
 
 const requireAdmin = (req, res, next) => {
     if (req.headers['x-admin-token'] !== ADMIN_TOKEN) {
@@ -334,12 +346,13 @@ app.delete('/api/wall/:id', requireAdmin, (req, res) => {
 // Secrets / API Key config
 app.get('/api/secrets', requireAdmin, (req, res) => {
     const secrets = readJson(SECRETS_PATH, {});
-    const key = secrets.siliconflowApiKey || '';
+    const key = process.env.SILICONFLOW_API_KEY || secrets.siliconflowApiKey || '';
     res.json({
-        siliconflowApiKey: key,
+        siliconflowApiKey: secrets.siliconflowApiKey || '',
+        hasEnvApiKey: Boolean(process.env.SILICONFLOW_API_KEY),
         siliconflowApiKeyMasked: key ? '****' + key.slice(-4) : '',
-        apiUrl: secrets.apiUrl || 'https://api.siliconflow.cn/v1/chat/completions',
-        model: secrets.model || 'deepseek-ai/DeepSeek-V4-Flash'
+        apiUrl: process.env.SILICONFLOW_API_URL || secrets.apiUrl || DEFAULT_AI_API_URL,
+        model: process.env.SILICONFLOW_MODEL || secrets.model || DEFAULT_AI_MODEL
     });
 });
 
@@ -372,10 +385,51 @@ app.post('/api/upload-image', requireAdmin, (req, res) => {
     res.status(201).json({ url: `/uploads/${safeName}` });
 });
 
+app.get('/robots.txt', (req, res) => {
+    const siteUrl = getSiteUrl();
+    res.type('text/plain').send(`User-agent: *
+Allow: /
+Disallow: /editor.html
+Disallow: /404.html
+
+Sitemap: ${siteUrl}/sitemap.xml
+`);
+});
+
+app.get('/sitemap.xml', (req, res) => {
+    const siteUrl = getSiteUrl();
+    const db = readDB();
+    const staticPages = [
+        { path: '/', changefreq: 'weekly', priority: '1.0' },
+        { path: '/about.html', changefreq: 'monthly', priority: '0.7' },
+        { path: '/now.html', changefreq: 'weekly', priority: '0.7' },
+        { path: '/archive.html', changefreq: 'weekly', priority: '0.8' },
+        { path: '/tags.html', changefreq: 'weekly', priority: '0.8' },
+        { path: '/photography.html', changefreq: 'monthly', priority: '0.6' },
+        { path: '/fragments.html', changefreq: 'weekly', priority: '0.6' },
+        { path: '/graph.html', changefreq: 'weekly', priority: '0.5' },
+        { path: '/wall.html', changefreq: 'weekly', priority: '0.5' }
+    ];
+    const urls = [
+        ...staticPages,
+        ...db.posts.map((post) => ({
+            path: `/article.html?id=${encodeURIComponent(post.id)}`,
+            changefreq: 'monthly',
+            priority: '0.8'
+        }))
+    ];
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.map((item) => `  <url><loc>${siteUrl}${item.path}</loc><changefreq>${item.changefreq}</changefreq><priority>${item.priority}</priority></url>`).join('\n')}
+</urlset>`;
+    res.set('Content-Type', 'application/xml; charset=utf-8');
+    res.send(xml);
+});
+
 // RSS Feed
 app.get('/rss.xml', (req, res) => {
     const db = readDB();
-    const siteUrl = process.env.SITE_URL || 'http://localhost:3001';
+    const siteUrl = getSiteUrl();
     const items = db.posts.map(post => `
     <item>
       <title><![CDATA[${post.title}]]></title>
@@ -404,9 +458,9 @@ app.post('/api/ai', async (req, res) => {
     if (!apiKey) {
         return res.status(503).json({ error: 'AI service not configured' });
     }
-    const apiUrl = secrets.apiUrl || 'https://api.siliconflow.cn/v1/chat/completions';
+    const apiUrl = process.env.SILICONFLOW_API_URL || secrets.apiUrl || DEFAULT_AI_API_URL;
     const body = { ...req.body };
-    if (secrets.model) body.model = secrets.model;
+    body.model = process.env.SILICONFLOW_MODEL || secrets.model || body.model || DEFAULT_AI_MODEL;
     try {
         const response = await fetch(apiUrl, {
             method: 'POST',

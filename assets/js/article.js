@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
         });
         
-        document.title = `${post.title} | Plate.`;
+        updateArticleSeo(post);
 
     } catch (error) {
         console.error("Failed to load article:", error);
@@ -171,6 +171,38 @@ document.addEventListener("DOMContentLoaded", async () => {
         commentCountSpan.textContent = comments.length;
         commentsList.innerHTML = '';
         comments.forEach(appendComment);
+    }
+
+    function updateArticleSeo(post) {
+        const description = truncateText(post.excerpt || stripMarkdown(post.content), 150);
+        document.title = `${post.title} | Plate.`;
+        setMetaContent('meta[name="description"]', description, 'name', 'description');
+        setMetaContent('meta[property="og:title"]', `${post.title} | Plate.`, 'property', 'og:title');
+        setMetaContent('meta[property="og:description"]', description, 'property', 'og:description');
+        setMetaContent('meta[property="og:type"]', 'article', 'property', 'og:type');
+    }
+
+    function setMetaContent(selector, content, attrName, attrValue) {
+        let element = document.querySelector(selector);
+        if (!element) {
+            element = document.createElement('meta');
+            element.setAttribute(attrName, attrValue);
+            document.head.appendChild(element);
+        }
+        element.setAttribute('content', content);
+    }
+
+    function stripMarkdown(content) {
+        return (content || '')
+            .replace(/```[\s\S]*?```/g, ' ')
+            .replace(/[#>*_`[\]()|:-]/g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim();
+    }
+
+    function truncateText(text, maxLength) {
+        const normalized = (text || '').replace(/\s+/g, ' ').trim();
+        return normalized.length > maxLength ? `${normalized.slice(0, maxLength - 1)}…` : normalized;
     }
 
     function appendComment(comment) {

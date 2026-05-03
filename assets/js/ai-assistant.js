@@ -1,3 +1,5 @@
+import { AI_URL } from './config.js';
+
 /**
  * Plate. AI Assistant Core Logic
  * Proxied through /api/ai (server-side)
@@ -122,7 +124,7 @@ function initAI() {
         const typingId = showTypingIndicator();
 
         try {
-            const response = await fetch('http://localhost:3001/api/ai', {
+            const response = await fetch(AI_URL, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
