@@ -20,6 +20,7 @@ const POSTS_DIR = path.join(__dirname, 'public', 'posts');
 const CONFIG_PATH = path.join(__dirname, 'data', 'site-config.json');
 const PHOTOS_PATH = path.join(__dirname, 'data', 'photos.json');
 const FRAGMENTS_PATH = path.join(__dirname, 'data', 'fragments.json');
+const WALL_PATH = path.join(__dirname, 'data', 'wall.json');
 const UPLOADS_DIR = path.join(__dirname, 'public', 'uploads');
 const ADMIN_TOKEN = process.env.ADMIN_TOKEN || 'plate-admin';
 
@@ -280,6 +281,52 @@ app.delete('/api/fragments/:id', requireAdmin, (req, res) => {
     const data = readJson(FRAGMENTS_PATH, { fragments: [] });
     data.fragments = data.fragments.filter((f) => f.id !== req.params.id);
     writeJson(FRAGMENTS_PATH, data);
+    res.json({ success: true });
+});
+
+// Wall API
+app.get('/api/wall', (req, res) => {
+    const data = readJson(WALL_PATH, { cards: [] });
+    res.json(data.cards);
+});
+
+app.post('/api/wall', requireAdmin, (req, res) => {
+    const { type, content, x, y, width, color } = req.body;
+    if (!type || !content) {
+        return res.status(400).json({ error: 'type and content are required' });
+    }
+    const data = readJson(WALL_PATH, { cards: [] });
+    const card = {
+        id: String(Date.now()),
+        type,
+        content: content.trim(),
+        x: x || 100,
+        y: y || 100,
+        width: width || 240,
+        color: color || 'blue',
+        createdAt: new Date().toISOString()
+    };
+    data.cards.push(card);
+    writeJson(WALL_PATH, data);
+    res.status(201).json(card);
+});
+
+app.put('/api/wall/:id', requireAdmin, (req, res) => {
+    const data = readJson(WALL_PATH, { cards: [] });
+    const idx = data.cards.findIndex(c => c.id === req.params.id);
+    if (idx === -1) return res.status(404).json({ error: 'Card not found' });
+    const allowed = ['content', 'x', 'y', 'width', 'color', 'type'];
+    allowed.forEach(key => {
+        if (req.body[key] !== undefined) data.cards[idx][key] = req.body[key];
+    });
+    writeJson(WALL_PATH, data);
+    res.json(data.cards[idx]);
+});
+
+app.delete('/api/wall/:id', requireAdmin, (req, res) => {
+    const data = readJson(WALL_PATH, { cards: [] });
+    data.cards = data.cards.filter(c => c.id !== req.params.id);
+    writeJson(WALL_PATH, data);
     res.json({ success: true });
 });
 

@@ -92,7 +92,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // B1: Build TOC
         buildTOC(contentContainer);
-        
+
+        // P1: Reading Heatmap
+        initHeatmap(contentContainer, postId);
+
         // --- A2: Immersive Reveal Animation ---
         // 1. Initial Header Animation
         gsap.fromTo([contentContainer.firstChild, '.interactions-container'], 
@@ -312,4 +315,98 @@ function renderReadingLinks(posts, currentPost) {
         ${prev ? `<a href="/article.html?id=${prev.id}" class="reading-card"><span>Previous</span><strong>${prev.title}</strong></a>` : '<div class="reading-card muted"><span>Previous</span><strong>None</strong></div>'}
         ${next ? `<a href="/article.html?id=${next.id}" class="reading-card"><span>Next</span><strong>${next.title}</strong></a>` : '<div class="reading-card muted"><span>Next</span><strong>None</strong></div>'}
     `;
+}
+
+// P1: Reading Heatmap
+function initHeatmap(contentEl, postId) {
+    const paragraphs = contentEl.querySelectorAll('p');
+    if (!paragraphs.length) return;
+
+    const durations = new Array(paragraphs.length).fill(0);
+    const startTimes = {};
+    const storageKey = `heatmap_${postId}`;
+
+    // Load existing data
+    let saved = {};
+    try { saved = JSON.parse(localStorage.getItem(storageKey) || '{}'); } catch {}
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            const idx = Array.from(paragraphs).indexOf(entry.target);
+            if (idx === -1) return;
+            if (entry.isIntersecting) {
+                startTimes[idx] = Date.now();
+            } else if (startTimes[idx]) {
+                durations[idx] += Date.now() - startTimes[idx];
+                delete startTimes[idx];
+            }
+        });
+    }, { threshold: 0.1 });
+
+    paragraphs.forEach(p => observer.observe(p));
+
+    // Pause timing when tab is hidden
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            Object.keys(startTimes).forEach(idx => {
+                durations[idx] += Date.now() - startTimes[idx];
+                delete startTimes[idx];
+            });
+        }
+    });
+
+    // Save on unload
+    const save = () => {
+        // Flush active timers
+        Object.keys(startTimes).forEach(idx => {
+            durations[idx] += Date.now() - startTimes[idx];
+            delete startTimes[idx];
+        });
+        // Merge with saved data (accumulate across visits)
+        const merged = { ...saved };
+        durations.forEach((d, i) => {
+            if (d > 0) merged[i] = (merged[i] || 0) + d;
+        });
+        localStorage.setItem(storageKey, JSON.stringify(merged));
+    };
+    window.addEventListener('beforeunload', save);
+
+    // Also save periodically
+    setInterval(save, 10000);
+
+    // Render existing heatmap data
+    renderHeatmap(paragraphs, saved);
+}
+
+function renderHeatmap(paragraphs, data) {
+    const container = document.getElementById('heatmap-sidebar');
+    if (!container) return;
+
+    const values = Object.values(data);
+    const max = Math.max(...values, 1);
+
+    let html = '<div class="heatmap-title">Heatmap</div><div class="heatmap-blocks">';
+    paragraphs.forEach((_, i) => {
+        const val = data[i] || 0;
+        const opacity = val > 0 ? Math.max(0.1, val / max) : 0.06;
+        html += `<div class="heatmap-block" data-index="${i}" style="background: rgba(0,47,167,${opacity});"></div>`;
+    });
+    html += '</div>';
+    container.innerHTML = html;
+    container.style.display = 'block';
+
+    // Hover interaction
+    container.querySelectorAll('.heatmap-block').forEach(block => {
+        const idx = parseInt(block.dataset.index);
+        const para = paragraphs[idx];
+        if (!para) return;
+
+        block.addEventListener('mouseenter', () => {
+            para.classList.add('heatmap-highlight');
+            para.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+        block.addEventListener('mouseleave', () => {
+            para.classList.remove('heatmap-highlight');
+        });
+    });
 }
