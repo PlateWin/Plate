@@ -1,11 +1,9 @@
 /**
  * Plate. AI Assistant Core Logic
- * Powered by DeepSeek-ai/DeepSeek-V4-Flash via SiliconFlow
+ * Proxied through /api/ai (server-side)
  */
 
 const CONFIG = {
-    apiKey: "sk-ajdbrovpbtgryhayfwxmgmmhvbkkbooxijiugiafygbxxbrq",
-    url: "https://api.siliconflow.cn/v1/chat/completions",
     model: "deepseek-ai/DeepSeek-V4-Flash"
 };
 
@@ -124,12 +122,9 @@ function initAI() {
         const typingId = showTypingIndicator();
 
         try {
-            const response = await fetch(CONFIG.url, {
+            const response = await fetch('/api/ai', {
                 method: "POST",
-                headers: {
-                    "Authorization": `Bearer ${CONFIG.apiKey}`,
-                    "Content-Type": "application/json"
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     model: CONFIG.model,
                     messages: conversationHistory,
@@ -140,6 +135,11 @@ function initAI() {
 
             const data = await response.json();
             removeTypingIndicator(typingId);
+
+            if (response.status === 503) {
+                appendMessage('ai', "AI 助手暂不可用（API Key 未配置）。请联系站点管理员。");
+                return;
+            }
 
             if (response.ok) {
                 const aiResponse = data.choices[0].message.content;

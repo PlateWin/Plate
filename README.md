@@ -2,6 +2,12 @@
 
 一个可直接 fork 的个人博客模板：原生 HTML / CSS / JavaScript 多页前端，配套 Node.js + Express 轻量后台，支持文章发布、模板内容配置、摄影页和管理控制台。
 
+## 快速部署
+
+- [部署指南（本地 / Railway / Vercel）](docs/deployment.md)
+- [更新日志](CHANGELOG.md)
+- [MIT License](LICENSE)
+
 ## Features
 
 - Markdown 文章发布与编辑

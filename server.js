@@ -264,6 +264,54 @@ app.post('/api/upload-image', requireAdmin, (req, res) => {
     res.status(201).json({ url: `/uploads/${safeName}` });
 });
 
+// RSS Feed
+app.get('/rss.xml', (req, res) => {
+    const db = readDB();
+    const siteUrl = process.env.SITE_URL || 'http://localhost:3001';
+    const items = db.posts.map(post => `
+    <item>
+      <title><![CDATA[${post.title}]]></title>
+      <link>${siteUrl}/article.html?id=${post.id}</link>
+      <guid>${siteUrl}/article.html?id=${post.id}</guid>
+      <pubDate>${new Date(post.date).toUTCString()}</pubDate>
+      <description><![CDATA[${post.excerpt || ''}]]></description>
+    </item>`).join('');
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Plate. Blog</title>
+    <link>${siteUrl}</link>
+    <description>Algorithm &amp; Aesthetics</description>
+    <language>zh-CN</language>${items}
+  </channel>
+</rss>`;
+    res.set('Content-Type', 'application/rss+xml; charset=utf-8');
+    res.send(xml);
+});
+
+// AI proxy — keeps API key server-side
+app.post('/api/ai', async (req, res) => {
+    const apiKey = process.env.SILICONFLOW_API_KEY;
+    if (!apiKey) {
+        return res.status(503).json({ error: 'AI service not configured' });
+    }
+    try {
+        const response = await fetch('https://api.siliconflow.cn/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${apiKey}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(req.body)
+        });
+        const data = await response.json();
+        res.status(response.status).json(data);
+    } catch (err) {
+        console.error('AI proxy error:', err);
+        res.status(502).json({ error: 'AI upstream unreachable' });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`🚀 Plate. CMS Backend running on http://localhost:${PORT}`);
 });

@@ -128,6 +128,12 @@ window.addEventListener('pageshow', (event) => {
     }
 });
 
+// A1: Skip animation on browser back/forward navigation
+window.addEventListener('popstate', () => {
+    const mask = document.querySelector('.page-mask');
+    if (mask) gsap.set(mask, { scaleY: 0, pointerEvents: "none" });
+});
+
 // Run as soon as DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initTransition);

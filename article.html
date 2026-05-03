@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Plate. ¼¼Êõ²©¿ÍÎÄÕÂÏêÇé£¬¾Û½¹Ëã·¨¡¢ÃÀÑ§¡¢LLM¡¢°²È«ÓëÇ°¶Ë¹¤³Ì¡£">
+    <meta name="description" content="Plate. çš„æŠ€æœ¯åšå®¢ï¼Œä¸“æ³¨ç®—æ³•ã€ç¾Žå­¦ã€LLM å®‰å…¨ä¸Žå‰ç«¯å·¥ç¨‹ã€‚">
     <meta property="og:title" content="Article | Plate.">
-    <meta property="og:description" content="Plate. ¼¼Êõ²©¿ÍÎÄÕÂÏêÇé¡£">
+    <meta property="og:description" content="Plate. çš„æŠ€æœ¯æ–‡ç« ä¸Žæ·±åº¦æ€è€ƒã€‚">
     <meta property="og:type" content="article">
     <title>Article | Plate.</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -71,14 +71,20 @@
 
     <!-- Main Article Container -->
     <main class="article-container">
+        <div class="article-progress-container">
+            <div id="article-progress-bar" class="article-progress-bar"></div>
+        </div>
         <div id="loading-indicator" class="loading-state">
             <div class="spinner"></div>
             <p>Loading Cognitive Core...</p>
         </div>
-        
-        <article id="markdown-content" class="markdown-body reveal-element" style="display: none;">
-            <!-- Markdown content will be injected here -->
-        </article>
+
+        <div class="article-layout">
+            <article id="markdown-content" class="markdown-body reveal-element" style="display: none;">
+                <!-- Markdown content will be injected here -->
+            </article>
+            <aside id="toc-sidebar" class="toc-sidebar" style="display: none;"></aside>
+        </div>
 
         <section id="reading-links" class="reading-links" style="display: none;">
             <div id="post-navigation" class="post-navigation"></div>

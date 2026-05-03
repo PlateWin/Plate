@@ -13,7 +13,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=Bodoni+Moda:ital,opsz,wght@1,6..96,400;1,6..96,700&display=swap" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/opposans" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css">
-    <link rel="stylesheet" href="./assets/css/phase2.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
@@ -23,6 +22,37 @@
             position: fixed; inset: 0; background: #002FA7; z-index: 10000;
             transform-origin: top; transform: scaleY(1); display: flex;
             justify-content: center; align-items: center; pointer-events: all;
+        }
+        .animated-border-wrapper::before {
+            content: '';
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: calc(100% - 8px);
+            height: calc(100% - 8px);
+            border: 1.5px solid rgba(0, 47, 167, 0.15);
+            border-radius: 16px;
+            pointer-events: none;
+            z-index: 9999;
+            animation: scaleBreatheBorder 12s ease-in-out infinite;
+            box-shadow: 0 0 30px rgba(0, 47, 167, 0.04), inset 0 0 30px rgba(0, 47, 167, 0.02);
+        }
+        @keyframes scaleBreatheBorder {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.06);
+                opacity: 0.8;
+            }
+        }
+        @media (max-width: 768px) {
+            .animated-border-wrapper::before {
+                width: calc(100% - 4px);
+                height: calc(100% - 4px);
+                border-radius: 8px;
+            }
         }
     </style>
 </head>
@@ -53,6 +83,7 @@
         </div>
     </nav>
 
+    <div class="animated-border-wrapper">
     <header class="page-hero hero">
         <p class="section-label reveal-element">00 // Home</p>
         <h1 class="hero-title" id="home-hero-title">
@@ -64,7 +95,7 @@
         </div>
     </header>
 
-    <!-- Connector 1: Hero ??About | 彗星轨迹 -->
+    <!-- Connector 1: Hero →About | 彗星轨迹 -->
     <div class="section-connector" aria-hidden="true">
         <svg class="connector-svg" viewBox="0 0 900 180">
             <path data-order="0"   d="M 720 12 C 670 75, 360 85, 220 168" />
@@ -88,8 +119,8 @@
                 <div class="section-label reveal-element">00 // Philosophy</div>
                 <h2 class="about-title reveal-text" id="home-about-title">Algorithm & Aesthetics</h2>
                 <div class="about-text reveal-element" id="home-about-text">
-                    <p>我是一名热衷于构建“有灵魂的系统”的全栈开发者与深度学习研究者。在我看来，**算法**是世界的底层逻辑，它严谨、深邃、充满秩序；??*美学**是连接人与技术的桥梁，它流动、直观、富有情感??/p>
-                    <p>我的工作聚焦于大型语言模型（LLM）的记忆增强、安全审计以及相关前沿技术的应用。我追求的不仅是代码的执行效率，更是每一次交互所带来的质感与共鸣??/p>
+                    <p>我是一名热衷于构建“有灵魂的系统”的全栈开发者与深度学习研究者。在我看来，**算法**是世界的底层逻辑，它严谨、深邃、充满秩序；而**美学**是连接人与技术的桥梁，它流动、直观、富有情感。</p>
+                    <p>我的工作聚焦于大型语言模型（LLM）的记忆增强、安全审计以及相关前沿技术的应用。我追求的不仅是代码的执行效率，更是每一次交互所带来的质感与共鸣。</p>
                 </div>
                 <div class="about-stats reveal-element" id="home-about-stats">
                     <div class="stat-item">
@@ -109,7 +140,7 @@
         </div>
     </section>
 
-    <!-- Connector 2: About ??Tools | 回响 -->
+    <!-- Connector 2: About →Tools | 回响 -->
     <div class="section-connector" aria-hidden="true">
         <svg class="connector-svg" viewBox="0 0 900 180">
             <path data-order="0"    d="M 210 12 C 280 75, 590 100, 680 168" />
@@ -157,13 +188,13 @@
                 <span>Obsidian</span>
             </div>
             <div class="node node-satellite magnetic" data-id="7">
-                <div class="tool-icon-text">??</div>
+                <div class="tool-icon-text">{"}</div>
                 <span>FlowCrystal</span>
             </div>
         </div>
     </section>
 
-    <!-- Connector 3: Tools ??Experience | 分叉 -->
+    <!-- Connector 3: Tools →Experience | 分叉 -->
     <div class="section-connector" aria-hidden="true">
         <svg class="connector-svg" viewBox="0 0 900 180">
             <path data-order="0"   d="M 450 0 C 450 45, 450 55, 450 78" />
@@ -184,7 +215,7 @@
                 </div>
                 <div class="exp-content">
                     <h3 class="exp-title">知几安全 (InsightSafe) & Redou</h3>
-                    <p class="exp-desc">负责 LLM 记忆增强引擎与安全审计系统的核心架构。引入图神经网络（GNN）与因果推断模型，成功防??RAG 场景下的知识投毒与提示词注入攻击。基??TEE 架构设计了高隐私数据处理流??/p>
+                    <p class="exp-desc">负责 LLM 记忆增强引擎与安全审计系统的核心架构。引入图神经网络（GNN）与因果推断模型，成功防止 RAG 场景下的知识投毒与提示词注入攻击。基于 TEE 架构设计了高隐私数据处理流程。</p>
                 </div>
             </div>
 
@@ -195,7 +226,7 @@
                 </div>
                 <div class="exp-content">
                     <h3 class="exp-title">MindDream Platform</h3>
-                    <p class="exp-desc">独立设计并实现了基于大模型的全栈心理学梦境解析平台。前端采??Vue 3 构建高性能交互，后端整合复??AI 工作流进行自然语言结构化分析与用户行为建模??/p>
+                    <p class="exp-desc">独立设计并实现了基于大模型的全栈心理学梦境解析平台。前端采用 Vue 3 构建高性能交互，后端整合复杂 AI 工作流进行自然语言结构化分析与用户行为建模。</p>
                 </div>
             </div>
             
@@ -206,13 +237,13 @@
                 </div>
                 <div class="exp-content">
                     <h3 class="exp-title">算法竞赛与性能优化</h3>
-                    <p class="exp-desc">长期活跃于国家级与省级算法竞赛，专注于图论、动态规划与数据结构优化。多次在蓝桥杯、GPLT 等赛事中斩获一二等奖，对代码的时间复杂度与空间复杂度有着苛刻的追求??/p>
+                    <p class="exp-desc">长期活跃于国家级与省级算法竞赛，专注于图论、动态规划与数据结构优化。多次在蓝桥杯、GPLT 等赛事中斩获一二等奖，对代码的时间复杂度与空间复杂度有着苛刻的追求。</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Connector 4: Experience ??Projects | 双流 -->
+    <!-- Connector 4: Experience →Projects | 双流 -->
     <div class="section-connector" aria-hidden="true">
         <svg class="connector-svg" viewBox="0 0 900 180">
             <path data-order="0"    d="M 690 12 C 645 80, 330 105, 255 168" />
@@ -230,7 +261,7 @@
         </div>
     </section>
 
-    <!-- Connector 5: Projects ??Lab | 频率??-->
+    <!-- Connector 5: Projects →Lab | 频率 -->
     <div class="section-connector" aria-hidden="true">
         <svg class="connector-svg" viewBox="0 0 900 180">
             <path data-order="0" d="M 60 90 C 105 28, 195 28, 240 90 C 285 150, 375 150, 430 85 C 485 22, 575 22, 620 90 C 665 155, 755 155, 810 90" />
@@ -246,7 +277,7 @@
                 <article class="lab-feature">
                     <p class="lab-kicker">Current Experiment</p>
                     <h3>Counterfactual RAG Safety Gate</h3>
-                    <p>把检索上下文看成可干预图结构，逐段移除高风险来源，观察回答概率和语义支持度的变化，用因果差分定位知识注入??/p>
+                    <p>把检索上下文看成可干预图结构，逐段移除高风险来源，观察回答概率和语义支持度的变化，用因果差分定位知识注入点。</p>
                     <div class="lab-metrics">
                         <div><span>Attack surface cut</span><strong>37%</strong></div>
                         <div><span>Median overhead</span><strong>18ms</strong></div>
@@ -276,23 +307,23 @@
                 <article>
                     <span>01</span>
                     <h4>Graph Audit</h4>
-                    <p>将文档、引用、实体和回答片段组织成证据图，找出异常影响路径??/p>
+                    <p>将文档、引用、实体和回答片段组织成证据图，找出异常影响路径。</p>
                 </article>
                 <article>
                     <span>02</span>
                     <h4>Memory Routing</h4>
-                    <p>按时间、语义距离和安全权重调度长期记忆，避免旧事实过度支配??/p>
+                    <p>按时间、语义距离和安全权重调度长期记忆，避免旧事实过度支配。</p>
                 </article>
                 <article>
                     <span>03</span>
                     <h4>Interaction Physics</h4>
-                    <p>用插值、速度和阻尼控制界面响应，让技术表达保持可感但不喧哗??/p>
+                    <p>用插值、速度和阻尼控制界面响应，让技术表达保持可感但不喧哗。</p>
                 </article>
             </div>
         </div>
     </section>
 
-    <!-- Connector 6: Lab ??Marquee | 轨迹散点 -->
+    <!-- Connector 6: Lab →Marquee | 轨迹散点 -->
     <div class="section-connector" aria-hidden="true">
         <svg class="connector-svg" viewBox="0 0 900 180">
             <path data-order="0" d="M 255 12 C 340 75, 570 105, 650 168" />
@@ -317,7 +348,7 @@
         </div>
     </section>
 
-    <!-- Connector 7: Marquee ??Honors | 星图 -->
+    <!-- Connector 7: Marquee →Honors | 星图 -->
     <div class="section-connector" aria-hidden="true">
         <svg class="connector-svg" viewBox="0 0 900 180">
             <path data-order="0"   d="M 175 35 L 440 95" />
@@ -348,7 +379,7 @@
                 <div class="timeline-dot"></div>
                 <div class="milestone-card magnetic">
                     <h3 class="award-title"><span class="highlight-dot"></span>个人国家级三等奖</h3>
-                    <p class="award-desc">团队程序设计天梯??/p>
+                    <p class="award-desc">团队程序设计天梯赛</p>
                 </div>
             </div>
             
@@ -356,7 +387,7 @@
                 <div class="timeline-dot"></div>
                 <div class="milestone-card magnetic">
                     <h3 class="award-title"><span class="highlight-dot"></span>省赛一等奖</h3>
-                    <p class="award-desc">第十七届蓝桥杯软件赛 C/C++ B??/p>
+                    <p class="award-desc">第十七届蓝桥杯软件赛 C/C++ B组</p>
                 </div>
             </div>
             
@@ -364,7 +395,7 @@
                 <div class="timeline-dot"></div>
                 <div class="milestone-card magnetic">
                     <h3 class="award-title"><span class="highlight-dot"></span>校赛一、二等奖</h3>
-                    <p class="award-desc">重庆工程学院“小挑??/p>
+                    <p class="award-desc">重庆工程学院”小挑”</p>
                 </div>
             </div>
 
@@ -374,8 +405,8 @@
             <div class="timeline-item right">
                 <div class="timeline-dot"></div>
                 <div class="milestone-card magnetic">
-                    <h3 class="award-title"><span class="highlight-dot"></span>省赛二等??/h3>
-                    <p class="award-desc">第十六届蓝桥杯软件赛 C/C++ B??/p>
+                    <h3 class="award-title"><span class="highlight-dot"></span>省赛二等奖</h3>
+                    <p class="award-desc">第十六届蓝桥杯软件赛 C/C++ B组</p>
                 </div>
             </div>
 
@@ -383,22 +414,22 @@
                 <div class="timeline-dot"></div>
                 <div class="milestone-card magnetic">
                     <h3 class="award-title"><span class="highlight-dot"></span>全国总决赛三等奖</h3>
-                    <p class="award-desc">睿抗机器人开发者大赛编程技能竞??/p>
+                    <p class="award-desc">睿抗机器人开发者大赛编程技能竞赛</p>
                 </div>
             </div>
 
             <div class="timeline-item right">
                 <div class="timeline-dot"></div>
                 <div class="milestone-card magnetic">
-                    <h3 class="award-title"><span class="highlight-dot"></span>省赛三等??/h3>
-                    <p class="award-desc">第二十七届中国机器人及人工智能大??/p>
+                    <h3 class="award-title"><span class="highlight-dot"></span>省赛三等奖</h3>
+                    <p class="award-desc">第二十七届中国机器人及人工智能大赛</p>
                 </div>
             </div>
 
             <div class="timeline-item left">
                 <div class="timeline-dot"></div>
                 <div class="milestone-card magnetic">
-                    <h3 class="award-title"><span class="highlight-dot"></span>团队三等??/h3>
+                    <h3 class="award-title"><span class="highlight-dot"></span>团队三等奖</h3>
                     <p class="award-desc">第十届“中国高校计算机大赛-团体程序设计天梯赛”重庆市</p>
                 </div>
             </div>
@@ -406,32 +437,32 @@
             <div class="timeline-item right">
                 <div class="timeline-dot"></div>
                 <div class="milestone-card magnetic">
-                    <h3 class="award-title"><span class="highlight-dot"></span>区域二等??/h3>
-                    <p class="award-desc">第六届全国高校计算机能力挑战??(C++科目)</p>
+                    <h3 class="award-title"><span class="highlight-dot"></span>区域二等奖</h3>
+                    <p class="award-desc">第六届全国高校计算机能力挑战赛(C++科目)</p>
                 </div>
             </div>
 
             <div class="timeline-item left">
                 <div class="timeline-dot"></div>
                 <div class="milestone-card magnetic">
-                    <h3 class="award-title"><span class="highlight-dot"></span>市赛三等??/h3>
-                    <p class="award-desc">重庆市统计建??/p>
+                    <h3 class="award-title"><span class="highlight-dot"></span>市赛三等奖</h3>
+                    <p class="award-desc">重庆市统计建模</p>
                 </div>
             </div>
 
             <div class="timeline-item right">
                 <div class="timeline-dot"></div>
                 <div class="milestone-card magnetic">
-                    <h3 class="award-title"><span class="highlight-dot"></span>校赛二等??/h3>
-                    <p class="award-desc">大学生数学建模竞??/p>
+                    <h3 class="award-title"><span class="highlight-dot"></span>校赛二等奖</h3>
+                    <p class="award-desc">大学生数学建模竞赛</p>
                 </div>
             </div>
 
             <div class="timeline-item left">
                 <div class="timeline-dot"></div>
                 <div class="milestone-card magnetic">
-                    <h3 class="award-title"><span class="highlight-dot"></span>校赛三等??/h3>
-                    <p class="award-desc">第十九届“挑战杯??/p>
+                    <h3 class="award-title"><span class="highlight-dot"></span>校赛三等奖</h3>
+                    <p class=”award-desc”>第十九届”挑战杯”</p>
                 </div>
             </div>
 
@@ -441,31 +472,31 @@
             <div class="timeline-item right">
                 <div class="timeline-dot"></div>
                 <div class="milestone-card magnetic">
-                    <h3 class="award-title"><span class="highlight-dot"></span>二等??/h3>
-                    <p class="award-desc">“泰迪杯”数据分析技能赛 (A??</p>
+                    <h3 class="award-title"><span class="highlight-dot"></span>二等奖</h3>
+                    <p class=”award-desc”>”泰迪杯”数据分析技能赛 (A组)</p>
                 </div>
             </div>
 
             <div class="timeline-item left">
                 <div class="timeline-dot"></div>
                 <div class="milestone-card magnetic">
-                    <h3 class="award-title"><span class="highlight-dot"></span>三等??/h3>
-                    <p class="award-desc">“泰迪杯”数据分析技能赛 (B??</p>
+                    <h3 class="award-title"><span class="highlight-dot"></span>三等奖</h3>
+                    <p class=”award-desc”>”泰迪杯”数据分析技能赛 (B组)</p>
                 </div>
             </div>
 
             <div class="timeline-item right">
                 <div class="timeline-dot"></div>
                 <div class="milestone-card magnetic">
-                    <h3 class="award-title"><span class="highlight-dot"></span>区域二等??/h3>
-                    <p class="award-desc">第六届全国高校计算机能力挑战??(C语言)</p>
+                    <h3 class="award-title"><span class="highlight-dot"></span>区域二等奖</h3>
+                    <p class="award-desc">第六届全国高校计算机能力挑战赛(C语言)</p>
                 </div>
             </div>
 
             <div class="timeline-item left">
                 <div class="timeline-dot"></div>
                 <div class="milestone-card magnetic">
-                    <h3 class="award-title"><span class="highlight-dot"></span>二等??/h3>
+                    <h3 class="award-title"><span class="highlight-dot"></span>二等奖</h3>
                     <p class="award-desc">第七届传智杯 IT计算大赛</p>
                 </div>
             </div>
@@ -473,7 +504,7 @@
         </div>
     </section>
 
-    <!-- Connector 8: Honors ??Articles | 汇聚 -->
+    <!-- Connector 8: Honors →Articles | 汇聚 -->
     <div class="section-connector" aria-hidden="true">
         <svg class="connector-svg" viewBox="0 0 900 180">
             <path data-order="0"   d="M 205 12 C 250 85, 420 138, 455 175" />
@@ -532,6 +563,7 @@
                 </button>
             </div>
         </div>
+    </div>
     </div>
 
     <script type="module" src="./assets/js/main.js"></script>

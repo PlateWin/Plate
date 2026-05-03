@@ -66,12 +66,21 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.querySelectorAll('pre code').forEach((block) => {
             hljs.highlightElement(block);
         });
+
+        // B2: Add copy buttons to code blocks
+        addCopyButtons();
+
+        // B3: Init article reading progress bar
+        initArticleProgress();
         
         // Show content
         loadingIndicator.style.display = 'none';
         contentContainer.style.display = 'block';
         document.getElementById('reading-links').style.display = 'block';
         interactionsContainer.style.display = 'block';
+
+        // B1: Build TOC
+        buildTOC(contentContainer);
         
         // --- A2: Immersive Reveal Animation ---
         // 1. Initial Header Animation
@@ -176,10 +185,81 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
+function addCopyButtons() {
+    document.querySelectorAll('.markdown-body pre').forEach(pre => {
+        if (pre.querySelector('.copy-btn')) return;
+        const btn = document.createElement('button');
+        btn.className = 'copy-btn';
+        btn.textContent = 'Copy';
+        btn.title = 'Copy code';
+        btn.addEventListener('click', async () => {
+            const code = pre.querySelector('code')?.innerText || '';
+            try {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(code);
+                } else {
+                    const ta = document.createElement('textarea');
+                    ta.value = code;
+                    ta.style.position = 'fixed';
+                    ta.style.opacity = '0';
+                    document.body.appendChild(ta);
+                    ta.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(ta);
+                }
+                btn.textContent = '✓ Copied';
+                btn.classList.add('copied');
+                setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+            } catch (err) { console.error('Copy failed:', err); }
+        });
+        pre.style.position = 'relative';
+        pre.appendChild(btn);
+    });
+}
+
+function initArticleProgress() {
+    const bar = document.getElementById('article-progress-bar');
+    const article = document.getElementById('markdown-content');
+    if (!bar || !article) return;
+    window.addEventListener('scroll', () => {
+        const rect = article.getBoundingClientRect();
+        const articleHeight = article.offsetHeight;
+        const scrolled = Math.max(0, -rect.top);
+        const progress = Math.min(Math.max(scrolled / (articleHeight - window.innerHeight), 0), 1);
+        bar.style.width = `${progress * 100}%`;
+    });
+}
+
 function estimateReadingMinutes(content) {
     const wordsPerMinute = 200;
     const words = content.trim().split(/\s+/).length;
     return Math.ceil(words / wordsPerMinute);
+}
+
+function buildTOC(contentEl) {
+    const sidebar = document.getElementById('toc-sidebar');
+    if (!sidebar) return;
+    const headings = contentEl.querySelectorAll('h2, h3');
+    if (headings.length === 0) return;
+
+    let html = '<div class="toc-title">Contents</div>';
+    headings.forEach((h, i) => {
+        if (!h.id) h.id = `heading-${i}`;
+        html += `<a class="toc-link" href="#${h.id}" data-level="${h.tagName[1]}">${h.textContent}</a>`;
+    });
+    sidebar.innerHTML = html;
+    sidebar.style.display = 'block';
+
+    const links = sidebar.querySelectorAll('.toc-link');
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                links.forEach(l => l.classList.remove('active'));
+                sidebar.querySelector(`[href="#${e.target.id}"]`)?.classList.add('active');
+            }
+        });
+    }, { rootMargin: '-10% 0px -80% 0px' });
+    headings.forEach(h => observer.observe(h));
 }
 
 function renderReadingLinks(posts, currentPost) {
