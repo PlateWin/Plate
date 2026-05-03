@@ -206,10 +206,13 @@
 }
 
 .wall-type-btn:hover,
+.wall-type-btn:focus-visible,
 .wall-type-btn.active {
   background: var(--primary-color);
   color: #fff;
   border-color: var(--primary-color);
+  outline: 2px solid rgba(0, 47, 167, 0.35);
+  outline-offset: 2px;
 }
 
 .wall-dialog-color {
@@ -227,8 +230,11 @@
   transition: border-color 0.2s;
 }
 
-.wall-color-btn.active {
+.wall-color-btn.active,
+.wall-color-btn:focus-visible {
   border-color: var(--primary-color);
+  outline: 2px solid rgba(0, 47, 167, 0.35);
+  outline-offset: 3px;
 }
 
 .wall-dialog-card textarea {
@@ -245,7 +251,8 @@
 }
 
 .wall-dialog-card textarea:focus {
-  outline: none;
+  outline: 2px solid rgba(0, 47, 167, 0.35);
+  outline-offset: 2px;
   border-color: var(--primary-color);
 }
 

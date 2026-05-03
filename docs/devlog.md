@@ -50,6 +50,34 @@
 - RSS 改为复用统一的 `getSiteUrl()`，与 sitemap/robots 的站点 URL 策略保持一致
 - 静态 `sitemap.xml` 更新为包含公开页面与文章的绝对 URL 兜底版本
 
+### Phase 5 / C3 — 基础可访问性与易用性
+
+- AI 助手补充 `aria-label`、`aria-controls`、`aria-expanded`、dialog 标题关联和消息区 `aria-live`
+- 管理后台登录、文章编辑、Markdown 工具栏、预览区补充必要的输入标签、按钮标签和 toolbar 语义
+- 管理后台 Tab 切换同步 `aria-controls` 与 `aria-selected`，方便键盘和辅助技术识别当前面板
+- 后台、AI 助手和 Wall 弹窗补充明确的 hover/focus-visible 状态
+- Wall 新建卡片弹窗补充 dialog 语义、按钮 `aria-pressed` 状态、Escape 关闭和焦点回流
+- 动态图片补充更明确的 `alt`：后台照片预览使用标题兜底，Wall 图片卡片使用固定描述
+
+### Phase 5 / D2 — 内容完整度验收
+
+- **About 页乱码修复**：`about.html` 中文编码损坏，重写全部 hero subtitle 与卡片描述
+- **测试数据清理**：删除 `db.json` 测试评论 ("1", "123")，删除 `photos.json` 测试照片 "123"
+- **Fragments 种子内容**：填入 5 条高质量碎片（算法、工程、设计、随想），覆盖多标签
+- **Wall 种子内容**：填入 5 张灵感卡片（引用、灵感、计划），覆盖多颜色
+- **空状态中文化**：`fragments.js` 空状态文案和相对时间格式改为中文
+- **首页链接验证**：确认所有导航链接 (Photography / Fragments / Wall / Tags / Archive / About) 均指向有内容的页面
+
+### Phase 5 / D3 — 后台驱动能力验收
+
+- **接口补全**：新增 `PUT /api/photos/:id` 和 `PUT /api/fragments/:id`，补齐照片和碎片的编辑能力
+- **健壮性**：所有 API 路由统一包裹 try/catch，异常时返回 500 和中文错误提示，不再裸崩
+- **数据初始化**：服务启动时自动检查并创建 `data/` 目录和所有 JSON 数据文件，首次部署零手动
+- **防御性读取**：`readDB` / `readJson` 解析失败时返回安全默认值并打日志，不影响其他请求
+- **错误提示中文化**：全部 400/404/500 错误消息改为中文，方便管理员定位问题
+- **前端容错**：`fetchPhotos` 和 `fetchFragments` 加 try/catch + toast 提示
+- **统一导出**：`config.js` 新增 `WALL_URL` 导出，`wall.js` 使用统一路径不再重复拼接
+
 ### Phase 4 全部完成 + AI 助手改造 + API 配置面板
 
 - **随机漫游 (P2)**：404 页面新增 `wanderToRandom()` 函数，随机跳转文章

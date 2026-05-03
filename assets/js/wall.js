@@ -1,6 +1,5 @@
-import { API_ROOT } from './config.js';
+import { API_ROOT, WALL_URL } from './config.js';
 
-const WALL_URL = `${API_ROOT}/wall`;
 const ADMIN_SESSION_URL = `${API_ROOT}/admin/session`;
 
 let isAdmin = false;
@@ -64,7 +63,7 @@ function createCardElement(card) {
 
     // Content
     if (card.type === 'image') {
-        el.innerHTML = `<img src="${card.content}" alt="wall image" draggable="false">`;
+        el.innerHTML = `<img src="${card.content}" alt="灵感墙图片卡片" draggable="false">`;
     } else if (card.type === 'code') {
         el.textContent = card.content;
     } else {
@@ -218,20 +217,29 @@ function updateTransform() {
 let dialogX = 0, dialogY = 0;
 let selectedType = 'text';
 let selectedColor = 'blue';
+let lastDialogTrigger = null;
 
 function initDialog() {
     document.querySelectorAll('.wall-type-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-            document.querySelectorAll('.wall-type-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.wall-type-btn').forEach(b => {
+                b.classList.remove('active');
+                b.setAttribute('aria-pressed', 'false');
+            });
             btn.classList.add('active');
+            btn.setAttribute('aria-pressed', 'true');
             selectedType = btn.dataset.type;
         });
     });
 
     document.querySelectorAll('.wall-color-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-            document.querySelectorAll('.wall-color-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.wall-color-btn').forEach(b => {
+                b.classList.remove('active');
+                b.setAttribute('aria-pressed', 'false');
+            });
             btn.classList.add('active');
+            btn.setAttribute('aria-pressed', 'true');
             selectedColor = btn.dataset.color;
         });
     });
@@ -243,24 +251,40 @@ function initDialog() {
     dialog.addEventListener('click', (e) => {
         if (e.target === dialog) closeDialog();
     });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && dialog.style.display !== 'none') closeDialog();
+    });
 }
 
 function openDialog(x, y) {
+    lastDialogTrigger = document.activeElement;
     dialogX = x;
     dialogY = y;
     dialogContent.value = '';
     selectedType = 'text';
     selectedColor = 'blue';
-    document.querySelectorAll('.wall-type-btn').forEach(b => b.classList.remove('active'));
-    document.querySelector('.wall-type-btn[data-type="text"]').classList.add('active');
-    document.querySelectorAll('.wall-color-btn').forEach(b => b.classList.remove('active'));
-    document.querySelector('.wall-color-btn[data-color="blue"]').classList.add('active');
+    document.querySelectorAll('.wall-type-btn').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+    });
+    const defaultType = document.querySelector('.wall-type-btn[data-type="text"]');
+    defaultType.classList.add('active');
+    defaultType.setAttribute('aria-pressed', 'true');
+    document.querySelectorAll('.wall-color-btn').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+    });
+    const defaultColor = document.querySelector('.wall-color-btn[data-color="blue"]');
+    defaultColor.classList.add('active');
+    defaultColor.setAttribute('aria-pressed', 'true');
     dialog.style.display = 'flex';
     dialogContent.focus();
 }
 
 function closeDialog() {
     dialog.style.display = 'none';
+    if (lastDialogTrigger && typeof lastDialogTrigger.focus === 'function') lastDialogTrigger.focus();
 }
 
 async function createCard() {

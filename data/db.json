@@ -28,12 +28,6 @@
           "author": "TechEnthusiast",
           "text": "This is a fascinating approach to RAG security! Have you considered the performance overhead of GNN inference during retrieval?",
           "date": "2026-04-15T10:30:00Z"
-        },
-        {
-          "id": "1777610116840",
-          "author": "1",
-          "text": "1",
-          "date": "2026-05-01T04:35:16.840Z"
         }
       ]
     },
@@ -47,14 +41,7 @@
         "WEBGL"
       ],
       "likes": 94,
-      "comments": [
-        {
-          "id": "1777734754734",
-          "author": "123",
-          "text": "123",
-          "date": "2026-05-02T15:12:34.734Z"
-        }
-      ]
+      "comments": []
     },
     {
       "id": "algorithm-aesthetics",

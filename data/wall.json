@@ -1,3 +1,44 @@
 {
-  "cards": []
+  "cards": [
+    {
+      "id": "wall-001",
+      "type": "text",
+      "content": "\"The purpose of abstraction is not to be vague, but to create a new semantic level in which one can be absolutely precise.\" — Dijkstra",
+      "color": "blue",
+      "x": 120,
+      "y": 80
+    },
+    {
+      "id": "wall-002",
+      "type": "text",
+      "content": "好的代码读起来像散文，好的架构看起来像建筑。两者的共通点：每一处留白都是有意的。",
+      "color": "dark",
+      "x": 480,
+      "y": 150
+    },
+    {
+      "id": "wall-003",
+      "type": "text",
+      "content": "今日灵感：把 GNN 的消息传递机制可视化成一幅流体动画，节点像水滴一样汇聚、分裂、重组。",
+      "color": "green",
+      "x": 200,
+      "y": 350
+    },
+    {
+      "id": "wall-004",
+      "type": "text",
+      "content": "克莱因蓝不是一种颜色，是一种态度——在极致的纯粹中找到无限的深度。",
+      "color": "blue",
+      "x": 600,
+      "y": 400
+    },
+    {
+      "id": "wall-005",
+      "type": "text",
+      "content": "下一步：给 InsightSafe 的因果推断模块加上可解释性报告，让安全审计结果不再是黑箱。",
+      "color": "yellow",
+      "x": 350,
+      "y": 520
+    }
+  ]
 }

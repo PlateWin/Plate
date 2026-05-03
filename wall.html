@@ -38,27 +38,27 @@
 
   <div id="wall-status" class="wall-status"></div>
 
-  <div id="wall-canvas" class="wall-canvas">
+  <div id="wall-canvas" class="wall-canvas" role="application" aria-label="灵感墙画布">
     <div class="wall-world" id="wall-world"></div>
   </div>
 
   <!-- New card dialog (admin only) -->
-  <div id="wall-dialog" class="wall-dialog" style="display:none;">
+  <div id="wall-dialog" class="wall-dialog" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="wall-dialog-title">
     <div class="wall-dialog-card glass-card">
-      <h3>New Card</h3>
+      <h3 id="wall-dialog-title">New Card</h3>
       <div class="wall-dialog-type">
-        <button class="wall-type-btn active" data-type="text">Text</button>
-        <button class="wall-type-btn" data-type="quote">Quote</button>
-        <button class="wall-type-btn" data-type="code">Code</button>
-        <button class="wall-type-btn" data-type="image">Image</button>
+        <button class="wall-type-btn active" data-type="text" aria-pressed="true">Text</button>
+        <button class="wall-type-btn" data-type="quote" aria-pressed="false">Quote</button>
+        <button class="wall-type-btn" data-type="code" aria-pressed="false">Code</button>
+        <button class="wall-type-btn" data-type="image" aria-pressed="false">Image</button>
       </div>
       <div class="wall-dialog-color">
-        <button class="wall-color-btn active" data-color="blue" style="background:rgba(0,47,167,0.3);"></button>
-        <button class="wall-color-btn" data-color="yellow" style="background:rgba(255,189,46,0.4);"></button>
-        <button class="wall-color-btn" data-color="white" style="background:rgba(255,255,255,0.7);"></button>
-        <button class="wall-color-btn" data-color="dark" style="background:#0f172a;"></button>
+        <button class="wall-color-btn active" data-color="blue" style="background:rgba(0,47,167,0.3);" aria-label="蓝色卡片" aria-pressed="true"></button>
+        <button class="wall-color-btn" data-color="yellow" style="background:rgba(255,189,46,0.4);" aria-label="黄色卡片" aria-pressed="false"></button>
+        <button class="wall-color-btn" data-color="white" style="background:rgba(255,255,255,0.7);" aria-label="白色卡片" aria-pressed="false"></button>
+        <button class="wall-color-btn" data-color="dark" style="background:#0f172a;" aria-label="深色卡片" aria-pressed="false"></button>
       </div>
-      <textarea id="wall-dialog-content" rows="4" placeholder="Write something..."></textarea>
+      <textarea id="wall-dialog-content" rows="4" placeholder="Write something..." aria-label="灵感卡片内容"></textarea>
       <div class="wall-dialog-actions">
         <button id="wall-dialog-cancel" class="articles-tool-link">Cancel</button>
         <button id="wall-dialog-create" class="articles-tool-link" style="background:var(--primary-color);color:#fff;">Create</button>

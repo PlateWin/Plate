@@ -159,7 +159,10 @@ body {
     font-family: var(--font-display);
 }
 
-.title-input:focus { outline: none; }
+.title-input:focus {
+    outline: 2px solid rgba(0, 47, 167, 0.35);
+    outline-offset: 4px;
+}
 
 .btn-publish {
     background: var(--primary-color);
@@ -172,9 +175,11 @@ body {
     transition: 0.3s;
 }
 
-.btn-publish:hover {
+.btn-publish:hover,
+.btn-publish:focus-visible {
     transform: translateY(-2px);
     box-shadow: 0 10px 25px rgba(0, 47, 167, 0.25);
+    outline: none;
 }
 
 .metadata-row {
@@ -192,7 +197,10 @@ body {
     width: 45%;
 }
 
-.metadata-row input:focus { outline: none; }
+.metadata-row input:focus {
+    outline: 2px solid rgba(0, 47, 167, 0.35);
+    outline-offset: 4px;
+}
 
 /* Toolbar */
 .toolbar {
@@ -217,9 +225,12 @@ body {
     justify-content: center;
 }
 
-.toolbar button:hover {
+.toolbar button:hover,
+.toolbar button:focus-visible {
     background: var(--primary-light);
     color: var(--primary-color);
+    outline: 2px solid rgba(0, 47, 167, 0.35);
+    outline-offset: 2px;
 }
 
 .toolbar-divider {
@@ -269,7 +280,10 @@ body {
     outline: none;
 }
 
-.editor-pane textarea:focus { outline: none; }
+.editor-pane textarea:focus {
+    outline: 2px solid rgba(0, 47, 167, 0.35);
+    outline-offset: 4px;
+}
 
 .preview-pane {
     overflow-y: auto;
@@ -353,7 +367,10 @@ body {
     outline: none;
 }
 
-.ai-chat-input textarea:focus { outline: none; }
+.ai-chat-input textarea:focus {
+    outline: 2px solid rgba(0, 47, 167, 0.35);
+    outline-offset: 2px;
+}
 
 #btn-ai-send {
     background: var(--primary-color);

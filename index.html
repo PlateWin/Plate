@@ -537,31 +537,45 @@
 
     <!-- AI Assistant Widget (Neural Hub) -->
     <div id="ai-assistant" class="ai-widget">
-        <button id="ai-toggle" class="ai-bubble" title="Talk to Plate. AI">
+        <button id="ai-toggle" class="ai-bubble" title="Talk to Plate. AI" aria-label="打开 Plate. AI 助手" aria-controls="ai-window" aria-expanded="false">
             <div class="ai-pulse"></div>
             <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
             </svg>
         </button>
 
-        <div id="ai-window" class="ai-chat-window">
+        <div id="ai-window" class="ai-chat-window" role="dialog" aria-modal="false" aria-labelledby="ai-window-title">
             <div class="ai-header">
                 <div class="ai-status">
                     <span class="status-dot"></span>
-                    <span class="status-text">Plate<span class="brand-dot">.</span> AI</span>
+                    <span id="ai-window-title" class="status-text">Plate<span class="brand-dot">.</span> AI</span>
                 </div>
-                <button id="ai-close" class="ai-close-btn">&times;</button>
+                <div style="display:flex;align-items:center;gap:0.4rem;">
+                    <button id="ai-clear" class="ai-clear-btn" aria-label="清空对话" title="清空对话" style="color:rgba(255,255,255,0.6);">
+                        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2m2 0v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6h16"></path></svg>
+                    </button>
+                    <button id="ai-close" class="ai-close-btn" aria-label="关闭 Plate. AI 助手">&times;</button>
+                </div>
             </div>
-            <div id="ai-messages" class="ai-messages-container">
+            <div id="ai-messages" class="ai-messages-container" role="log" aria-live="polite" aria-relevant="additions">
                 <div class="ai-welcome">
-                    <div class="ai-welcome-title">Hey there <span style="font-size:0.85em;">👋</span> I'm <strong>Plate<span class="brand-dot">.</span> AI</strong></div>
-                    <p>你可以问我关于项目、技术栈、获奖经历的任何问题。<br>或直接点击下方快捷提问开始。</p>
+                    <div class="ai-welcome-avatar">
+                        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <path d="M12 2a4 4 0 0 1 4 4v2a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4z"></path>
+                            <path d="M5 10c0 3.5 2 6 7 10 5-4 7-6.5 7-10"></path>
+                            <circle cx="9" cy="6.5" r="0.8" fill="currentColor" stroke="none"></circle>
+                            <circle cx="15" cy="6.5" r="0.8" fill="currentColor" stroke="none"></circle>
+                        </svg>
+                    </div>
+                    <div class="ai-welcome-title">你好，我是 <strong>Plate<span class="brand-dot">.</span> AI</strong></div>
+                    <p>问我关于项目、技术栈、获奖经历的任何问题，<br>或点击下方快捷提问开始探索。</p>
                 </div>
             </div>
+            <button id="ai-scroll-bottom" class="ai-scroll-bottom" aria-label="滚动到底部">↓ 新消息</button>
             <div class="ai-input-area">
-                <textarea id="ai-input" placeholder="随便聊聊？比如「你最骄傲的项目是什么」" rows="1"></textarea>
-                <button id="ai-send" class="ai-send-btn">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
+                <textarea id="ai-input" placeholder="随便聊聊？比如「你最骄傲的项目是什么」" rows="1" aria-label="输入发送给 Plate. AI 的消息"></textarea>
+                <button id="ai-send" class="ai-send-btn" aria-label="发送消息">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
                         <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path>
                     </svg>
                 </button>

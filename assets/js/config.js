@@ -10,4 +10,5 @@ export const API_ROOT = resolveApiRoot();
 export const POSTS_URL = `${API_ROOT}/posts`;
 export const CONFIG_URL = `${API_ROOT}/config`;
 export const FRAGMENTS_URL = `${API_ROOT}/fragments`;
+export const WALL_URL = `${API_ROOT}/wall`;
 export const AI_URL = `${API_ROOT}/ai`;

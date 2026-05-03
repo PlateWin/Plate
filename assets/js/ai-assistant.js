@@ -53,10 +53,12 @@ let conversationHistory = [
 function initAI() {
     const toggleBtn = document.getElementById('ai-toggle');
     const closeBtn = document.getElementById('ai-close');
+    const clearBtn = document.getElementById('ai-clear');
     const chatWindow = document.getElementById('ai-window');
     const inputField = document.getElementById('ai-input');
     const sendBtn = document.getElementById('ai-send');
     const messagesContainer = document.getElementById('ai-messages');
+    const scrollBottomBtn = document.getElementById('ai-scroll-bottom');
 
     if (!toggleBtn || !chatWindow) {
         console.error("Plate. AI: Required elements not found.");
@@ -67,6 +69,8 @@ function initAI() {
     let isLoading = false;
     let hasQuickActions = false;
     let typingAnimationId = null;
+
+    const welcomeHTML = messagesContainer.innerHTML;
 
     const updateSendState = () => {
         const hasInput = inputField.value.trim().length > 0;
@@ -92,6 +96,26 @@ function initAI() {
     closeBtn.addEventListener('click', (e) => {
         e.preventDefault();
         setWindowOpen(false);
+    });
+
+    clearBtn.addEventListener('click', () => {
+        if (isLoading) return;
+        conversationHistory = [{ role: "system", content: SYSTEM_PROMPT }];
+        messagesContainer.innerHTML = welcomeHTML;
+        hasQuickActions = false;
+        addQuickActions();
+        inputField.value = '';
+        inputField.style.height = 'auto';
+        updateSendState();
+    });
+
+    messagesContainer.addEventListener('scroll', () => {
+        const { scrollTop, scrollHeight, clientHeight } = messagesContainer;
+        const atBottom = scrollHeight - scrollTop - clientHeight < 60;
+        scrollBottomBtn.classList.toggle('visible', !atBottom);
+    });
+    scrollBottomBtn.addEventListener('click', () => {
+        messagesContainer.scrollTo({ top: messagesContainer.scrollHeight, behavior: 'smooth' });
     });
 
     document.addEventListener('keydown', (e) => {
@@ -174,12 +198,31 @@ function initAI() {
         updateSendState();
     });
 
+    function createCopyButton(rawText) {
+        const btn = document.createElement('button');
+        btn.className = 'msg-copy-btn';
+        btn.textContent = '复制';
+        btn.setAttribute('aria-label', '复制消息');
+        btn.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(rawText);
+                btn.textContent = '✓ 已复制';
+                btn.classList.add('copied');
+                setTimeout(() => { btn.textContent = '复制'; btn.classList.remove('copied'); }, 1500);
+            } catch { btn.textContent = '失败'; }
+        });
+        return btn;
+    }
+
     function appendMessage(role, content) {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'message-wrapper';
         const msgDiv = document.createElement('div');
         msgDiv.className = `message ${role}-message message-enter`;
-        const formattedContent = renderMessage(content);
-        msgDiv.innerHTML = formattedContent;
-        messagesContainer.appendChild(msgDiv);
+        msgDiv.innerHTML = renderMessage(content);
+        wrapper.appendChild(msgDiv);
+        if (role === 'ai') wrapper.appendChild(createCopyButton(content));
+        messagesContainer.appendChild(wrapper);
         requestAnimationFrame(() => {
             msgDiv.classList.add('visible');
         });
@@ -192,9 +235,12 @@ function initAI() {
             typingAnimationId = null;
         }
 
+        const wrapper = document.createElement('div');
+        wrapper.className = 'message-wrapper';
         const msgDiv = document.createElement('div');
         msgDiv.className = 'message ai-message message-enter';
-        messagesContainer.appendChild(msgDiv);
+        wrapper.appendChild(msgDiv);
+        messagesContainer.appendChild(wrapper);
         requestAnimationFrame(() => {
             msgDiv.classList.add('visible');
         });
@@ -221,6 +267,7 @@ function initAI() {
                         messagesContainer.scrollTop = messagesContainer.scrollHeight;
                     } else {
                         typingAnimationId = null;
+                        wrapper.appendChild(createCopyButton(content));
                         resolve();
                         return;
                     }

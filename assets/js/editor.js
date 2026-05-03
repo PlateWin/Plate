@@ -407,16 +407,22 @@ async function saveConfig() {
 }
 
 async function fetchPhotos() {
-  const res = await fetch(`${API_ROOT}/photos`);
-  const photos = await res.json();
-  photoList.innerHTML = '';
-  photos.forEach((photo) => {
+  try {
+    const res = await fetch(`${API_ROOT}/photos`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const photos = await res.json();
+    photoList.innerHTML = '';
+    photos.forEach((photo) => {
     const item = document.createElement('div');
     item.className = 'photo-console-item';
-    item.innerHTML = `<img src="${photo.src}" alt=""><div><strong>${photo.title}</strong><span>${photo.category}  ${photo.shotTime || ''}</span></div><button data-id="${photo.id}">删除</button>`;
+    item.innerHTML = `<img src="${photo.src}" alt="${photo.alt || photo.title || '摄影作品预览'}"><div><strong>${photo.title}</strong><span>${photo.category}  ${photo.shotTime || ''}</span></div><button data-id="${photo.id}" aria-label="删除照片 ${photo.title || photo.id}">删除</button>`;
     item.querySelector('button').onclick = () => deletePhoto(photo.id);
     photoList.appendChild(item);
   });
+  } catch (e) {
+    console.error('fetchPhotos error:', e);
+    showToast('加载照片列表失败', true);
+  }
 }
 
 function readFileAsDataUrl(file) {
@@ -473,10 +479,16 @@ async function deletePhoto(id) {
 }
 
 document.querySelectorAll('.console-tab[data-panel]').forEach((tab) => {
+  tab.setAttribute('aria-controls', tab.dataset.panel);
+  tab.setAttribute('aria-selected', tab.classList.contains('active') ? 'true' : 'false');
   tab.addEventListener('click', () => {
-    document.querySelectorAll('.console-tab').forEach((item) => item.classList.remove('active'));
+    document.querySelectorAll('.console-tab').forEach((item) => {
+      item.classList.remove('active');
+      item.setAttribute('aria-selected', 'false');
+    });
     document.querySelectorAll('.console-panel').forEach((panel) => panel.classList.remove('active-panel'));
     tab.classList.add('active');
+    tab.setAttribute('aria-selected', 'true');
     document.getElementById(tab.dataset.panel).classList.add('active-panel');
   });
 });
@@ -543,8 +555,9 @@ btnSavePhoto.addEventListener('click', savePhoto);
 
 // Fragments CRUD
 async function fetchFragments() {
+  try {
   const res = await fetch(FRAGMENTS_URL);
-  if (!res.ok) return;
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const fragments = await res.json();
   fragmentList.innerHTML = '';
   fragments.forEach((f) => {
@@ -559,6 +572,10 @@ async function fetchFragments() {
     item.querySelector('button').onclick = () => deleteFragment(f.id);
     fragmentList.appendChild(item);
   });
+  } catch (e) {
+    console.error('fetchFragments error:', e);
+    showToast('加载碎片列表失败', true);
+  }
 }
 
 async function saveFragment() {

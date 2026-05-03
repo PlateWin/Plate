@@ -38,7 +38,7 @@
     <section id="login-panel" class="login-panel glass-card">
         <h1>Private Console</h1>
         <p>本页面仅供管理员使用，请输入管理员令牌进入。</p>
-        <input id="admin-token" type="password" placeholder="Admin token">
+        <input id="admin-token" type="password" placeholder="Admin token" aria-label="管理员令牌" autocomplete="current-password">
         <button id="btn-login" class="btn-publish">Enter Console</button>
     </section>
 
@@ -49,24 +49,24 @@
             <button class="console-tab" data-panel="photos-panel">照片管理</button>
             <button class="console-tab" data-panel="fragments-panel">碎片</button>
             <button class="console-tab" data-panel="api-panel">API 配置</button>
-            <button id="btn-logout" class="console-tab danger-tab">退出</button>
+            <button id="btn-logout" class="console-tab danger-tab" aria-label="退出管理后台">退出</button>
         </aside>
 
         <main class="console-main">
             <section id="posts-panel" class="console-panel active-panel">
                 <div class="panel-grid posts-grid">
                     <aside class="editor-sidebar glass-card">
-                        <div class="sidebar-header"><h2>Articles</h2><button id="btn-new-post" class="btn-new">+</button></div>
+                        <div class="sidebar-header"><h2>Articles</h2><button id="btn-new-post" class="btn-new" aria-label="新建文章">+</button></div>
                         <ul id="post-list" class="post-list"></ul>
                     </aside>
                     <div class="editor-workspace">
                         <div class="workspace-header glass-card">
-                            <input type="text" id="post-title" class="title-input" placeholder="新文章标题">
+                            <input type="text" id="post-title" class="title-input" placeholder="新文章标题" aria-label="文章标题">
                             <div class="workspace-actions"><button id="btn-delete" class="btn-icon danger">删除</button><button id="btn-save" class="btn-publish">保存发布</button></div>
                         </div>
-                        <div class="metadata-row glass-card"><input type="text" id="post-id" placeholder="slug-id"><input type="text" id="post-tags" placeholder="标签，逗号分隔"><input type="text" id="post-excerpt" placeholder="摘要"></div>
-                        <div class="toolbar glass-card"><button data-cmd="bold">B</button><button data-cmd="italic">I</button><button data-cmd="h2">H</button><button data-cmd="link"></button><button data-cmd="code">{}</button><button data-cmd="image"></button></div>
-                        <div class="writing-area"><div class="editor-pane glass-card"><textarea id="post-content" placeholder="# Start your story..."></textarea></div><div id="live-preview" class="preview-pane glass-card markdown-body"></div></div>
+                        <div class="metadata-row glass-card"><input type="text" id="post-id" placeholder="slug-id" aria-label="文章 slug ID"><input type="text" id="post-tags" placeholder="标签，逗号分隔" aria-label="文章标签"><input type="text" id="post-excerpt" placeholder="摘要" aria-label="文章摘要"></div>
+                        <div class="toolbar glass-card" role="toolbar" aria-label="Markdown 工具栏"><button data-cmd="bold" aria-label="加粗">B</button><button data-cmd="italic" aria-label="斜体">I</button><button data-cmd="h2" aria-label="二级标题">H</button><button data-cmd="link" aria-label="插入链接"></button><button data-cmd="code" aria-label="插入代码块">{}</button><button data-cmd="image" aria-label="插入图片"></button></div>
+                        <div class="writing-area"><div class="editor-pane glass-card"><textarea id="post-content" placeholder="# Start your story..." aria-label="文章正文"></textarea></div><div id="live-preview" class="preview-pane glass-card markdown-body" aria-label="文章预览"></div></div>
                     </div>
                 </div>
             </section>

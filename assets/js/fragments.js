@@ -13,12 +13,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         allFragments = await res.json();
     } catch (e) {
         console.error('Fragments load error:', e);
-        feed.innerHTML = '<div class="fragments-empty">Failed to load fragments. Is the backend running?</div>';
+        feed.innerHTML = '<div class="fragments-empty">加载失败，请确认后端服务已启动。</div>';
         return;
     }
 
     if (!allFragments.length) {
-        feed.innerHTML = '<div class="fragments-empty">No fragments yet. Thoughts are waiting to be captured.</div>';
+        feed.innerHTML = '<div class="fragments-empty">还没有碎片。转瞬即逝的想法，正等待被捕捉。</div>';
         return;
     }
 
@@ -59,7 +59,7 @@ function renderFragments(container) {
         : allFragments;
 
     if (!filtered.length) {
-        container.innerHTML = '<div class="fragments-empty">No fragments with this tag.</div>';
+        container.innerHTML = '<div class="fragments-empty">该标签下还没有内容。</div>';
         return;
     }
 
@@ -100,10 +100,10 @@ function formatRelativeTime(dateStr) {
     const months = Math.floor(days / 30);
     const years = Math.floor(days / 365);
 
-    if (seconds < 60) return 'just now';
-    if (minutes < 60) return `${minutes} min ago`;
-    if (hours < 24) return `${hours} hours ago`;
-    if (days < 30) return `${days} days ago`;
-    if (months < 12) return `${months} months ago`;
-    return `${years} years ago`;
+    if (seconds < 60) return '刚刚';
+    if (minutes < 60) return `${minutes} 分钟前`;
+    if (hours < 24) return `${hours} 小时前`;
+    if (days < 30) return `${days} 天前`;
+    if (months < 12) return `${months} 个月前`;
+    return `${years} 年前`;
 }
