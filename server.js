@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 3001;
 
 // Middleware
 app.use(cors());
-app.use(express.json({ limit: '25mb' }));
+app.use(express.json({ limit: process.env.JSON_BODY_LIMIT || '100mb' }));
 
 // File paths
 const DB_PATH = path.join(__dirname, 'data', 'db.json');
@@ -402,21 +402,25 @@ app.get('/api/wall', (req, res) => {
     }
 });
 
-app.post('/api/wall', requireAdmin, (req, res) => {
+app.post('/api/wall', (req, res) => {
     try {
         const { type, content, x, y, width, color } = req.body;
         if (!type || !content) {
             return res.status(400).json({ error: '缺少卡片类型或内容' });
         }
+        const cleanContent = String(content).trim();
+        if (!cleanContent || cleanContent.length > 280) {
+            return res.status(400).json({ error: '留言内容需在 1-280 字之间' });
+        }
         const data = readJson(WALL_PATH, { cards: [] });
         const card = {
             id: String(Date.now()),
-            type,
-            content: content.trim(),
+            type: ['text', 'quote', 'code'].includes(type) ? type : 'text',
+            content: cleanContent,
             x: x || 100,
             y: y || 100,
             width: width || 240,
-            color: color || 'blue',
+            color: ['blue', 'yellow', 'green', 'white', 'dark'].includes(color) ? color : 'blue',
             createdAt: new Date().toISOString()
         };
         data.cards.push(card);
@@ -598,6 +602,15 @@ app.post('/api/ai', async (req, res) => {
         console.error('AI proxy error:', err);
         res.status(502).json({ error: 'AI upstream unreachable' });
     }
+});
+
+app.use((err, req, res, next) => {
+    if (err?.type === 'entity.too.large') {
+        return res.status(413).json({
+            error: `请求体过大，请压缩图片或提高 JSON_BODY_LIMIT（当前：${process.env.JSON_BODY_LIMIT || '100mb'}）`
+        });
+    }
+    next(err);
 });
 
 app.listen(PORT, () => {

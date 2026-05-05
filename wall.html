@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inspiration Wall | Plate.</title>
+  <title>Message Graph | Plate.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=Bodoni+Moda:ital,opsz,wght@1,6..96,400;1,6..96,700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
@@ -25,43 +25,96 @@
 <body>
   <div class="page-mask"><div class="transition-logo"></div></div>
 
-  <nav id="navbar">
-    <div class="logo">Plate<span class="dot">.</span></div>
-    <div class="nav-links">
-      <a href="/index.html">Home</a>
-      <a href="/index.html#articles">Writings</a>
-      <a href="/photography.html">Photography</a>
-      <a href="/fragments.html">Fragments</a>
-      <a href="/about.html">About</a>
-    </div>
-  </nav>
-
-  <div id="wall-status" class="wall-status"></div>
-
-  <div id="wall-canvas" class="wall-canvas" role="application" aria-label="灵感墙画布">
-    <div class="wall-world" id="wall-world"></div>
+  <div class="scroll-progress-container">
+    <div class="scroll-progress-bar"></div>
   </div>
 
-  <!-- New card dialog (admin only) -->
+  <div class="aurora-bg">
+    <div class="aurora-blob blob-1"></div>
+    <div class="aurora-blob blob-2"></div>
+  </div>
+
+  <div class="cursor-dot"></div>
+  <div class="cursor-outline"></div>
+
+  <nav id="navbar">
+    <div class="logo">Plate<span class="dot">.</span></div>
+        <div class="nav-links">
+            <a href="/index.html">Home</a>
+            <a href="/index.html#articles">Blog</a>
+            <a href="/photography.html">Photograph</a>
+            <a href="/fragments.html">Fragments</a>
+            <a href="/wall.html">Wall</a>
+            <a href="/about.html">About</a>
+            <a href="/editor.html">Edit</a>
+        </div>
+  </nav>
+
+  <header class="page-hero">
+    <p class="section-label reveal-element">06 // Wall</p>
+    <h1 class="hero-title">
+      <div class="reveal-mask"><div class="reveal-inner">Message</div></div>
+      <div class="reveal-mask"><div class="reveal-inner"><span class="italic-brand">Graph.</span></div></div>
+    </h1>
+    <div class="reveal-mask">
+      <p class="hero-subtitle reveal-inner">把你的想法，接到这张缓慢生长的留言图里。</p>
+    </div>
+  </header>
+
+  <main class="page-main wall-main">
+    <section class="wall-intro glass-card reveal-element">
+      <div>
+        <p class="meta-line">Public Message Board</p>
+        <h2>每一条留言都是一个节点。</h2>
+        <p>节点会按时间与文字重合度形成连接，像一张轻量的图数据留言板。</p>
+      </div>
+      <button id="wall-compose" class="articles-tool-link wall-compose-btn">留下一个节点</button>
+    </section>
+
+    <div id="wall-status" class="wall-status"></div>
+
+    <div class="wall-stage reveal-element">
+      <div class="wall-deco-orb wall-deco-orb--1"></div>
+      <div class="wall-deco-orb wall-deco-orb--2"></div>
+      <div class="wall-deco-orb wall-deco-orb--3"></div>
+      <div class="wall-deco-orb wall-deco-orb--4"></div>
+      <div id="wall-placeholder" class="wall-stage-placeholder"></div>
+      <span class="wall-compact-hint">点击展开 ↗</span>
+    </div>
+
+    <div id="wall-canvas" class="wall-canvas" role="application" aria-label="留言图谱画布">
+      <div class="wall-canvas-hud" aria-hidden="true">
+        <span>Drag to explore</span>
+        <span>Ctrl + wheel to zoom</span>
+        <span>Hover to trace links</span>
+      </div>
+      <button id="wall-reset-view" class="wall-reset-view" type="button">重置视角</button>
+      <button id="wall-exit-canvas" class="wall-exit-btn" type="button">✕ 退出</button>
+      <div class="wall-world" id="wall-world">
+        <svg id="wall-links" class="wall-links" aria-hidden="true"></svg>
+      </div>
+    </div>
+  </main>
+
   <div id="wall-dialog" class="wall-dialog" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="wall-dialog-title">
     <div class="wall-dialog-card glass-card">
-      <h3 id="wall-dialog-title">New Card</h3>
+      <h3 id="wall-dialog-title">留下一个节点</h3>
       <div class="wall-dialog-type">
-        <button class="wall-type-btn active" data-type="text" aria-pressed="true">Text</button>
-        <button class="wall-type-btn" data-type="quote" aria-pressed="false">Quote</button>
-        <button class="wall-type-btn" data-type="code" aria-pressed="false">Code</button>
-        <button class="wall-type-btn" data-type="image" aria-pressed="false">Image</button>
+        <button class="wall-type-btn active" data-type="text" aria-pressed="true">留言</button>
+        <button class="wall-type-btn" data-type="quote" aria-pressed="false">引用</button>
+        <button class="wall-type-btn" data-type="code" aria-pressed="false">片段</button>
       </div>
       <div class="wall-dialog-color">
         <button class="wall-color-btn active" data-color="blue" style="background:rgba(0,47,167,0.3);" aria-label="蓝色卡片" aria-pressed="true"></button>
         <button class="wall-color-btn" data-color="yellow" style="background:rgba(255,189,46,0.4);" aria-label="黄色卡片" aria-pressed="false"></button>
+        <button class="wall-color-btn" data-color="green" style="background:rgba(16,185,129,0.35);" aria-label="绿色卡片" aria-pressed="false"></button>
         <button class="wall-color-btn" data-color="white" style="background:rgba(255,255,255,0.7);" aria-label="白色卡片" aria-pressed="false"></button>
         <button class="wall-color-btn" data-color="dark" style="background:#0f172a;" aria-label="深色卡片" aria-pressed="false"></button>
       </div>
-      <textarea id="wall-dialog-content" rows="4" placeholder="Write something..." aria-label="灵感卡片内容"></textarea>
+      <textarea id="wall-dialog-content" rows="4" maxlength="280" placeholder="写一句话，成为图里的一个节点..." aria-label="留言内容"></textarea>
       <div class="wall-dialog-actions">
-        <button id="wall-dialog-cancel" class="articles-tool-link">Cancel</button>
-        <button id="wall-dialog-create" class="articles-tool-link" style="background:var(--primary-color);color:#fff;">Create</button>
+        <button id="wall-dialog-cancel" class="articles-tool-link">取消</button>
+        <button id="wall-dialog-create" class="articles-tool-link" style="background:var(--primary-color);color:#fff;">连接到图</button>
       </div>
     </div>
   </div>

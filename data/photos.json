@@ -1,26 +1,70 @@
 {
   "photos": [
     {
-      "id": "street-pulse",
-      "title": "Street Pulse",
-      "subtitle": "重庆 · 雨后路口",
+      "id": "1777959286308",
+      "title": "1",
+      "subtitle": "2",
       "category": "street",
-      "shotTime": "2026-02-18 17:42",
-      "lat": "29.56301",
-      "lng": "106.55156",
-      "src": "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1400&q=80",
-      "alt": "街头蓝调"
+      "shotTime": "",
+      "lat": "",
+      "lng": "",
+      "src": "/uploads/1777959286277-1.png",
+      "alt": "1"
     },
     {
-      "id": "quiet-focus",
-      "title": "Quiet Focus",
-      "subtitle": "自然光人像",
-      "category": "portrait",
-      "shotTime": "2026-01-09 15:26",
-      "lat": "29.56690",
-      "lng": "106.45718",
-      "src": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1400&q=80",
-      "alt": "人像特写"
+      "id": "1777959655094",
+      "title": "2",
+      "subtitle": "",
+      "category": "street",
+      "shotTime": "",
+      "lat": "",
+      "lng": "",
+      "src": "/uploads/1777959655046-2.png",
+      "alt": "2"
+    },
+    {
+      "id": "1777959661270",
+      "title": "3",
+      "subtitle": "",
+      "category": "street",
+      "shotTime": "",
+      "lat": "",
+      "lng": "",
+      "src": "/uploads/1777959661230--.png",
+      "alt": "3"
+    },
+    {
+      "id": "1777959666992",
+      "title": "4",
+      "subtitle": "",
+      "category": "street",
+      "shotTime": "",
+      "lat": "",
+      "lng": "",
+      "src": "/uploads/1777959666968----1_00027.jpg",
+      "alt": "4"
+    },
+    {
+      "id": "1777959674940",
+      "title": "5",
+      "subtitle": "",
+      "category": "street",
+      "shotTime": "",
+      "lat": "",
+      "lng": "",
+      "src": "/uploads/1777959674926-8.png",
+      "alt": "5"
+    },
+    {
+      "id": "1777959682077",
+      "title": "6",
+      "subtitle": "",
+      "category": "street",
+      "shotTime": "",
+      "lat": "",
+      "lng": "",
+      "src": "/uploads/1777959682046-6.png",
+      "alt": "6"
     }
   ]
 }

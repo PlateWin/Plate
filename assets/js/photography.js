@@ -142,6 +142,12 @@ function initNavMotion() {
     window.addEventListener('scroll', updateNav, { passive: true });
 }
 
+function initDefaultFilter() {
+    const defaultButton = filterGroup?.querySelector('.filter-btn[data-filter="all"]');
+    document.querySelectorAll('.filter-btn').forEach((btn) => btn.classList.toggle('active', btn === defaultButton));
+    applyFilter('all');
+}
+
 filterGroup?.addEventListener('click', (event) => {
     const target = event.target.closest('.filter-btn');
     if (!target) return;
@@ -156,6 +162,7 @@ document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && 
 await applyPhotographyConfig();
 await loadPhotos();
 refreshCards();
+initDefaultFilter();
 initScrollMotion();
 initTiltMotion();
 initNavMotion();

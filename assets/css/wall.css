@@ -1,274 +1,337 @@
-/* wall.css — Inspiration Wall styles */
+/* ── Wall · clip-path window ── */
+
+.wall-main { display: grid; gap: 1.2rem; }
 
 .wall-status {
-  position: fixed;
-  top: 5.5rem;
-  right: 1.5rem;
-  z-index: 50;
-  font-family: var(--font-sans);
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 0.3rem 0.8rem;
-  border-radius: 999px;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
+  justify-self: end; z-index: 50;
+  font-family: var(--font-sans); font-size: 0.68rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  padding: 0.3rem 0.8rem; border-radius: 999px;
+  background: rgba(255,255,255,0.88);
+  border: 1px solid rgba(0,47,167,0.08);
   color: var(--text-secondary);
-  backdrop-filter: blur(12px);
 }
+.wall-status.admin { color: var(--primary-color); border-color: rgba(0,47,167,0.18); }
 
-.wall-status.admin {
-  color: var(--primary-color);
-  border-color: rgba(0, 47, 167, 0.2);
+.wall-intro {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 1.2rem; padding: 1.4rem 1.6rem;
 }
+.wall-intro h2 { margin: 0.2rem 0 0.45rem; font-size: clamp(1.25rem, 2vw, 1.7rem); letter-spacing: -0.03em; }
+.wall-intro p:last-child { color: var(--text-secondary); line-height: 1.8; }
+.wall-compose-btn { flex-shrink: 0; background: transparent; cursor: pointer; }
 
-/* Canvas */
-.wall-canvas {
-  width: 100%;
-  height: calc(100vh - 4rem);
-  overflow: hidden;
+/* ═══════════════════════════════════════
+   Stage — placeholder that reserves space for the compact window
+   ═══════════════════════════════════════ */
+.wall-stage {
   position: relative;
-  cursor: grab;
-  background-color: var(--bg-color);
-  background-image: radial-gradient(circle, rgba(0, 47, 167, 0.06) 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-
-.wall-canvas:active {
-  cursor: grabbing;
-}
-
-.wall-world {
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform-origin: 0 0;
-  width: 100%;
-  height: 100%;
-}
-
-/* Card base */
-.wall-card {
-  position: absolute;
-  border-radius: 16px;
-  padding: 1.2rem 1.4rem;
-  box-shadow: var(--shadow-glass);
-  backdrop-filter: blur(12px);
-  transition: box-shadow 0.3s;
-  min-height: 60px;
-  word-break: break-word;
-}
-
-.wall-card:hover {
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12), var(--shadow-glass);
-}
-
-/* Color schemes */
-.wall-card.blue {
-  background: rgba(0, 47, 167, 0.08);
-  border: 1px solid rgba(0, 47, 167, 0.15);
-}
-
-.wall-card.yellow {
-  background: rgba(255, 189, 46, 0.15);
-  border: 1px solid rgba(255, 189, 46, 0.25);
-}
-
-.wall-card.white {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-}
-
-.wall-card.dark {
-  background: #0f172a;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: #e2e8f0;
-}
-
-/* Type styles */
-.wall-card.quote {
-  border-left: 4px solid var(--primary-color);
-  font-style: italic;
-  font-size: 1.05rem;
-  line-height: 1.7;
-}
-
-.wall-card.code {
-  background: #0f172a;
-  border: 1px solid rgba(0, 47, 167, 0.12);
-  color: #e2e8f0;
-  font-family: 'Fira Code', monospace;
-  font-size: 0.85rem;
-  line-height: 1.6;
-  white-space: pre-wrap;
-}
-
-.wall-card.image {
-  padding: 0.5rem;
-}
-
-.wall-card.image img {
-  width: 100%;
-  border-radius: 10px;
-  display: block;
-}
-
-.wall-card-content {
-  font-family: 'OPPOSans', 'Inter', sans-serif;
-  font-size: 0.95rem;
-  line-height: 1.7;
-}
-
-.wall-card-content p {
-  margin-bottom: 0.6rem;
-}
-
-.wall-card-content p:last-child {
-  margin-bottom: 0;
-}
-
-/* Card delete button (admin) */
-.wall-card-delete {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.6rem;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: rgba(255, 95, 86, 0.15);
-  border: none;
-  color: #FF5F56;
-  font-size: 0.7rem;
-  cursor: pointer;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  transition: background 0.2s;
-}
-
-.wall-card-delete:hover {
-  background: rgba(255, 95, 86, 0.3);
-}
-
-.wall-card:hover .wall-card-delete {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  padding: 2rem 0;
 }
 
-/* Draggable cursor */
-.wall-card.draggable {
-  cursor: move;
+/* Decorative orbs — pure CSS, no JS animation */
+.wall-deco-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.7;
+  animation: wall-deco-float 8s ease-in-out infinite alternate;
+}
+.wall-deco-orb--1 { width: 44px; height: 44px; top: 10%; left: 10%; background: radial-gradient(circle at 36% 30%, #fff, rgba(0,47,167,0.35)); animation-delay: 0s; }
+.wall-deco-orb--2 { width: 28px; height: 28px; top: 20%; right: 14%; background: radial-gradient(circle at 36% 30%, #fff, rgba(255,160,0,0.35)); animation-delay: -2s; }
+.wall-deco-orb--3 { width: 20px; height: 20px; bottom: 20%; left: 16%; background: radial-gradient(circle at 36% 30%, #fff, rgba(16,185,129,0.35)); animation-delay: -4s; }
+.wall-deco-orb--4 { width: 34px; height: 34px; bottom: 12%; right: 10%; background: radial-gradient(circle at 36% 30%, #fff, rgba(30,27,75,0.3)); animation-delay: -6s; }
+
+/* Placeholder box — same size as the clip window so page flow is correct */
+.wall-stage-placeholder {
+  width: 380px;
+  height: 240px;
+  border-radius: 20px;
+  pointer-events: none;
 }
 
-/* Dialog */
-.wall-dialog {
+/* Hint label positioned on the placeholder */
+.wall-compact-hint {
+  position: absolute;
+  bottom: 2.5rem; left: 50%;
+  transform: translateX(-50%);
+  z-index: 1002;
+  font-family: var(--font-sans);
+  font-size: 0.62rem; font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(0,47,167,0.35);
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+/* ═══════════════════════════════════════
+   Canvas — ALWAYS fixed fullscreen, clipped to small window
+   ═══════════════════════════════════════ */
+.wall-canvas {
   position: fixed;
   inset: 0;
-  z-index: 200;
-  background: rgba(0, 0, 0, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(4px);
+  width: 100vw;
+  height: 100vh;
+  background: #f8faff;
+  overflow: hidden;
+  z-index: 1001;
+  /* clip-path set by JS based on placeholder position */
+  cursor: pointer;
+  isolation: isolate;
 }
 
-.wall-dialog-card {
-  width: 90%;
-  max-width: 420px;
-  padding: 2rem;
-  border-radius: 20px;
+/* Compact: HUD/exit hidden, cards non-interactive */
+.wall-canvas .wall-canvas-hud,
+.wall-canvas .wall-reset-view,
+.wall-canvas .wall-exit-btn {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
 }
 
-.wall-dialog-card h3 {
-  margin: 0 0 1.2rem;
-  font-family: var(--font-display);
-  font-size: 1.4rem;
+.wall-canvas:not(.is-expanded) .wall-card { pointer-events: none; }
+
+/* ═══════════════════════════════════════
+   Canvas — EXPANDED (clip-path removed by JS)
+   ═══════════════════════════════════════ */
+.wall-canvas.is-expanded {
+  clip-path: none !important;
+  cursor: grab;
+}
+.wall-canvas.is-expanded:active { cursor: grabbing; }
+
+.wall-canvas.is-expanded .wall-canvas-hud,
+.wall-canvas.is-expanded .wall-reset-view,
+.wall-canvas.is-expanded .wall-exit-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+.wall-canvas.is-expanded .wall-card { pointer-events: auto; }
+
+body.wall-expanded { overflow: hidden; }
+
+/* ── World & Links ── */
+.wall-world {
+  position: absolute; top: 0; left: 0;
+  transform-origin: 0 0;
+  width: 2200px; height: 1500px; z-index: 1;
+}
+.wall-links {
+  position: absolute; inset: 0;
+  width: 2200px; height: 1600px;
+  overflow: visible; pointer-events: none;
 }
 
-.wall-dialog-type {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.wall-type-btn {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
+/* ── Exit Button ── */
+.wall-exit-btn {
+  position: fixed;
+  right: 2rem; bottom: 2rem;
+  z-index: 1010;
+  border: 1px solid rgba(0,47,167,0.12);
   border-radius: 999px;
-  padding: 0.35rem 0.9rem;
-  font-size: 0.78rem;
+  background: rgba(255,255,255,0.92);
+  color: var(--primary-color);
   font-family: var(--font-sans);
-  font-weight: 600;
-  color: var(--text-secondary);
+  font-size: 0.78rem; font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0.55rem 1.4rem;
   cursor: pointer;
-  transition: all 0.25s;
+  transition: background 0.25s, color 0.25s;
+  box-shadow: 0 4px 20px rgba(0,47,167,0.08);
 }
-
-.wall-type-btn:hover,
-.wall-type-btn:focus-visible,
-.wall-type-btn.active {
-  background: var(--primary-color);
-  color: #fff;
+.wall-exit-btn:hover {
+  background: var(--primary-color); color: #fff;
   border-color: var(--primary-color);
-  outline: 2px solid rgba(0, 47, 167, 0.35);
-  outline-offset: 2px;
 }
 
-.wall-dialog-color {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+/* ── HUD ── */
+.wall-canvas-hud {
+  position: absolute; left: 2rem; bottom: 2rem; z-index: 5;
+  display: flex; flex-wrap: wrap; gap: 0.4rem;
+  max-width: calc(100% - 12rem);
+  pointer-events: none;
+}
+.wall-canvas-hud span {
+  border: 1px solid rgba(0,47,167,0.1); border-radius: 999px;
+  background: rgba(255,255,255,0.82);
+  color: rgba(0,47,167,0.44);
+  font-family: var(--font-sans); font-size: 0.6rem;
+  font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 0.28rem 0.58rem;
 }
 
+.wall-reset-view {
+  position: absolute; right: 2rem; bottom: 5rem; z-index: 6;
+  border: 1px solid rgba(0,47,167,0.1); border-radius: 999px;
+  background: rgba(255,255,255,0.82); color: var(--primary-color);
+  font-family: var(--font-sans); font-size: 0.6rem;
+  font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 0.28rem 0.68rem;
+  cursor: pointer; transition: background 0.25s, color 0.25s;
+}
+.wall-reset-view:hover,
+.wall-reset-view:focus-visible {
+  background: var(--primary-color); color: #fff;
+  border-color: var(--primary-color); outline: none;
+}
+
+/* ── SVG Links ── */
+.wall-link { fill: none; stroke-linecap: round; }
+.wall-link.strength-time    { stroke: rgba(0,47,167,0.13); }
+.wall-link.strength-semantic { stroke: rgba(0,47,167,0.18); }
+.wall-link.is-active { stroke: rgba(0,47,167,0.5) !important; stroke-width: 1.6 !important; opacity: 1 !important; }
+.wall-link.is-dimmed { opacity: 0.05 !important; }
+
+.wall-anchor { transition: opacity 0.3s; }
+.wall-anchor.is-active { fill: var(--primary-color); }
+.wall-anchor.is-dimmed { opacity: 0.12; }
+
+/* ── Cards — NO float animation ── */
+.wall-card {
+  position: absolute; z-index: 2;
+  width: 150px;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  padding: 0.6rem 0.5rem; border-radius: 22px;
+  background: rgba(255,255,255,0.94);
+  border: 1px solid rgba(0,47,167,0.06);
+  box-shadow: 0 4px 16px rgba(0,47,167,0.04);
+  max-height: 130px; overflow: hidden;
+  word-break: break-word; color: var(--text-primary);
+  transition: max-height 0.4s ease, transform 0.25s ease, box-shadow 0.25s, opacity 0.25s;
+}
+.wall-card:hover {
+  max-height: 360px; transform: translateY(-4px);
+  box-shadow: 0 12px 36px rgba(0,47,167,0.1); z-index: 10;
+}
+.wall-card.is-active, .wall-card.is-related { box-shadow: 0 10px 32px rgba(0,47,167,0.08); }
+.wall-card.is-active .wall-orb { transform: scale(1.08); }
+.wall-card.is-dimmed { opacity: 0.2; }
+
+/* ── Memory Orb ── */
+.wall-orb {
+  width: 48px; height: 48px; border-radius: 50%;
+  flex-shrink: 0; margin-bottom: 0.35rem; position: relative;
+  transition: transform 0.25s ease;
+  background: radial-gradient(circle at 36% 30%, rgba(255,255,255,0.65), rgba(0,47,167,0.2) 42%, rgba(0,47,167,0.5));
+  box-shadow: 0 0 14px rgba(0,47,167,0.15), 0 3px 6px rgba(0,47,167,0.06);
+}
+.wall-orb::before {
+  content: ''; position: absolute; top: 10%; left: 18%;
+  width: 36%; height: 26%; border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(255,255,255,0.6), transparent 70%);
+  pointer-events: none;
+}
+
+/* Color variants */
+.wall-card.blue .wall-orb   { background: radial-gradient(circle at 36% 30%, rgba(255,255,255,0.65), rgba(0,47,167,0.2) 42%, rgba(0,47,167,0.5)); }
+.wall-card.yellow .wall-orb { background: radial-gradient(circle at 36% 30%, rgba(255,255,255,0.7), rgba(255,189,46,0.25) 42%, rgba(255,160,0,0.5)); box-shadow: 0 0 14px rgba(255,170,0,0.12); }
+.wall-card.green .wall-orb  { background: radial-gradient(circle at 36% 30%, rgba(255,255,255,0.65), rgba(16,185,129,0.2) 42%, rgba(16,185,129,0.48)); box-shadow: 0 0 14px rgba(16,185,129,0.12); }
+.wall-card.white .wall-orb  { background: radial-gradient(circle at 36% 30%, rgba(255,255,255,0.78), rgba(160,174,200,0.18) 42%, rgba(148,163,194,0.38)); box-shadow: 0 0 14px rgba(148,163,194,0.1); }
+.wall-card.dark .wall-orb   { background: radial-gradient(circle at 36% 30%, rgba(180,180,220,0.5), rgba(30,27,75,0.25) 42%, rgba(30,27,75,0.58)); box-shadow: 0 0 14px rgba(30,27,75,0.12); }
+
+/* Type tweaks */
+.wall-card.quote .wall-card-content { font-style: italic; }
+.wall-card.code .wall-card-content  { font-family: 'Fira Code', monospace; font-size: 0.76rem; text-align: left; }
+.wall-card.image .wall-orb  { display: none; }
+.wall-card.image { width: 160px; padding: 0.4rem; max-height: none; }
+.wall-card.image img { width: 100%; border-radius: 12px; display: block; }
+
+/* Card content */
+.wall-card-content {
+  font-family: 'OPPOSans', 'Inter', sans-serif; font-size: 0.8rem;
+  line-height: 1.6; color: var(--text-secondary);
+  display: -webkit-box; -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+.wall-card:hover .wall-card-content { -webkit-line-clamp: unset; overflow: visible; color: var(--text-primary); }
+.wall-card-content p { margin-bottom: 0.35rem; }
+.wall-card-content p:last-child { margin-bottom: 0; }
+
+.wall-card-meta {
+  margin-top: 0.35rem; font-family: var(--font-sans);
+  font-size: 0.55rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(0,47,167,0.25); opacity: 0; transition: opacity 0.3s;
+}
+.wall-card:hover .wall-card-meta { opacity: 1; }
+.wall-card.dark .wall-card-content { color: rgba(226,232,240,0.6); }
+.wall-card.dark:hover .wall-card-content { color: #e2e8f0; }
+
+/* Admin delete */
+.wall-card-delete {
+  position: absolute; top: 0.35rem; right: 0.35rem;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: rgba(255,95,86,0.12); border: none;
+  color: #ff5f56; font-size: 0.65rem; cursor: pointer;
+  display: none; align-items: center; justify-content: center;
+  line-height: 1; transition: background 0.2s;
+}
+.wall-card-delete:hover { background: rgba(255,95,86,0.28); }
+.wall-card:hover .wall-card-delete { display: flex; }
+.wall-card.draggable { cursor: move; }
+
+/* ── Dialog ── */
+.wall-dialog {
+  position: fixed; inset: 0; z-index: 1200;
+  background: rgba(250,251,253,0.82);
+  display: flex; align-items: center; justify-content: center;
+}
+.wall-dialog-card {
+  width: 90%; max-width: 420px; padding: 2rem;
+  border-radius: 20px; background: rgba(255,255,255,0.96);
+  border: 1px solid rgba(0,47,167,0.08);
+  box-shadow: 0 24px 80px rgba(0,47,167,0.1);
+}
+.wall-dialog-card h3 { margin: 0 0 1.2rem; font-family: var(--font-display); font-size: 1.4rem; }
+.wall-dialog-type { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+.wall-type-btn {
+  background: rgba(255,255,255,0.8);
+  border: 1px solid var(--glass-border); border-radius: 999px;
+  padding: 0.35rem 0.9rem; font-size: 0.78rem;
+  font-family: var(--font-sans); font-weight: 600;
+  color: var(--text-secondary); cursor: pointer; transition: all 0.25s;
+}
+.wall-type-btn:hover, .wall-type-btn:focus-visible, .wall-type-btn.active {
+  background: var(--primary-color); color: #fff; border-color: var(--primary-color);
+}
+.wall-dialog-color { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
 .wall-color-btn {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: 2px solid transparent;
-  cursor: pointer;
-  transition: border-color 0.2s;
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 2px solid transparent; cursor: pointer; transition: border-color 0.2s;
 }
-
-.wall-color-btn.active,
-.wall-color-btn:focus-visible {
-  border-color: var(--primary-color);
-  outline: 2px solid rgba(0, 47, 167, 0.35);
-  outline-offset: 3px;
-}
-
+.wall-color-btn.active, .wall-color-btn:focus-visible { border-color: var(--primary-color); }
 .wall-dialog-card textarea {
-  width: 100%;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid var(--glass-border);
-  border-radius: 8px;
-  padding: 0.8rem;
-  color: #fff;
-  font-family: inherit;
-  resize: vertical;
-  margin-bottom: 1rem;
-  box-sizing: border-box;
+  width: 100%; background: rgba(255,255,255,0.8);
+  border: 1px solid var(--glass-border); border-radius: 12px;
+  padding: 0.8rem; color: var(--text-primary);
+  font-family: inherit; resize: vertical;
+  margin-bottom: 1rem; box-sizing: border-box;
 }
-
 .wall-dialog-card textarea:focus {
-  outline: 2px solid rgba(0, 47, 167, 0.35);
-  outline-offset: 2px;
+  outline: 2px solid rgba(0,47,167,0.25); outline-offset: 2px;
   border-color: var(--primary-color);
 }
+.wall-dialog-actions { display: flex; gap: 0.8rem; justify-content: flex-end; }
 
-.wall-dialog-actions {
-  display: flex;
-  gap: 0.8rem;
-  justify-content: flex-end;
+/* ── Keyframes ── */
+@keyframes wall-deco-float {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-10px); }
 }
 
+/* ── Mobile ── */
 @media (max-width: 768px) {
-  .wall-canvas {
-    height: calc(100vh - 3.5rem);
-    background-size: 16px 16px;
-  }
-
-  .wall-card {
-    padding: 1rem 1.1rem;
-  }
+  .wall-stage-placeholder { width: 300px; height: 200px; }
+  .wall-canvas-hud { display: none; }
+  .wall-card { width: 120px; padding: 0.5rem 0.4rem; }
+  .wall-orb  { width: 36px; height: 36px; }
+  .wall-intro { align-items: flex-start; flex-direction: column; }
+  .wall-exit-btn { right: 1rem; bottom: 1rem; font-size: 0.7rem; padding: 0.45rem 1rem; }
+  .wall-reset-view { right: 1rem; bottom: 4rem; }
+  .wall-deco-orb--3, .wall-deco-orb--4 { display: none; }
 }

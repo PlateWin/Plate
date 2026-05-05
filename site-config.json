@@ -1,154 +1,129 @@
 {
   "site": {
     "name": "Plate",
-    "tagline": "Algorithm & Aesthetics",
-    "footerText": "© 2026 Plate. Powered by Logic & Space.",
-    "contactEmail": "hello@example.com"
+    "tagline": "算法、美学与长期主义的个人创作档案",
+    "footerText": " 2026 Plate. All rights reserved.",
+    "contactEmail": "your-email@example.com"
   },
   "home": {
-    "heroTitle": "Algorithmic\nAesthetics.",
-    "heroSubtitle": "A clean, high-contrast blog template for developers, researchers, and makers who want writing, projects, and photography in one place.",
-    "aboutTitle": "Build with clarity.",
+    "heroTitle": "Algorithm,\nAesthetic.",
+    "heroSubtitle": "这里记录我的技术实践、科研探索、产品思考和一些关于生活的观察。",
+    "aboutTitle": "关于 Plate.",
     "aboutParagraphs": [
-      "This template is designed for people who want a portfolio and blog without a heavy framework. You can publish writing, highlight projects, and keep a lightweight personal home on the open web.",
-      "Use the admin console to replace the default copy with your own voice, then keep growing the site through Markdown posts, structured metadata, and a small Node.js backend."
+      "我是 Plate，一名计算机科学与技术专业的学生，长期关注图神经网络、因果推断、RAG 安全、LLM Memory 与个人知识系统。",
+      "这个站点既是我的技术博客，也是我的作品集。我希望用它沉淀代码、论文、项目、设计审美和阶段性的思考，让碎片经验逐渐形成可以复用的知识结构。"
     ],
     "stats": [
-      {
-        "value": "12+",
-        "label": "Posts Ready"
-      },
-      {
-        "value": "3",
-        "label": "Content Modes"
-      },
-      {
-        "value": "1",
-        "label": "Admin Console"
-      }
+      { "value": "20+", "label": "Articles" },
+      { "value": "8+", "label": "Projects" },
+      { "value": "3y", "label": "Coding" }
     ],
     "featuredProjects": [
       {
-        "title": "Project Alpha",
-        "subtitle": "Your flagship project or research work",
+        "title": "Plate.",
+        "subtitle": "算法与美学的个人博客系统",
         "bullets": [
-          "Describe the core idea in one strong sentence.",
-          "Add a second bullet for implementation detail or outcome.",
-          "Use the third bullet for what makes the work memorable."
+          "一个以「克莱因蓝  算法美学」为视觉语言的个人技术博客与作品集。",
+          "支持文章管理、项目展示、摄影页面、RSS、sitemap 与后台配置。",
+          "我希望它不只是博客，而是一个长期积累技术表达与个人品牌的入口。"
         ],
-        "badges": [
-          "TypeScript",
-          "Node.js",
-          "Design Systems"
-        ],
-        "linkText": "View Project ↗",
-        "linkUrl": "https://example.com"
+        "badges": ["HTML", "CSS", "JavaScript", "Express.js", "Markdown", "GSAP", "D3.js"],
+        "linkText": "View Project",
+        "linkUrl": "/projects/plate"
       },
       {
-        "title": "Project Beta",
-        "subtitle": "A product, tool, or experiment worth highlighting",
+        "title": "InsightSafe",
+        "subtitle": "面向 RAG 的大模型检索安全防护系统",
         "bullets": [
-          "Summarize what this project helps users do.",
-          "Mention a notable technical or product decision.",
-          "Share one result, tradeoff, or unique angle."
+          "聚焦企业级 RAG 与知识库场景中的检索污染、伪引文和知识投毒问题。",
+          "尝试结合因果推断、图异常检测、对抗解耦和实时审计机制，提升生成式 AI 系统的可信性。",
+          "项目目标是构建从检测、防御到审计的完整安全闭环。"
         ],
-        "badges": [
-          "React",
-          "Go",
-          "UX"
-        ],
-        "linkText": "Live Demo ↗",
-        "linkUrl": "https://example.com/demo"
+        "badges": ["RAG", "LLM Security", "Causal Inference", "Graph Detection", "Audit"],
+        "linkText": "View Project",
+        "linkUrl": "/projects/insightsafe"
       },
       {
-        "title": "Project Gamma",
-        "subtitle": "A supporting project card for the homepage grid",
+        "title": "GraphFCP",
+        "subtitle": "图神经网络后门攻击中的伪因果路径修复",
         "bullets": [
-          "Keep each bullet short and readable.",
-          "This slot works well for open-source work.",
-          "You can also use it for freelance or research output."
+          "围绕 GNN 后门防御问题，尝试将攻击触发器理解为模型学习到的伪因果路径。",
+          "通过反事实通道、消息传递干预与上下文对比，识别并抑制异常预测依赖。",
+          "项目关注防御后的稳定性、准确率保持与攻击成功率下降之间的平衡。"
         ],
-        "badges": [
-          "Open Source",
-          "API",
-          "Tooling"
-        ],
-        "linkText": "",
-        "linkUrl": ""
+        "badges": ["GNN", "Backdoor Defense", "Causal Learning", "PyTorch", "Graph Mining"],
+        "linkText": "Research Notes",
+        "linkUrl": "/projects/graphfcp"
       },
       {
-        "title": "Project Delta",
-        "subtitle": "Another concise project summary",
+        "title": "Flow to Crystal",
+        "subtitle": "面向长期知识沉淀的大模型记忆系统",
         "bullets": [
-          "Good for infrastructure, experiments, or side projects.",
-          "Keep the copy concrete instead of vague.",
-          "Let the badges communicate stack quickly."
+          "探索如何将即时对话、灵感片段和项目讨论转化为可检索、可演化的长期知识记忆。",
+          "系统设想包括原子卡片、图谱关系、向量检索、动态遗忘和个性化上下文注入。",
+          "我希望它成为一种面向创作者、研究者和开发者的个人知识基础设施。"
         ],
-        "badges": [
-          "LLM",
-          "Security",
-          "Data"
-        ],
-        "linkText": "",
-        "linkUrl": ""
+        "badges": ["LLM Memory", "Knowledge Graph", "Vector Database", "Agent", "PKM"],
+        "linkText": "View Concept",
+        "linkUrl": "/projects/flow-to-crystal"
       }
     ]
   },
   "aboutPage": {
     "heroLabel": "08 // About",
-    "heroTitleLine1": "Creative",
-    "heroTitleLine2": "Engineer.",
-    "heroSubtitle": "Introduce your background, technical focus, and the kind of work you care about building.",
+    "heroTitleLine1": "Developer",
+    "heroTitleLine2": "& Researcher.",
+    "heroSubtitle": "我关注技术、表达、审美和可持续的个人创作系统。",
     "cards": [
       {
         "meta": "Focus",
-        "title": "What you work on",
-        "body": "Use this card to explain your main interests, such as product engineering, AI tooling, security research, or frontend systems."
+        "title": "我关注什么",
+        "body": "我的主要兴趣集中在图神经网络、因果推断、RAG 安全、LLM Memory、个人知识系统和 AI 原生应用。我关心的不只是模型指标，也包括一个技术想法如何变成真实产品、真实系统和真实影响。"
       },
       {
         "meta": "Stack",
-        "title": "How you build",
-        "body": "Summarize your common languages, frameworks, and the kinds of systems you are comfortable designing or shipping."
+        "title": "我的技术栈",
+        "body": "我常用 Python、PyTorch、Node.js、Express、HTML/CSS/JavaScript、MySQL、Neo4j、Chroma 等工具进行科研实验、后端服务、前端页面和知识系统原型开发。同时也在持续学习工程化、系统设计和 AI Agent 相关技术。"
       },
       {
         "meta": "Taste",
-        "title": "What you value",
-        "body": "Explain the principles behind your work: clarity, performance, calm interfaces, strong writing, or maintainable architecture."
+        "title": "我的审美与价值观",
+        "body": "我喜欢克制、清晰、有结构感的设计，偏好深蓝、冷白、网格、留白和技术感强但不过度装饰的视觉语言。我相信好的作品应该同时具备技术深度、表达秩序和长期可维护性。"
       }
     ]
   },
   "nowPage": {
     "heroLabel": "09 // Now",
-    "heroTitleLine1": "Current",
-    "heroTitleLine2": "Signal.",
-    "heroSubtitle": "A short snapshot of what you are exploring, building, or publishing right now.",
+    "heroTitleLine1": "Currently",
+    "heroTitleLine2": "Building.",
+    "heroSubtitle": "这里记录我此刻正在学习、构建和准备写下来的东西。",
     "items": [
       {
-        "meta": "Research",
-        "title": "What I am learning",
-        "body": "Share the topic, paper trail, or technical direction you are actively studying."
+        "meta": "Learning",
+        "title": "正在学习",
+        "body": "最近在深入学习图神经网络后门防御、因果推断、RAG 安全、LLM Memory 评测、Agent 系统设计和前端交互动效。我希望把科研问题、工程实现和产品表达连接起来。"
       },
       {
-        "meta": "Product",
-        "title": "What I am building",
-        "body": "Describe the current product, tool, or internal system you are pushing forward."
+        "meta": "Building",
+        "title": "正在构建",
+        "body": "正在打磨 Plate. 个人博客与作品集，同时推进几个 AI 安全、知识系统和科研实验相关项目。这个站点会逐渐成为我展示项目、复盘实验和整理思考的长期入口。"
       },
       {
         "meta": "Writing",
-        "title": "What I will publish next",
-        "body": "Mention the next article, essay, tutorial, or release note you plan to ship."
+        "title": "接下来想写",
+        "body": "计划写一些关于 GNN 后门防御、RAG 安全、LLM 记忆测试、个人知识管理、前端视觉设计和大学阶段项目成长的文章。"
       }
     ]
   },
   "photography": {
-    "note": "Use this section for your visual taste, shooting habits, or the role photography plays in your creative practice."
+    "note": "这里放一些我在城市、校园、日常生活和旅行中拍下的片段。摄影对我来说不是单纯记录画面，而是一种观察光线、秩序、情绪和时间感的方式。"
   },
   "seo": {
-    "homeTitle": "Plate. | Open Source Blog Template",
-    "homeDescription": "An open-source personal blog template with writing, projects, photography, and a lightweight admin console.",
-    "aboutTitle": "About | Plate.",
-    "aboutDescription": "Learn about the person behind the site and the kind of work they build.",
-    "nowTitle": "Now | Plate.",
-    "nowDescription": "A current snapshot of ongoing work, research, and writing."
+    "homeTitle": "Plate. 的博客 | 算法、美学与技术创作",
+    "homeDescription": "Plate. 的个人技术博客与作品集，记录图神经网络、因果推断、RAG 安全、LLM Memory、前端体验、产品思考和个人创作。",
+    "aboutTitle": "About | Plate. 的博客",
+    "aboutDescription": "了解 Plate. 的研究方向、技术栈、项目经历、审美偏好和长期创作理念。",
+    "nowTitle": "Now | Plate. 的博客",
+    "nowDescription": "Plate. 当前正在学习、构建和写作的内容，包括 AI 安全、GNN、LLM Memory、个人知识系统和前端作品集。"
   }
 }
